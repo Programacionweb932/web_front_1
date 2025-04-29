@@ -46,7 +46,7 @@ function Home({ user, setUser, setView }) {
           </div>
         ))}
       </div>
-      <button className="logout-button" onClick={() => navigate('/login')}>
+      <button className="logout-button" onClick={() => navigate('/')}>
         Cerrar Sesión
       </button>
     </div>
