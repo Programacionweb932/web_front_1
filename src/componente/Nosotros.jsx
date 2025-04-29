@@ -1,24 +1,46 @@
 import { useNavigate, Link } from 'react-router-dom';
-import React from 'react';
+import React, { useState } from 'react';
 import "../styles/Nosotros.css";
 
 const Nosotros = () => {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="Nosotros-container">
-      {/* HEADER */}
+      {/* HEADER CON MENÚ HAMBURGUESA */}
       <header>
         <h1>EL MUNDO DE LA TECNOLOGÍA</h1>
-        <div>
+        
+        {/* Botón hamburguesa para móviles */}
+        <button 
+          className={`menu-toggle ${menuOpen ? 'open' : ''}`} 
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menú"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        {/* Menú normal para desktop */}
+        <div className="desktop-menu">
           <Link to="/" className="btn-nav">Inicio</Link>
           <Link to="/blog" className="btn-nav">Ver Blog</Link>
           <Link to="/login" className="btn-nav">Iniciar Sesión</Link>
           <Link to="/registro" className="btn-nav">Registrarse</Link>
         </div>
+        
+        {/* Menú móvil desplegable */}
+        <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
+          <Link to="/" className="btn-nav" onClick={() => setMenuOpen(false)}>Inicio</Link>
+          <Link to="/blog" className="btn-nav" onClick={() => setMenuOpen(false)}>Ver Blog</Link>
+          <Link to="/login" className="btn-nav" onClick={() => setMenuOpen(false)}>Iniciar Sesión</Link>
+          <Link to="/registro" className="btn-nav" onClick={() => setMenuOpen(false)}>Registrarse</Link>
+        </div>
       </header>
 
-      {/* Quiénes Somos */}
+      {/* SECCIÓN QUIÉNES SOMOS */}
       <div className="section-container">
         <div className="text-content">
           <h1 className="nosotros-h1">Quiénes Somos</h1>
@@ -33,7 +55,7 @@ const Nosotros = () => {
         <img className="section-image" src="/image nosotros/quienes somos.jpeg" alt="Quiénes Somos" />
       </div>
 
-      {/* Visión */}
+      {/* SECCIÓN VISIÓN */}
       <div className="section-container reverse">
         <img className="section-image" src="/image nosotros/vision.jpg" alt="Visión" />
         <div className="text-content">
@@ -46,7 +68,7 @@ const Nosotros = () => {
         </div>
       </div>
 
-      {/* Misión */}
+      {/* SECCIÓN MISIÓN */}
       <div className="section-container">
         <div className="text-content">
           <h1 className="nosotros-h1">Misión</h1>

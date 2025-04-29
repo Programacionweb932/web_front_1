@@ -4,11 +4,10 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #6699ff; /* Ajusta el color según tu diseño */
+  height: 60px; /* Mejor visibilidad */
+  background-color: #6699ff;
   color: white;
-  text-align: center;
   z-index: 1000;
-  height: 40px; /* Ajusta según sea necesario */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,7 +16,7 @@ header {
 
 /* Asegurar que el contenido no quede oculto detrás del header */
 body {
-  padding-top: 70px; /* Ajusta según la altura del header */
+  padding-top: 100px; /* Ajusta según la altura del header */
 }
 
 /* Ajustar el margen superior del blog-container */
@@ -26,7 +25,7 @@ body {
   margin: 40px auto;
   padding: 30px;
   font-family: 'Times New Roman', Times, serif;
-  padding-top: 4000px; /* Esto deberías ajustarlo como hablamos antes */
+  padding-top: 5280px; /* Esto deberías ajustarlo como hablamos antes */
 }
 
 /* Título del blog */

@@ -1,17 +1,41 @@
 import { Link } from "react-router-dom";
 import "../styles/LandinPage.css";
+import { useState } from "react";
 
 const LandingPage = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="container">
       {/* Barra de navegación */}
       <header>
         <h1>EL MUNDO DE LA TECNOLOGIA</h1>
-        <div>
+        
+        {/* Botón hamburguesa para móviles */}
+        <button 
+          className={`menu-toggle ${menuOpen ? 'open' : ''}`} 
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menú"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        {/* Menú normal para desktop */}
+        <div className="desktop-menu">
           <Link to="/quienes-somos" className="btn-nav">Quienes Somos</Link>
           <Link to="/blog" className="btn-nav">Ver Blog</Link>
           <Link to="/login" className="btn-nav">Iniciar Sesión</Link>
           <Link to="/registro" className="btn-nav">Registrarse</Link>
+        </div>
+        
+        {/* Menú móvil desplegable */}
+        <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
+          <Link to="/quienes-somos" className="btn-nav" onClick={() => setMenuOpen(false)}>Quienes Somos</Link>
+          <Link to="/blog" className="btn-nav" onClick={() => setMenuOpen(false)}>Ver Blog</Link>
+          <Link to="/login" className="btn-nav" onClick={() => setMenuOpen(false)}>Iniciar Sesión</Link>
+          <Link to="/registro" className="btn-nav" onClick={() => setMenuOpen(false)}>Registrarse</Link>
         </div>
       </header>
 
