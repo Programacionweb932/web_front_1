@@ -1,14 +1,14 @@
 import { useNavigate, Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import React from 'react';
 import "../styles/Nosotros.css";
 
 const Nosotros = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div className="Nosotros-container">
-              {/* NAVBAR */}
-      <nav>
+      {/* HEADER */}
+      <header>
         <h1>EL MUNDO DE LA TECNOLOGÍA</h1>
         <div>
           <Link to="/" className="btn-nav">Inicio</Link>
@@ -16,7 +16,8 @@ const Nosotros = () => {
           <Link to="/login" className="btn-nav">Iniciar Sesión</Link>
           <Link to="/registro" className="btn-nav">Registrarse</Link>
         </div>
-      </nav>
+      </header>
+
       {/* Quiénes Somos */}
       <div className="section-container">
         <div className="text-content">
@@ -29,12 +30,12 @@ const Nosotros = () => {
             Estamos comprometidos a mantenernos actualizados y evolucionar constantemente para estar al día con los cambios y demandas del mercado tecnológico.
           </p>
         </div>
-        <img className="section-image" src="/public/image nosotros/quienes somos.jpeg" alt="Quiénes Somos" />
+        <img className="section-image" src="/image nosotros/quienes somos.jpeg" alt="Quiénes Somos" />
       </div>
 
       {/* Visión */}
       <div className="section-container reverse">
-        <img className="section-imagen" src="/public/image nosotros/vision.jpg" alt="Visión" />
+        <img className="section-image" src="/image nosotros/vision.jpg" alt="Visión" />
         <div className="text-content">
           <h1 className="nosotros-h1">Visión</h1>
           <p className="nosotros-p">
@@ -55,7 +56,7 @@ const Nosotros = () => {
             ayudando a nuestros clientes a optimizar sus procesos y afrontar los desafíos del mundo digital con éxito.
           </p>
         </div>
-        <img className="section-image" src="/public/image nosotros/mision.jpeg" alt="Misión" />
+        <img className="section-image" src="/image nosotros/mision.jpeg" alt="Misión" />
       </div>
     </div>
   );

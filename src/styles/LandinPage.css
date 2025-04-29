@@ -35,9 +35,10 @@ header > div {
 }
 
 .btn-nav {
-  margin-right: 16px;
-  padding: 10px 16px;
-  border-radius: 8px;
+  margin-right: 12px;
+  padding: 6px 10px; /* Reducido */
+  font-size: 14px;   /* Tamaño de texto más pequeño */
+  border-radius: 6px;
   text-decoration: none;
   color: white;
   background-color: #6f9dff;

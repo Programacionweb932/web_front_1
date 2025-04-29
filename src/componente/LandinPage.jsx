@@ -5,7 +5,7 @@ const LandingPage = () => {
   return (
     <div className="container">
       {/* Barra de navegación */}
-      <nav>
+      <header>
         <h1>EL MUNDO DE LA TECNOLOGIA</h1>
         <div>
           <Link to="/quienes-somos" className="btn-nav">Quienes Somos</Link>
@@ -13,7 +13,7 @@ const LandingPage = () => {
           <Link to="/login" className="btn-nav">Iniciar Sesión</Link>
           <Link to="/registro" className="btn-nav">Registrarse</Link>
         </div>
-      </nav>
+      </header>
 
       {/* Contenido principal */}
       <main>
@@ -42,10 +42,6 @@ const LandingPage = () => {
             <h3 className="feature-title">Reparacion de portatiles y PC</h3>
             <p className="feature-text">Diagnóstico y reparación de hardware y software, incluyendo cambio de piezas y optimización del sistema.</p>
           </Link>
-          <div className="feature">
-            <h3 className="feature-title"></h3>
-            <img src="/public/image nosotros/servicios.jpg" alt="Descripción de la imagen" className="feature-image" />
-          </div>
         </div>
       </main>
     </div>

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /* Contenedor principal */
 .agendar-cita-container {
   max-width: 600px;
@@ -8,13 +8,14 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: 'Arial', sans-serif;
+  padding-top: 100px;
 }
 
 /* Título */
 .agendar-cita-container h2 {
   text-align: center;
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   color: #333;
 }
 
@@ -93,7 +94,7 @@
     padding: 15px;
   }
 
-  .agendar-cita-container h2 {
+  .form-group-cita h2 {
     font-size: 20px;
   }
 
@@ -108,7 +109,7 @@
     padding: 8px;
   }
 }
-=======
+
 /* Estilos generales */
 body {
   font-family: Arial, sans-serif;
@@ -180,4 +181,4 @@ p.error {
 p.success {
   color: green;
 }
->>>>>>> fa3e3dbe3f4f6254aff066d5dd2c70d8eac725fc
+

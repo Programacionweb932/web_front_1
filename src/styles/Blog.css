@@ -1,5 +1,5 @@
-/* Ajustar el nav para que no oculte contenido */
-nav {
+/* Ajustar el header para que no oculte contenido */
+header {
   position: fixed;
   top: 0;
   left: 0;
@@ -15,25 +15,24 @@ nav {
   padding: 0 20px;
 }
 
-/* Asegurar que el contenido no quede oculto detrás del nav */
+/* Asegurar que el contenido no quede oculto detrás del header */
 body {
-  padding-top: 70px; /* Ajusta según la altura del nav */
+  padding-top: 70px; /* Ajusta según la altura del header */
 }
 
 /* Ajustar el margen superior del blog-container */
 .blog-container {
-
   max-width: 900px;
   margin: 40px auto;
   padding: 30px;
   font-family: 'Times New Roman', Times, serif;
-  padding-top: 3900px; /* Esto deberías ajustarlo como hablamos antes */
+  padding-top: 4000px; /* Esto deberías ajustarlo como hablamos antes */
 }
 
 /* Título del blog */
 .blog-title {
   text-align: center;
-  color: #6f9dff ;
+  color: #6f9dff;
   font-size: 2.5em;
   margin-bottom: 20px;
   font-weight: bold;
@@ -63,7 +62,6 @@ body {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-
 .blog-post h2 {
   font-size: 1.5rem;
   margin-bottom: 15px;
@@ -92,7 +90,6 @@ body {
   color: #fefeff;
   text-decoration: underline;
 }
-
 
 /* Contenedor de medios (imágenes y videos) */
 .media-scroll-container {
