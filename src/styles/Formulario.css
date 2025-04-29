@@ -1,0 +1,86 @@
+/* Contenedor principal */
+.formulario-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #6f9dff15 ;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+/* Título */
+.formulario-container h1 {
+  color: #6f9dff  !important;
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/* Formulario */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+}
+
+/* Grupo de inputs */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: white;
+
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Etiquetas */
+.form-group label {
+  font-size: 14px;
+  color: white !important
+}
+
+/* Inputs */
+.form-group input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid rgba(252, 252, 252, 0.5);
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* Efecto cuando el usuario escribe */
+.form-group input:focus {
+  border-color: #3498db;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Botón */
+button {
+  padding: 10px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+/* Mensaje de error */
+.error-message {
+  color: #ff6b6b;
+  font-size: 14px;
+  margin-top: 10px;
+  font-weight: bold;
+}

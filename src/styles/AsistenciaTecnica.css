@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif; /* Fuente legible */
+  }
+
+  .asistencia-container{
+    text-align: center;
+    padding: 20px;
+    color: #333; /* Color del texto principal */
+    background-color: #6f9dff15 ;
+    border-radius: 18px;
+  }
+  
+  .asistencia-container h1 {
+    color: #fdfdfd; /* Color del texto del título */
+    text-align: center; /* Centrar el título */
+    margin: 20px 0; /* Espaciado superior e inferior */
+  }
+  
+  .asistencia-container p {
+    color: #6f9dff ; /* Color del texto del párrafo */
+    text-align: center; /* Centrar el párrafo */
+    font-size: 18px; /* Tamaño de fuente para el párrafo */
+    margin: 10px 20px; /* Espaciado lateral */
+  }
+
+  .image-container-asist{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    
+  }
+
+  .image-container-asist img {
+    max-width: 30%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(243, 185, 185, 0.2);
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el mouse */
+  }
+  
+  .generar-home-ticket-btn {
+    /* Estiliza el botón de generar ticket según tus necesidades */
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px; /* Espaciado si es necesario */
+  }
+  
+  .generar-home-ticket-btn:hover {
+    background-color: #45a049; /* Color al pasar el ratón */
+  }

@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+  justify-content: center;
+  color:aqua
+}
+
+.button-group button {
+  margin: 10px;
+  justify-content: center;
+  background-color: #6f9dff1c;
+  color:#6f9dff;
+}
+
+.button-group h1 {
+  text-align: center;
+  color: #6f9dff; /* Color del título */
+  margin-bottom: 20px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}

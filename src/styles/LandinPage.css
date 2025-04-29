@@ -1,0 +1,142 @@
+body, html {
+    background-color: white !important;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+
+  nav {   /* Barra */
+    width: 100%;
+    padding: 16px;
+    background: #6f9dff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  
+  nav h1 { /* mundo */
+    font-size: 24px;
+    font-weight: bold;
+    color:#ffffff;
+  }
+  
+  .btn-nav { /* Boton de Inicio */
+    margin-right: 16px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    color:antiquewhite;
+    background-color: #6f9dff;
+    transform: scale(1.05);
+  }
+  
+  .btn-nav:last-child { /* Boton de registrate  */
+    background-color: #6f9dff;
+    transform: scale(1.05);
+  }
+  
+  /* Contenido principal */
+  .container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    color: #7f86d4;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #ffffff;
+  }
+  
+  h2 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #4f46e5;
+  }
+  
+  p {
+    font-size: 18px;
+    color: #4e46e5d3;
+    max-width: 600px;
+    margin: 0 auto 20px;
+  }
+/* Sección de características */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+  max-width: 800px; /* Ajusta el ancho máximo si es necesario */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feature {
+  background: rgb(255, 255, 255);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 250px;
+}
+
+/* Para hacer que las tarjetas se acomoden automáticamente en 3 filas */
+@media (max-width: 900px) {
+  .features {
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas medianas */
+  }
+}
+
+@media (max-width: 600px) {
+  .features {
+    grid-template-columns: repeat(1, 1fr); /* Una columna en pantallas pequeñas */
+  }
+}
+
+.features a { /* Subrayado que quite para mis cuadros */
+  text-decoration: none; /* Elimina el subrayado */
+  color: inherit; /* Mantiene el color del texto original */
+  display: block; /* Asegura que toda el área del cuadro sea clickeable */
+}
+
+.feature-image { /* Imagen */
+  width: 100%; /* Ajusta el ancho de la imagen al 100% del contenedor */
+  height: auto; /* Mantiene la proporción */
+  border-radius: 8px; /* Opcional: bordes redondeados */
+}
+
+.feature-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #4f46e5;
+}
+
+.feature-text {
+  font-size: 14px;
+  color: #555;
+}
+  
+  .btn { /* Boton de comenzar */
+    display: inline-block;
+    background-color: #4f46e5;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+  }
+  
+  .btn:hover {
+    background-color: #4338ca;
+    transform: scale(1.05);
+  }
+  

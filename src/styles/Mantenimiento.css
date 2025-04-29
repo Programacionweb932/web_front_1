@@ -1,0 +1,69 @@
+.mantenimiento-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #6f9dff15 ;
+  border-radius: 18px;
+  align-items: center;
+  padding: 20px;
+}
+
+.mantenimiento-container h1{
+  color: #6f9dff;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.mantenimiento-container p{
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    color: #6d97f3b4;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Separación entre botones */
+  margin-top: 20px;
+}
+
+.solicitar-servicio-btn, 
+.volver-servicio-btn {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.solicitar-servicio-btn {
+  background-color: #007bff; /* Azul */
+  color: #fff;
+}
+
+.volver-servicio-btn {
+  background-color: #6f9dff3b  !important; /* Gris */
+  color: #0352fc !important;
+  font-weight: bold;
+}
+
+.solicitar-servicio-btn:hover, 
+.volver-servicio-btn:hover {
+  transform: scale(1.05);
+}

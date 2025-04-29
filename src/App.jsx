@@ -1,0 +1,93 @@
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import Formulario from './componente/Formulario';
+import Registro from './componente/Registro';
+import RegisterAdmin from './componente/RegisterAdmin';
+import Home from './componente/Home';
+import HomeAdmin from './componente/HomeAdmin';
+import HomeTicket from './componente/HomeTicket';
+import Mantenimiento from './componente/Mantenimiento';
+import AgendarCita from './componente/AgendarCita';
+import InstalacionOS from './componente/InstalacionOS';
+import ReparacionPC from './componente/ReparacionPC';
+import AsistenciaTecnica from './componente/AsistenciaTecnica';
+import InstalacionOffice from './componente/InstalacionOffice';
+import HistorialTicket from './componente/HistorialTicket';
+import TicketComponent from './componente/TicketComponent';
+import Blog from './componente/Blog';
+import LandingPage from './componente/LandinPage';
+import './App.css';
+import Nosotros from './componente/Nosotros';
+
+function App() {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation(); // 🔹 Obtiene la ruta actual
+
+  useEffect(() => {
+    if (window.location.pathname === '/admin') {
+      setUser({ role: 'admin' });
+    }
+  }, []);
+
+  const handleLogin = async (username, password) => {
+    try {
+      const response = await fetch('https://web-back-p.vercel.app/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data.user);
+        navigate(data.user.role === 'admin' ? '/home-admin' : '/home');
+      } else {
+        alert('Credenciales incorrectas');
+      }
+    } catch (error) {
+      alert('Error al iniciar sesión.');
+    }
+  };
+
+  return (
+    <div className="App">
+      {/* 🔹 Mostrar solo en /login y /registro cuando user es null */}
+      {(user === null && (location.pathname === '/login' || location.pathname === '/registro')) && (
+        <div className="button-group">
+          <h1>EL MUNDO DE LA TECNOLOGÍA</h1>
+          <button onClick={() => navigate('/')}>Inicio</button>
+          <button onClick={() => navigate('/registro')}>Registro</button>
+        </div>
+      )}
+
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Formulario setUser={handleLogin} />} />
+        <Route path="/registro" element={<Registro />} />
+        <Route path="/admin" element={<RegisterAdmin />} />
+        <Route path="/home-admin" element={<HomeAdmin />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/mantenimiento" element={<Mantenimiento />} />
+        <Route path="/home-ticket" element={<HomeTicket />} />
+        <Route path="/historial-ticket" element={<HistorialTicket />} />
+        <Route path="/agendar-cita" element={<AgendarCita />} />
+        <Route path="/ticket" element={<TicketComponent />} />
+        <Route path="/instalacion-os" element={<InstalacionOS />} />
+        <Route path="/reparacion" element={<ReparacionPC />} />
+        <Route path="/asistencia-tecnica" element={<AsistenciaTecnica />} />
+        <Route path="/instalacion-office" element={<InstalacionOffice />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/quienes-somos" element={<Nosotros/>} />
+      </Routes>
+    </div>
+  );
+}
+
+export default function AppWrapper() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}

@@ -1,0 +1,73 @@
+/* Estilos generales */
+.Nosotros-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin-top: 400px; /* Ajusta este valor según la altura del navbar */
+}
+/* Navbar */
+nav {
+    font-size: 20px;
+    font-weight: bold;
+    color:#ffffff;
+  }
+
+/* Títulos */
+.nosotros-h1, 
+.Vision-container h1, 
+.Mision-container h1 {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    color: #6f9dff;
+}
+
+/* Párrafos */
+.nosotros-p, 
+.Vision-container p, 
+.Mision-container p {
+    max-width: 800px;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    color:#6f9dff ;
+}
+
+/* Contenedor de cada sección con imagen */
+.section-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Más separación entre texto e imagen */
+    max-width: 2000px;
+    padding: 20px;
+    gap: 50px; /* Aumenta el espacio entre texto e imagen */
+    margin-right: 100px;
+}
+
+/* Imágenes */
+.section-container img {
+    width: 300px; /* Ajusta el tamaño de la imagen */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    margin-left: 50px;
+}
+
+/* Alternar imágenes y texto */
+.section-container:nth-child(even) {
+    margin-left: 110px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .section-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .section-container img {
+        width: 150px; /* Tamaño reducido en móviles */
+    }
+}

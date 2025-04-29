@@ -1,0 +1,184 @@
+/* Ajustar el nav para que no oculte contenido */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #6699ff; /* Ajusta el color según tu diseño */
+  color: white;
+  text-align: center;
+  z-index: 1000;
+  height: 40px; /* Ajusta según sea necesario */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+/* Asegurar que el contenido no quede oculto detrás del nav */
+body {
+  padding-top: 70px; /* Ajusta según la altura del nav */
+}
+
+/* Ajustar el margen superior del blog-container */
+.blog-container {
+
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  font-family: 'Times New Roman', Times, serif;
+  padding-top: 3900px; /* Esto deberías ajustarlo como hablamos antes */
+}
+
+/* Título del blog */
+.blog-title {
+  text-align: center;
+  color: #6f9dff ;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Lista de posts */
+.blog-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Estilo de cada post */
+.blog-post {
+  background-color: #f3f5f7;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-post:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+.blog-post h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #4a6dd8;
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.blog-post p {
+  color: #555555; /* Color más legible que el azul */
+  font-size: 1.1rem;
+  text-align: center;
+  line-height: 1.6;
+  max-width: 80%;
+}
+
+/* Efectos para enlaces/interacciones */
+.download-link {
+  color: #4a6dd8;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.download-link:hover {
+  color: #fefeff;
+  text-decoration: underline;
+}
+
+
+/* Contenedor de medios (imágenes y videos) */
+.media-scroll-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Estilo de cada elemento multimedia */
+.media-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+
+.media-image {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.media-video {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+}
+
+/* Enlace de descarga */
+.download-link {
+  margin-top: 10px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: inline-block;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.download-link:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.download-link:active {
+  background-color: #004085;
+  transform: scale(0.98);
+}
+
+/* Botón de volver */
+.backBotton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vh;
+}
+
+.back-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 30px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+.back-button:active {
+  background-color: #004085;
+}

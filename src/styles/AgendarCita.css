@@ -1,0 +1,183 @@
+<<<<<<< HEAD
+/* Contenedor principal */
+.agendar-cita-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Título */
+.agendar-cita-container h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Formulario */
+.agendar-cita-container form {
+  max-width: 1000px; 
+  margin: 30px auto;
+  padding: 30px; /* Mantén un buen espacio interno */
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Estilo de cada grupo de entrada */
+.form-group-cita {
+  display: flex;
+  flex-direction: column;
+}
+
+/* color letras del label */
+.form-group-cita label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-group-cita input,
+.form-group-cita select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group-cita input:focus,
+.form-group-cita select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+/* Botón de envío */
+.agendar-cita-container button {
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.agendar-cita-container button:hover {
+  background-color: #0056b3;
+}
+
+.agendar-cita-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Mensaje */
+.agendar-cita-container p {
+  text-align: center;
+  font-size: 16px;
+  color: #28a745;
+  margin-top: 20px;
+}
+
+/* Diseño responsive */
+@media (max-width: 768px) {
+  .agendar-cita-container {
+    padding: 15px;
+  }
+
+  .agendar-cita-container h2 {
+    font-size: 20px;
+  }
+
+  .form-group-cita input,
+  .form-group-cita select {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .agendar-cita-container button {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
+=======
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+form label {
+  display: block;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+form input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+form input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+/* Mensajes de éxito o error */
+p {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 15px;
+}
+
+p.error {
+  color: red;
+}
+
+p.success {
+  color: green;
+}
+>>>>>>> fa3e3dbe3f4f6254aff066d5dd2c70d8eac725fc

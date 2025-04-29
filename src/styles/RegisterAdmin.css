@@ -1,0 +1,99 @@
+/* Contenedor principal para RegistroAdmin */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.registro-admin-container {
+  width: 400px;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 2rem auto;
+}
+
+/* Título */
+.registro-admin-container h2 {
+  font-size: 1.8rem;
+  color: #333333;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Estilos del formulario */
+.registro-admin-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.registro-admin-container form div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-items: center;
+}
+
+.registro-admin-container label {
+  font-size: 0.9rem;
+  color: #000000;
+  margin-bottom: 0.3rem;
+}
+
+.registro-admin-container input[type="text"],
+.registro-admin-container input[type="password"] {
+  width: 90%;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #f3f3f3;
+  border-radius: 4px;
+  outline: none;
+}
+
+.registro-admin-container input[type="text"]:focus,
+.registro-admin-container input[type="password"]:focus {
+  border-color: #4a90e2;
+}
+
+/* Estilos de los botones */
+.registro-admin-container button[type="submit"],
+.registro-admin-container button {
+  width: 100%;
+  padding: 0.7rem;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #4a90e2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+  gap: 1px;
+}
+
+.registro-admin-container button[type="submit"]:hover,
+.registro-admin-container button:hover {
+  background-color: #357ab8;
+}
+
+/* Botón de Volver al Login */
+.registro-admin-container button:last-of-type {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #f7f5ff;
+  color: rgb(0, 0, 0);
+  border: 1px solid #333333; /* Borde negro de 2px */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.registro-admin-container button:last-of-type:hover {
+  background-color: #4295d4;
+}

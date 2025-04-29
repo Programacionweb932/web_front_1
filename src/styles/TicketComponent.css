@@ -1,0 +1,224 @@
+/* Estilo del contenedor principal */
+.ticket-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #0c0c0c;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+/* Título del formulario */
+.ticket-container h2 {
+    color: #333;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Estilo de cada campo de entrada */
+.form-group {
+    margin-bottom: 15px;
+    color: #0c0c0c;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #555 !important;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    color: #0d0d0e;
+    border: 1px solid #6f9dff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 0.95em;
+    background-color: #fff;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Efecto cuando el input está enfocado */
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #0056b3;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.3);
+}
+
+/* Placeholder estilizado */
+.form-group input::placeholder,
+.form-group select::placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+/* Ajustes para deshabilitados */
+.form-group input:disabled,
+.form-group select:disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+    border-color: #ccc;
+}
+
+/* Mejoras para móviles */
+@media (max-width: 480px) {
+    .form-group input,
+    .form-group select {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+}
+
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+/* Botón de envío */
+.ticket-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.ticket-button:hover {
+    background-color: #0056b3;
+}
+
+/* Sección del ticket generado */
+.ticket-generated {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #007bff;
+    background-color: #e7f3ff;
+    border-radius: 5px;
+}
+
+.ticket-generated h3 {
+    color: #0056b3;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+/* Sección del historial de tickets */
+.ticket-history {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    padding: 15px;
+}
+
+.ticket-history h3 {
+    color: #333;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+}
+
+.ticket-history ul {
+    list-style: none;
+    padding: 0;
+}
+
+.ticket-history li {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    font-size: 0.9em;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ticket-history li:last-child {
+    border-bottom: none;
+}
+
+.ticket-history li p {
+    margin: 0;
+}
+
+.ticket-history li p span {
+    font-weight: bold;
+    color: #555;
+}
+
+/* Mensaje de error */
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+}
+.ticket-container {
+    padding: 20px;
+  }
+  
+  .action-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  
+  .form-group {
+    margin-bottom: 10px;
+  }
+  
+  .ticket-button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  .ggo-home-ticket-btn{
+    /* Estiliza el botón de generar ticket según tus necesidades */
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px; /* Espaciado si es necesario */
+  }
+  
+  .ggo-home-ticket-btn:hover {
+    background-color: #45a049; /* Color al pasar el ratón */
+  }
+  .error-input {
+    border: 2px solid red;
+  }
+  
+  .error-text {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  .ticket-generated {
+    color: black;
+    font-family: Arial, sans-serif;
+  }
+  
+  .ticket-generated pre {
+    color: black; /* Asegura que el texto dentro de <pre> tenga color negro */
+  }
+  
+    
