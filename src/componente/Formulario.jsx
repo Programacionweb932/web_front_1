@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 import "../styles/Formulario.css";
@@ -12,6 +12,15 @@ function Formulario({ setUser }) {
   const [captchaToken, setCaptchaToken] = useState(null);
   const navigate = useNavigate();
   const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+
+  useEffect(() => {
+    const header = document.querySelector('header');
+    if (header) header.style.display = 'none';
+    
+    return () => {
+      if (header) header.style.display = 'block';
+    };
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,60 +56,69 @@ function Formulario({ setUser }) {
   };
 
   return (
-    <div className="login-wrapper">
-      <div className="login-image-side">
-        <img src={loginImage} alt="Imagen de inicio de sesión" className="login-image" />
+    <div className="login-page">
+      <div className="login-container">
+        <div className="image-container">
+          <img src={loginImage} alt="Imagen de inicio de sesión" className="login-image" />
+        </div>
+        
+        <div className="form-container">
+          <h1>INICIO DE SESIÓN</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="input-field">
+              <label htmlFor="usuario">Usuario</label>
+              <input
+                id="usuario"
+                type="text"
+                value={usuario}
+                onChange={(e) => {
+                  setUsuario(e.target.value);
+                  setError("");
+                }}
+                placeholder="Ingrese su usuario"
+                autoComplete="username"
+              />
+            </div>
+
+            <div className="input-field">
+              <label htmlFor="contraseña">Contraseña</label>
+              <input
+                id="contraseña"
+                type="password"
+                value={contraseña}
+                onChange={(e) => {
+                  setContraseña(e.target.value);
+                  setError("");
+                }}
+                placeholder="Ingrese su contraseña"
+                autoComplete="current-password"
+              />
+            </div>
+
+            <div className="recaptcha-container">
+              <ReCAPTCHA 
+                sitekey={siteKey} 
+                onChange={(value) => setCaptchaToken(value)}
+              />
+            </div>
+
+            <button type="submit" disabled={loading} className="submit-button">
+              {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
+            </button>
+
+            {error && <div className="error-message">{error}</div>}
+
+            <div className="register-link">
+              ¿No tienes una cuenta?{' '}
+              <a href="/registro">Regístrate</a>
+            </div>
+            <div className="register-link">
+              ¿Deseas volver a nuestra página principal?{' '}
+              <a href="/">Inicio</a>
+            </div>
+          </form>
+        </div>
       </div>
-      <section className="formulario-container">
-        <h1 className="form-title">INICIO DE SESIÓN</h1>
-        <form className="formulario" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="usuario" className="form-label">Usuario</label>
-            <input
-              id="usuario"
-              type="text"
-              value={usuario}
-              onChange={(e) => {
-                setUsuario(e.target.value);
-                setError("");
-              }}
-              placeholder="Ingrese su usuario"
-              autoComplete="off"
-              className="form-input"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="contraseña" className="form-label">Contraseña</label>
-            <input
-              id="contraseña"
-              type="password"
-              value={contraseña}
-              onChange={(e) => {
-                setContraseña(e.target.value);
-                setError("");
-              }}
-              placeholder="Ingrese su contraseña"
-              autoComplete="off"
-              className="form-input"
-            />
-          </div>
-
-          <div className="recaptcha-container">
-            <ReCAPTCHA 
-              sitekey={siteKey} 
-              onChange={(value) => setCaptchaToken(value)} 
-              className="recaptcha"
-            />
-          </div>
-
-          <button type="submit" disabled={loading} className="submit-button">
-            {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
-          </button>
-
-          {error && <p className="error-message">{error}</p>}
-        </form>
-      </section>
     </div>
   );
 }
