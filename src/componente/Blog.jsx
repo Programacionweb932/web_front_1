@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../styles/Blog.css';
+import logo from '../assets/Foto 2.ico';
 
 function Blog() {
   const blogPosts = [
@@ -61,6 +62,7 @@ function Blog() {
   return (
     <div className="blog-container">
       <header>
+        <img src={logo} className="icono" alt="icono"/>
         <h1>EL MUNDO DE LA TECNOLOGÍA</h1>
         <div>
           <Link to="/" className="btn-nav">Inicio</Link>

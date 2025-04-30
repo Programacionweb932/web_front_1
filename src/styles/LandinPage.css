@@ -29,6 +29,7 @@ header h1 {
   font-weight: bold;
   color: white !important;
   margin: 0;
+  text-align: left !important;
 }
 
 header > div {
@@ -291,5 +292,11 @@ p {
   main {
     padding-top: 150px;
   }
+}
+
+header .icono {
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
 }
 

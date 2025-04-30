@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "../styles/LandinPage.css";
 import { useState } from "react";
+import logo from '../assets/Foto 2.ico';
 
 const LandingPage = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -9,6 +10,7 @@ const LandingPage = () => {
     <div className="container">
       {/* Barra de navegación */}
       <header>
+        <img src={logo} className="icono" alt="icono"/>
         <h1>EL MUNDO DE LA TECNOLOGIA</h1>
         
         {/* Botón hamburguesa para móviles */}
