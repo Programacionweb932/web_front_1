@@ -17,7 +17,7 @@ function Blog() {
       description: 'Explora los diferentes sistemas operativos y aprende cómo elegir el adecuado para tus necesidades. Descubre sus ventajas, características y usos.',
       media: [
         { type: 'image', src: '/image/sistemao-video.png', alt: 'Sistema operativo' },
-        { type: 'video', src: '/public/videos/sistema operativo.mp4' }
+        { type: 'video', src: '/videos/sistema operativo.mp4' } // corregido (quitado /public)
       ]
     },
     {
@@ -60,14 +60,14 @@ function Blog() {
 
   return (
     <div className="blog-container">
-      <nav>
+      <header>
         <h1>EL MUNDO DE LA TECNOLOGÍA</h1>
         <div>
           <Link to="/" className="btn-nav">Inicio</Link>
           <Link to="/login" className="btn-nav">Iniciar Sesión</Link>
           <Link to="/registro" className="btn-nav">Registrarse</Link>
         </div>
-      </nav>
+      </header>
 
       <h1 className="blog-title">Blog de Tecnología</h1>
       <div className="blog-posts">

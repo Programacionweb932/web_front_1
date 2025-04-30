@@ -1,86 +1,194 @@
-/* Contenedor principal */
-.formulario-container {
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #6f9dff15 ;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-  text-align: center;
+/* Variables para colores y tamaños */
+:root {
+  --primary-color: #222222;
+  --primary-hover: #000000;
+  --error-color: #ff6b6b;
+  --input-border: rgba(0, 0, 0, 0.2);
+  --input-focus: #555555;
+  --white: #ffffff;
+  --black: #000000;
+  --font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-/* Título */
-.formulario-container h1 {
-  color: #6f9dff  !important;
-  font-size: 24px;
-  margin-bottom: 20px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+/* Reset y estilos base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor principal - Layout flexible */
+.login-wrapper {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--white);
+  flex-direction: column;
+}
+
+/* Lado de la imagen - Responsivo */
+.login-image-side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: transparent;
+}
+
+.login-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* Contenedor del formulario */
+.formulario-container {
+  width: 100%;
+  max-width: 450px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* Título del formulario */
+.form-title {
+  color: var(--black) !important;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-family);
+  text-align: center;
 }
 
 /* Formulario */
 .formulario {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-
+  gap: 1rem;
 }
 
 /* Grupo de inputs */
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  color: white;
-
-  padding: 10px;
-  border-radius: 8px;
+  gap: 0.5rem;
+  color: var(--black);
+  width: 100%;
 }
 
 /* Etiquetas */
-.form-group label {
-  font-size: 14px;
-  color: white !important
+.form-label {
+  font-size: 0.875rem;
+  color: var(--black) !important;
 }
 
 /* Inputs */
-.form-group input {
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid rgba(252, 252, 252, 0.5);
+.form-input {
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--input-border);
   border-radius: 5px;
   outline: none;
   transition: border-color 0.3s ease, background-color 0.3s ease;
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: var(--black);
+  width: 100%;
 }
 
-/* Efecto cuando el usuario escribe */
-.form-group input:focus {
-  border-color: #3498db;
-  background-color: rgba(255, 255, 255, 0.3);
+.form-input:focus {
+  border-color: var(--input-focus);
+  background-color: var(--white);
 }
 
-/* Botón */
-button {
-  padding: 10px;
-  background-color: #3498db;
-  color: white;
+/* Contenedor del reCAPTCHA */
+.recaptcha-container {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+
+.recaptcha {
+  transform: scale(0.85);
+  transform-origin: center;
+}
+
+/* Botón de submit */
+.submit-button {
+  padding: 0.75rem;
+  background-color: var(--primary-color);
+  color: var(--white);
   border: none;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 0.5rem;
 }
 
-button:hover {
-  background-color: #2980b9;
+.submit-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 /* Mensaje de error */
 .error-message {
-  color: #ff6b6b;
-  font-size: 14px;
-  margin-top: 10px;
+  color: var(--error-color);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
   font-weight: bold;
+  text-align: center;
+}
+
+/* Media Queries para diseño responsivo */
+@media (min-width: 768px) {
+  .login-wrapper {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .login-image-side {
+    flex: 1;
+    height: 100vh;
+    padding: 2rem;
+  }
+
+  .formulario-container {
+    flex: 1;
+    max-width: 400px;
+    padding: 2rem;
+  }
+
+  .recaptcha {
+    transform: scale(1);
+  }
+}
+
+@media (min-width: 1024px) {
+  .login-image {
+    max-width: 600px;
+  }
+
+  .formulario-container {
+    max-width: 450px;
+  }
+}
+
+@media (max-width: 480px) {
+  .formulario-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .recaptcha {
+    transform: scale(0.75);
+  }
 }

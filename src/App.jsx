@@ -54,11 +54,14 @@ function App() {
     <div className="App">
       {/* 🔹 Mostrar solo en /login y /registro cuando user es null */}
       {(user === null && (location.pathname === '/login' || location.pathname === '/registro')) && (
-        <div className="button-group">
+        
+        <header>
           <h1>EL MUNDO DE LA TECNOLOGÍA</h1>
+        <div className="button-group">
           <button onClick={() => navigate('/')}>Inicio</button>
           <button onClick={() => navigate('/registro')}>Registro</button>
         </div>
+        </header>
       )}
 
       <Routes>

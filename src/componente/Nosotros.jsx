@@ -3,21 +3,44 @@ import React, { useState } from 'react';
 import "../styles/Nosotros.css";
 
 const Nosotros = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="Nosotros-container">
-              {/* NAVBAR */}
-      <nav>
+      {/* HEADER CON MENÚ HAMBURGUESA */}
+      <header>
         <h1>EL MUNDO DE LA TECNOLOGÍA</h1>
-        <div>
+        
+        {/* Botón hamburguesa para móviles */}
+        <button 
+          className={`menu-toggle ${menuOpen ? 'open' : ''}`} 
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menú"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        {/* Menú normal para desktop */}
+        <div className="desktop-menu">
           <Link to="/" className="btn-nav">Inicio</Link>
           <Link to="/blog" className="btn-nav">Ver Blog</Link>
           <Link to="/login" className="btn-nav">Iniciar Sesión</Link>
           <Link to="/registro" className="btn-nav">Registrarse</Link>
         </div>
-      </nav>
-      {/* Quiénes Somos */}
+        
+        {/* Menú móvil desplegable */}
+        <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
+          <Link to="/" className="btn-nav" onClick={() => setMenuOpen(false)}>Inicio</Link>
+          <Link to="/blog" className="btn-nav" onClick={() => setMenuOpen(false)}>Ver Blog</Link>
+          <Link to="/login" className="btn-nav" onClick={() => setMenuOpen(false)}>Iniciar Sesión</Link>
+          <Link to="/registro" className="btn-nav" onClick={() => setMenuOpen(false)}>Registrarse</Link>
+        </div>
+      </header>
+
+      {/* SECCIÓN QUIÉNES SOMOS */}
       <div className="section-container">
         <div className="text-content">
           <h1 className="nosotros-h1">Quiénes Somos</h1>
@@ -29,12 +52,12 @@ const Nosotros = () => {
             Estamos comprometidos a mantenernos actualizados y evolucionar constantemente para estar al día con los cambios y demandas del mercado tecnológico.
           </p>
         </div>
-        <img className="section-image" src="/public/image nosotros/quienes somos.jpeg" alt="Quiénes Somos" />
+        <img className="section-image" src="/image nosotros/quienes somos.jpeg" alt="Quiénes Somos" />
       </div>
 
-      {/* Visión */}
+      {/* SECCIÓN VISIÓN */}
       <div className="section-container reverse">
-        <img className="section-imagen" src="/public/image nosotros/vision.jpg" alt="Visión" />
+        <img className="section-image" src="/image nosotros/vision.jpg" alt="Visión" />
         <div className="text-content">
           <h1 className="nosotros-h1">Visión</h1>
           <p className="nosotros-p">
@@ -45,7 +68,7 @@ const Nosotros = () => {
         </div>
       </div>
 
-      {/* Misión */}
+      {/* SECCIÓN MISIÓN */}
       <div className="section-container">
         <div className="text-content">
           <h1 className="nosotros-h1">Misión</h1>
@@ -55,7 +78,7 @@ const Nosotros = () => {
             ayudando a nuestros clientes a optimizar sus procesos y afrontar los desafíos del mundo digital con éxito.
           </p>
         </div>
-        <img className="section-image" src="/public/image nosotros/mision.jpeg" alt="Misión" />
+        <img className="section-image" src="/image nosotros/mision.jpeg" alt="Misión" />
       </div>
     </div>
   );

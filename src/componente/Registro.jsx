@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/Registro.css';
+import registroImage from '../assets/imgregitro2.png';
 
 function Registro() {
   const [username, setUsername] = useState('');
@@ -7,6 +8,7 @@ function Registro() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,7 +31,7 @@ function Registro() {
     }
 
     try {
-      const response = await fetch('https://web-back-p.vercel.app/api/register', {
+      const response = await fetch('http://localhost:3000/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,13 +42,16 @@ function Registro() {
       const data = await response.json();
 
       if (response.ok) {
-        alert('Registro exitoso');
+        setSuccessMessage('¡Registro exitoso!');
         setError(null);
         // Limpia los campos
         setUsername('');
         setEmail('');
         setPassword('');
         setConfirmPassword('');
+        
+        // Limpiar el mensaje después de 3 segundos
+        setTimeout(() => setSuccessMessage(''), 3000);
       } else {
         setError(data.message || 'Error al registrar el usuario.');
       }
@@ -58,51 +63,57 @@ function Registro() {
 
   return (
     <div className="registro-container">
-      <h1>Registro</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="input-field">
-          <label htmlFor="username">Nombre de Usuario</label>
-          <input 
-            id="username"
-            type="text" 
-            value={username} 
-            onChange={event => setUsername(event.target.value)}
-            placeholder='Ingrese su usuario'
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="email">Email</label>
-          <input 
-            id="email"
-            type="email" 
-            value={email} 
-            onChange={event => setEmail(event.target.value)} 
-            placeholder='Ingrese su correo'
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="password">Contraseña</label>
-          <input 
-            id="password"
-            type="password" 
-            value={password} 
-            onChange={event => setPassword(event.target.value)} 
-            placeholder='Ingrese su contraseña'
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="confirmPassword">Confirmar Contraseña</label>
-          <input 
-            id="confirmPassword"
-            type="password" 
-            value={confirmPassword} 
-            onChange={event => setConfirmPassword(event.target.value)} 
-            placeholder='Confirme su contraseña'
-          />
-        </div>
-        {error && <div className="error-message">{error}</div>}
-        <button type="submit" className="submit-button">Registrarme</button>
-      </form>
+      <div className="form-container">
+        <h1>Registro</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="input-field">
+            <label htmlFor="username">Nombre de Usuario</label>
+            <input 
+              id="username"
+              type="text" 
+              value={username} 
+              onChange={event => setUsername(event.target.value)}
+              placeholder='Ingrese su usuario'
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="email">Email</label>
+            <input 
+              id="email"
+              type="email" 
+              value={email} 
+              onChange={event => setEmail(event.target.value)} 
+              placeholder='Ingrese su correo'
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="password">Contraseña</label>
+            <input 
+              id="password"
+              type="password" 
+              value={password} 
+              onChange={event => setPassword(event.target.value)} 
+              placeholder='Ingrese su contraseña'
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="confirmPassword">Confirmar Contraseña</label>
+            <input 
+              id="confirmPassword"
+              type="password" 
+              value={confirmPassword} 
+              onChange={event => setConfirmPassword(event.target.value)} 
+              placeholder='Confirme su contraseña'
+            />
+          </div>
+          {error && <div className="error-message">{error}</div>}
+          {successMessage && <div className="success-message">{successMessage}</div>}
+          <button type="submit" className="submit-button">Registrarme</button>
+        </form>
+      </div>
+      <div className="image-container">
+        <img src={registroImage} alt="Imagen de Registro" className="registro-image" />
+      </div>
     </div>
   );
 }

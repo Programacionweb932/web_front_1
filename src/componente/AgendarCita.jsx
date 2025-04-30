@@ -102,9 +102,10 @@ const AgendarCita = ({ setView }) => {
 
   return (
     <div className="agendar-cita-container">
-      <h2>Agendar Cita</h2>
+      
       <form onSubmit={handleSubmit}>
         <div className="form-group-cita">
+          <h2>Agendar Cita</h2>
           <label htmlFor="name">Nombre:</label>
           <input
             type="text"
