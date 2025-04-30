@@ -18,6 +18,8 @@ import Blog from './componente/Blog';
 import LandingPage from './componente/LandinPage';
 import './App.css';
 import Nosotros from './componente/Nosotros';
+import HistorialTicketAdmin from './componente/HistorialTicketAdmin';
+import HistorialCitasAdmin from './componente/HistorialCitasAdmin';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -82,6 +84,8 @@ function App() {
         <Route path="/instalacion-office" element={<InstalacionOffice />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/quienes-somos" element={<Nosotros/>} />
+        <Route path="/ticket-admin" element={<HistorialTicketAdmin/>} />
+        <Route path="/citas-admin" element={<HistorialCitasAdmin/>} />
       </Routes>
     </div>
   );
