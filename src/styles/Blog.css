@@ -25,7 +25,7 @@ body {
   margin: 40px auto;
   padding: 30px;
   font-family: 'Times New Roman', Times, serif;
-  padding-top: 5280px; /* Esto deberías ajustarlo como hablamos antes */
+  padding-top: 5580px; /* Esto deberías ajustarlo como hablamos antes */
 }
 
 /* Título del blog */
@@ -70,7 +70,7 @@ body {
 }
 
 .blog-post p {
-  color: #555555; /* Color más legible que el azul */
+  color: #555555 !important; /* Color más legible que el azul */
   font-size: 1.1rem;
   text-align: center;
   line-height: 1.6;
