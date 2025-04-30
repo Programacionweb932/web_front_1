@@ -1,6 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import "../styles/Nosotros.css";
+import logo from '../assets/Foto 2.ico';
 
 const Nosotros = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Nosotros = () => {
     <div className="Nosotros-container">
       {/* HEADER CON MENÚ HAMBURGUESA */}
       <header>
+        <img src={logo} className="icono" alt="icono"/>
         <h1>EL MUNDO DE LA TECNOLOGÍA</h1>
         
         {/* Botón hamburguesa para móviles */}
