@@ -25,7 +25,8 @@ body {
   margin: 40px auto;
   padding: 30px;
   font-family: 'Times New Roman', Times, serif;
-  padding-top: 4180px; /* Esto deberías ajustarlo como hablamos antes */
+  margin-top: 5410px; /* Esto deberías ajustarlo como hablamos antes */
+  
 }
 
 /* Título del blog */
@@ -47,13 +48,15 @@ body {
 /* Estilo de cada post */
 .blog-post {
   background-color: #f3f5f7;
-  padding: 15px;
+  padding: 15px 20px; /* Reducido el padding vertical */
   border-radius: 8px;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  gap: 15px;
+  align-items: center;
+  gap: 10px; /* Reducido el espacio entre elementos */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 90%; /* Asegurar un ancho consistente */
+  margin: 0 auto; /* Centrar la card */
 }
 
 .blog-post:hover {
@@ -63,18 +66,18 @@ body {
 
 .blog-post h2 {
   font-size: 1.5rem;
-  margin-bottom: 15px;
+  margin: 10px 0; /* Reducido el margen inferior */
   color: #4a6dd8;
   text-align: center;
-  font-family: 'Times New Roman', Times, serif;
 }
 
 .blog-post p {
-  color: #555555 !important; /* Color más legible que el azul */
-  font-size: 1.1rem;
+  color: #555555;
+  font-size: 1rem; /* Tamaño de fuente ligeramente menor */
   text-align: center;
-  line-height: 1.6;
-  max-width: 80%;
+  line-height: 1.5; /* Altura de línea ajustada */
+  max-width: 90%; /* Ajuste para mejor uso del espacio */
+  margin: 5px 0; /* Márgenes reducidos */
 }
 
 /* Efectos para enlaces/interacciones */
