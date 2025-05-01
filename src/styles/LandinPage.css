@@ -51,7 +51,8 @@ header > div {
 }
 
 .btn-nav:hover {
-  background-color: #5a88e0;
+  background-color: #ffffff !important;
+  color: black;
   transform: scale(1.1);
 }
 
