@@ -13,63 +13,42 @@ function Registro() {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
 
-  // Ocultar el header cuando se monta el componente
   useEffect(() => {
     const header = document.querySelector('header');
-    if (header) {
-      header.style.display = 'none';
-    }
-    
+    if (header) header.style.display = 'none';
     return () => {
-      // Mostrar el header nuevamente al desmontar
-      if (header) {
-        header.style.display = 'block';
-      }
+      if (header) header.style.display = 'block';
     };
   }, []);
+
+  const isPasswordSecure = (password) => {
+    const secureRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    return secureRegex.test(password);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (username === '') {
-      setError('Debes ingresar un usuario.');
-      return;
+    if (username === '') return setError('Debes ingresar un usuario.');
+    if (email === '') return setError('Debes ingresar un correo.');
+    if (phone === '') return setError('Debes ingresar un número de teléfono.');
+    if (!/^\d{7,15}$/.test(phone)) return setError('El número de teléfono no es válido.');
+    if (city === '') return setError('Debes ingresar una ciudad.');
+    if (country === '') return setError('Debes ingresar un país.');
+    if (password === '') return setError('Debes ingresar una contraseña.');
+
+    if (!isPasswordSecure(password)) {
+      return setError(
+        'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.'
+      );
     }
-    if (email === '') {
-      setError('Debes ingresar un correo.');
-      return;
-    }
-    if (phone === '') {
-      setError('Debes ingresar un número de teléfono.');
-      return;
-    }
-    if (!/^\d{7,15}$/.test(phone)) {
-      setError('El número de teléfono no es válido.');
-      return;
-    }
-    if (city === '') {
-      setError('Debes ingresar una ciudad.');
-      return;
-    }
-    if (country === '') {
-      setError('Debes ingresar un país.');
-      return;
-    }
-    if (password === '') {
-      setError('Debes ingresar una contraseña.');
-      return;
-    }
-    if (password !== confirmPassword) {
-      setError('Las contraseñas no coinciden.');
-      return;
-    }
+
+    if (password !== confirmPassword) return setError('Las contraseñas no coinciden.');
 
     try {
       const response = await fetch('http://localhost:3000/api/auth/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, phone, city, country, password }),
       });
 
@@ -104,10 +83,10 @@ function Registro() {
             <div className="form-grid">
               <div className="input-field">
                 <label htmlFor="username">Nombre de Usuario</label>
-                <input 
+                <input
                   id="username"
-                  type="text" 
-                  value={username} 
+                  type="text"
+                  value={username}
                   onChange={event => setUsername(event.target.value)}
                   placeholder='Ingrese su usuario'
                   autoComplete="username"
@@ -115,66 +94,66 @@ function Registro() {
               </div>
               <div className="input-field">
                 <label htmlFor="email">Email</label>
-                <input 
+                <input
                   id="email"
-                  type="email" 
-                  value={email} 
-                  onChange={event => setEmail(event.target.value)} 
+                  type="email"
+                  value={email}
+                  onChange={event => setEmail(event.target.value)}
                   placeholder='Ingrese su correo'
                   autoComplete="email"
                 />
               </div>
               <div className="input-field">
                 <label htmlFor="phone">Teléfono</label>
-                <input 
+                <input
                   id="phone"
-                  type="tel" 
-                  value={phone} 
-                  onChange={event => setPhone(event.target.value)} 
+                  type="tel"
+                  value={phone}
+                  onChange={event => setPhone(event.target.value)}
                   placeholder='Ingrese su número de teléfono'
                   autoComplete="tel"
                 />
               </div>
               <div className="input-field">
                 <label htmlFor="city">Ciudad</label>
-                <input 
+                <input
                   id="city"
-                  type="text" 
-                  value={city} 
-                  onChange={event => setCity(event.target.value)} 
+                  type="text"
+                  value={city}
+                  onChange={event => setCity(event.target.value)}
                   placeholder='Ingrese su ciudad'
                   autoComplete="address-level2"
                 />
               </div>
               <div className="input-field">
                 <label htmlFor="country">País</label>
-                <input 
+                <input
                   id="country"
-                  type="text" 
-                  value={country} 
-                  onChange={event => setCountry(event.target.value)} 
+                  type="text"
+                  value={country}
+                  onChange={event => setCountry(event.target.value)}
                   placeholder='Ingrese su país'
                   autoComplete="country-name"
                 />
               </div>
               <div className="input-field">
                 <label htmlFor="password">Contraseña</label>
-                <input 
+                <input
                   id="password"
-                  type="password" 
-                  value={password} 
-                  onChange={event => setPassword(event.target.value)} 
+                  type="password"
+                  value={password}
+                  onChange={event => setPassword(event.target.value)}
                   placeholder='Ingrese su contraseña'
                   autoComplete="new-password"
                 />
               </div>
               <div className="input-field">
                 <label htmlFor="confirmPassword">Confirmar Contraseña</label>
-                <input 
+                <input
                   id="confirmPassword"
-                  type="password" 
-                  value={confirmPassword} 
-                  onChange={event => setConfirmPassword(event.target.value)} 
+                  type="password"
+                  value={confirmPassword}
+                  onChange={event => setConfirmPassword(event.target.value)}
                   placeholder='Confirme su contraseña'
                   autoComplete="new-password"
                 />
@@ -183,8 +162,8 @@ function Registro() {
             <div className="form-footer">
               {error && <div className="error-message">{error}</div>}
               {successMessage && <div className="success-message">{successMessage}</div>}
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="submit-button"
                 disabled={successMessage !== ''}
               >
@@ -196,7 +175,7 @@ function Registro() {
               <a href="/login" className="text-blue-600 hover:underline">
                 Iniciar sesión
               </a>
-          </p>
+            </p>
           </form>
         </div>
         <div className="image-container">

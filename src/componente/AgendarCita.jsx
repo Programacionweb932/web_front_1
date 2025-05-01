@@ -180,6 +180,11 @@ const AgendarCita = ({ setView }) => {
       <button className="go-home-button" onClick={() => navigate('/home')}>
         Volver
       </button>
+
+       {/* Botón para ver el historial de citas */}
+       <button className="history-button" onClick={() => navigate('/mis-citas')}>
+        Historial de mis citas
+      </button>
     </div>
   );
 };
