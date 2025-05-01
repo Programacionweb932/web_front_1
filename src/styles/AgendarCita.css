@@ -1,5 +1,12 @@
+/* AgendarCita.css */
 
-/* Contenedor principal */
+/* Asegura que no haya márgenes/paddings globales */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor principal del formulario */
 .agendar-cita-container {
   max-width: 600px;
   margin: 30px auto;
@@ -8,18 +15,20 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: 'Arial', sans-serif;
-  padding-top: 100px;
+
+
+  /* Elimina espacio superior extra */
+  margin-top: 20 !important;
+  padding-top: 3rem;
 }
 
 /* Título */
 .agendar-cita-container h2 {
   text-align: center;
-  font-size: 24px;
-  margin-bottom: 5px;
-  color: #333;
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
 }
 
-/* Formulario */
 .agendar-cita-container form {
   max-width: 1000px; 
   margin: 30px auto;
@@ -30,7 +39,8 @@
   font-family: 'Arial', sans-serif;
 }
 
-/* Estilo de cada grupo de entrada */
+
+/* Agrupación de campos */
 .form-group-cita {
   display: flex;
   flex-direction: column;
@@ -58,6 +68,7 @@
   box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
 }
 
+
 /* Botón de envío */
 .agendar-cita-container button {
   padding: 10px 15px;
@@ -80,6 +91,16 @@
   cursor: not-allowed;
 }
 
+/* Mensaje de error */
+.error-message {
+  color: #e74c3c;
+  background-color: #fcecec;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+  text-align: center;
+}
+
 /* Mensaje */
 .agendar-cita-container p {
   text-align: center;
@@ -88,97 +109,21 @@
   margin-top: 20px;
 }
 
-/* Diseño responsive */
-@media (max-width: 768px) {
-  .agendar-cita-container {
-    padding: 15px;
-  }
 
-  .form-group-cita h2 {
-    font-size: 20px;
-  }
-
-  .form-group-cita input,
-  .form-group-cita select {
-    font-size: 14px;
-    padding: 8px;
-  }
-
-  .agendar-cita-container button {
-    font-size: 14px;
-    padding: 8px;
-  }
-}
-
-/* Estilos generales */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-h2 {
-  text-align: center;
-  color: #333;
-}
-
-form div {
-  margin-bottom: 15px;
-}
-
-form label {
-  display: block;
-  font-size: 14px;
-  color: #333;
-  margin-bottom: 5px;
-}
-
-form input {
+/* Botón de volver */
+.go-home-button {
+  margin-top: 1rem;
   width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-form input:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-form button {
-  background-color: #007bff;
+  padding: 0.6rem;
+  background-color: #2ecc71;
   color: white;
   border: none;
-  padding: 12px 20px;
-  font-size: 16px;
+  border-radius: 6px;
+  font-size: 1rem;
   cursor: pointer;
-  border-radius: 4px;
-  width: 100%;
-  margin-top: 10px;
+  transition: background-color 0.3s ease;
 }
 
-form button:hover {
-  background-color: #0056b3;
+.go-home-button:hover {
+  background-color: #27ae60;
 }
-
-/* Mensajes de éxito o error */
-p {
-  text-align: center;
-  font-size: 16px;
-  margin-top: 15px;
-}
-
-p.error {
-  color: red;
-}
-
-p.success {
-  color: green;
-}
-

@@ -1,4 +1,3 @@
-/* Estilo del contenedor principal */
 .ticket-container {
     max-width: 600px;
     margin: 0 auto;
@@ -8,15 +7,15 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
 }
-
-/* Título del formulario */
-.ticket-container h2 {
-    color: #333;
-    font-size: 1.8em;
-    margin-bottom: 20px;
+  
+  .ticket-container h2 {
     text-align: center;
-}
-
+    margin-bottom: 1.2rem;
+    font-size: 1.8em;
+    margin-top: 0;
+    color: #333;
+  }
+  
 /* Estilo de cada campo de entrada */
 .form-group {
     margin-bottom: 15px;
@@ -29,7 +28,7 @@
     display: block;
     margin-bottom: 5px;
 }
-
+  
 .form-group input,
 .form-group select {
     width: 100%;
@@ -42,7 +41,7 @@
     background-color: #fff;
     transition: all 0.3s ease-in-out;
 }
-
+  
 /* Efecto cuando el input está enfocado */
 .form-group input:focus,
 .form-group select:focus {
@@ -50,7 +49,7 @@
     outline: none;
     box-shadow: 0 0 5px rgba(0, 86, 179, 0.3);
 }
-
+  
 /* Placeholder estilizado */
 .form-group input::placeholder,
 .form-group select::placeholder {
@@ -65,21 +64,17 @@
     cursor: not-allowed;
     border-color: #ccc;
 }
-
-/* Mejoras para móviles */
-@media (max-width: 480px) {
-    .form-group input,
-    .form-group select {
-        font-size: 0.9em;
-        padding: 8px;
-    }
-}
-
-
-.form-group input::placeholder {
-    color: #aaa;
-}
-
+  
+  .error-input {
+    border-color: #e74c3c;
+  }
+  
+  .error-text {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+  }
+  
 /* Botón de envío */
 .ticket-button {
     width: 100%;
@@ -94,7 +89,7 @@
     transition: background-color 0.3s;
     margin-top: 10px;
 }
-
+  
 .ticket-button:hover {
     background-color: #0056b3;
 }
@@ -114,50 +109,8 @@
     margin-bottom: 10px;
 }
 
-/* Sección del historial de tickets */
-.ticket-history {
-    margin-top: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f7f7f7;
-    padding: 15px;
-}
 
-.ticket-history h3 {
-    color: #333;
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 5px;
-}
-
-.ticket-history ul {
-    list-style: none;
-    padding: 0;
-}
-
-.ticket-history li {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-    font-size: 0.9em;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.ticket-history li:last-child {
-    border-bottom: none;
-}
-
-.ticket-history li p {
-    margin: 0;
-}
-
-.ticket-history li p span {
-    font-weight: bold;
-    color: #555;
-}
-
+  
 /* Mensaje de error */
 .error-message {
     color: red;
@@ -165,16 +118,7 @@
     margin-top: 15px;
     text-align: center;
 }
-.ticket-container {
-    padding: 20px;
-  }
-  
-  .action-selection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
+
   button {
     margin: 10px;
     padding: 10px 20px;
@@ -222,3 +166,4 @@
   }
   
     
+  
