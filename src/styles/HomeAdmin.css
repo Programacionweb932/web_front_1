@@ -2,6 +2,7 @@
     font-family: 'Arial', sans-serif;
     padding: 20px;
     min-height: 100vh;
+    margin-top: 1100px !important;
   }
   
   .home-admin h1 {

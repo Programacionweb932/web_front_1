@@ -19,6 +19,10 @@ function HomeAdmin() {
     }
   }, [navigate]);
 
+  const handleBack = () => {
+    navigate('/panel-admin'); // O usa navigate('/ruta-destino') si quieres una ruta específica
+  };
+
   // Obtener los tickets
   const fetchTickets = async () => {
     setLoading(true);
@@ -195,6 +199,11 @@ function HomeAdmin() {
       <button className="logout-button" onClick={handleLogout}>
         Cerrar Sesión
       </button>
+
+      <button className="logout-button" onClick={handleBack}>
+        Volver
+      </button>
+
     </div>
   );
 }

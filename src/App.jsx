@@ -18,6 +18,8 @@ import Blog from './componente/Blog';
 import LandingPage from './componente/LandinPage';
 import './App.css';
 import Nosotros from './componente/Nosotros';
+import LandinAdmin from './componente/LandinAdmin';
+import HistorialCitasAdmin from './componente/HistorialCitasAdmin';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -69,6 +71,8 @@ function App() {
         <Route path="/login" element={<Formulario setUser={handleLogin} />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/admin" element={<RegisterAdmin />} />
+        <Route path="/panel-admin" element={<LandinAdmin />} />
+        <Route path="/citas-admin" element={<HistorialCitasAdmin />} />
         <Route path="/home-admin" element={<HomeAdmin />} />
         <Route path="/home" element={<Home />} />
         <Route path="/mantenimiento" element={<Mantenimiento />} />
