@@ -5,7 +5,7 @@ import "../styles/Formulario.css";
 import loginImage from "../assets/imglogin.png";
 
 function Formulario({ setUser }) {
-  const [email, setEmail] = useState("");
+  const [usuario, setUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -14,17 +14,17 @@ function Formulario({ setUser }) {
   const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
   useEffect(() => {
-    const header = document.querySelector("header");
-    if (header) header.style.display = "none";
-
+    const header = document.querySelector('header');
+    if (header) header.style.display = 'none';
+    
     return () => {
-      if (header) header.style.display = "block";
+      if (header) header.style.display = 'block';
     };
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email.trim()) return setError("Debes ingresar un correo electrónico.");
+    if (!usuario.trim()) return setError("Debes ingresar un usuario.");
     if (!contraseña.trim()) return setError("Debes ingresar una contraseña.");
     if (!captchaToken) return setError("Debes verificar el CAPTCHA.");
     setError("");
@@ -34,13 +34,13 @@ function Formulario({ setUser }) {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password: contraseña, captchaToken }),
+        body: JSON.stringify({ username: usuario, password: contraseña, captchaToken }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.msg || "Correo o contraseña incorrectos");
+        setError(data.msg || "Usuario o contraseña incorrectos");
         return;
       }
 
@@ -61,22 +61,22 @@ function Formulario({ setUser }) {
         <div className="image-container">
           <img src={loginImage} alt="Imagen de inicio de sesión" className="login-image" />
         </div>
-
+        
         <div className="form-container">
           <h1>INICIO DE SESIÓN</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-field">
-              <label htmlFor="email">Correo electrónico</label>
+              <label htmlFor="usuario">Usuario</label>
               <input
-                id="email"
-                type="email"
-                value={email}
+                id="usuario"
+                type="text"
+                value={usuario}
                 onChange={(e) => {
-                  setEmail(e.target.value);
+                  setUsuario(e.target.value);
                   setError("");
                 }}
-                placeholder="Ingrese su correo"
-                autoComplete="email"
+                placeholder="Ingrese su usuario"
+                autoComplete="username"
               />
             </div>
 
@@ -96,7 +96,10 @@ function Formulario({ setUser }) {
             </div>
 
             <div className="recaptcha-container">
-              <ReCAPTCHA sitekey={siteKey} onChange={(value) => setCaptchaToken(value)} />
+              <ReCAPTCHA 
+                sitekey={siteKey} 
+                onChange={(value) => setCaptchaToken(value)}
+              />
             </div>
 
             <button type="submit" disabled={loading} className="submit-button">
@@ -106,10 +109,12 @@ function Formulario({ setUser }) {
             {error && <div className="error-message">{error}</div>}
 
             <div className="register-link">
-              ¿No tienes una cuenta? <a href="/registro">Regístrate</a>
+              ¿No tienes una cuenta?{' '}
+              <a href="/registro">Regístrate</a>
             </div>
             <div className="register-link">
-              ¿Deseas volver a nuestra página principal? <a href="/">Inicio</a>
+              ¿Deseas volver a nuestra página principal?{' '}
+              <a href="/">Inicio</a>
             </div>
           </form>
         </div>
