@@ -29,35 +29,55 @@ function HistorialCitasAdmin() {
     fetchAppointments();
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    window.location.href = '/login';
+  };
+
+  const handleBack = () => {
+    window.history.back(); // También puedes usar: window.location.href = '/admin-dashboard';
+  };
+
   return (
     <section>
       <h2>Historial de Citas</h2>
       {loading && <p>Cargando citas...</p>}
       {message && <p>{message}</p>}
-      <table className="appointment-table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Servicio</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          {appointments.map((cita) => (
-            <tr key={cita._id}>
-              <td>{cita.name}</td>
-              <td>{cita.email}</td>
-              <td>{cita.date}</td>
-              <td>{cita.hora}</td>
-              <td>{cita.tipoServicio}</td>
-              <td>{cita.status}</td>
+
+      {appointments.length > 0 && (
+        <table className="appointment-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Servicio</th>
+              <th>Estado</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {appointments.map((cita) => (
+              <tr key={cita._id}>
+                <td>{cita.name}</td>
+                <td>{cita.email}</td>
+                <td>{cita.date}</td>
+                <td>{cita.hora}</td>
+                <td>{cita.tipoServicio}</td>
+                <td>{cita.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      <button className="logout-button" onClick={handleLogout}>
+        Cerrar Sesión
+      </button>
+
+      <button className="logout-button" onClick={handleBack}>
+        Volver
+      </button>
     </section>
   );
 }

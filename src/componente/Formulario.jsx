@@ -47,7 +47,7 @@ function Formulario({ setUser }) {
       localStorage.setItem("user", JSON.stringify(data.user));
       localStorage.setItem("token", data.token);
 
-      navigate(data.user.role === "admin" ? "/home-admin" : "/home");
+      navigate(data.user.role === "admin" ? "/panel-admin" : "/home");
     } catch (error) {
       setError("Error al conectar con el servidor.");
     } finally {
