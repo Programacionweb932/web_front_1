@@ -1,10 +1,10 @@
-/* Ajustar el header para que no oculte contenido */
+/* HEADER MEJORADO */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px; /* Mejor visibilidad */
+  height: 60px;
   background-color: #6699ff;
   color: white;
   z-index: 1000;
@@ -12,24 +12,220 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  box-sizing: border-box;
 }
 
-/* Asegurar que el contenido no quede oculto detrás del header */
+/* CONTENEDOR HAMBURGUESA */
+.hamburger-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* MENÚ HAMBURGUESA MEJORADO */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  width: 30px;
+  height: 24px;
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.menu-toggle span {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background: white;
+  border-radius: 3px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-toggle span:nth-child(1) {
+  top: 0;
+  transform-origin: left center;
+}
+
+.menu-toggle span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+  transform-origin: left center;
+}
+
+.menu-toggle span:nth-child(3) {
+  top: 100%;
+  transform: translateY(-100%);
+  transform-origin: left center;
+}
+
+.menu-toggle.open span:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 110%;
+}
+
+.menu-toggle.open span:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+
+.menu-toggle.open span:nth-child(3) {
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+  width: 110%;
+}
+
+/* MENÚ MÓVIL MEJORADO */
+.mobile-menu {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background-color: #6699ff;
+  z-index: 999;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu.open {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 500px;
+  padding: 15px 0;
+}
+
+.mobile-menu .btn-nav {
+  display: block;
+  width: calc(100% - 40px);
+  margin: 0 auto;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+}
+
+/* BOTONES NAVEGACIÓN */
+.btn-nav {
+  margin-right: 12px;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+  background-color: transparent;
+  transition: background-color 0.3s, transform 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-nav:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  transform: scale(1.05);
+}
+
+/* AJUSTES DE ESPACIADO */
 body {
-  padding-top: 100px; /* Ajusta según la altura del header */
+  padding-top: 80px; /* Ajustado para header + menú móvil */
 }
 
-/* Ajustar el margen superior del blog-container */
 .blog-container {
   max-width: 900px;
-  margin: 40px auto;
-  padding: 30px;
+  margin: 20px auto;
+  padding: 20px;
   font-family: 'Times New Roman', Times, serif;
-  margin-top: 50px; /* Esto deberías ajustarlo como hablamos antes */
-  
 }
 
-/* Título del blog */
+/* ICONO HEADER */
+header .icono {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+/* TÍTULO HEADER */
+header h1 {
+  font-size: clamp(16px, 4vw, 20px);
+  font-weight: bold;
+  color: white !important;
+  margin: 0;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+  header > div.desktop-menu {
+    display: none;
+  }
+  
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  body {
+    padding-top: 60px;
+  }
+  
+  .blog-container {
+    margin-top: 20px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 0 10px;
+  }
+  
+  header .icono {
+    width: 35px;
+    height: 35px;
+    margin-right: 8px;
+  }
+  
+  .menu-toggle {
+    width: 26px;
+    height: 20px;
+  }
+  
+  .mobile-menu .btn-nav {
+    font-size: 13px;
+    padding: 8px 0;
+  }
+  
+  .blog-title {
+    font-size: 2em;
+  }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 350px) {
+  header h1 {
+    font-size: 14px;
+  }
+  
+  .menu-toggle {
+    width: 24px;
+  }
+}
+
+/* ESTILOS EXISTENTES DEL BLOG (MANTENIDOS) */
 .blog-title {
   text-align: center;
   color: #6f9dff;
@@ -38,25 +234,23 @@ body {
   font-weight: bold;
 }
 
-/* Lista de posts */
 .blog-posts {
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
 
-/* Estilo de cada post */
 .blog-post {
   background-color: #f3f5f7;
-  padding: 15px 20px; /* Reducido el padding vertical */
+  padding: 15px 20px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px; /* Reducido el espacio entre elementos */
+  gap: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 90%; /* Asegurar un ancho consistente */
-  margin: 0 auto; /* Centrar la card */
+  width: 90%;
+  margin: 0 auto;
 }
 
 .blog-post:hover {
@@ -66,34 +260,20 @@ body {
 
 .blog-post h2 {
   font-size: 1.5rem;
-  margin: 10px 0; /* Reducido el margen inferior */
+  margin: 10px 0;
   color: #4a6dd8;
   text-align: center;
 }
 
 .blog-post p {
   color: #555555;
-  font-size: 1rem; /* Tamaño de fuente ligeramente menor */
+  font-size: 1rem;
   text-align: center;
-  line-height: 1.5; /* Altura de línea ajustada */
-  max-width: 90%; /* Ajuste para mejor uso del espacio */
-  margin: 5px 0; /* Márgenes reducidos */
+  line-height: 1.5;
+  max-width: 90%;
+  margin: 5px 0;
 }
 
-/* Efectos para enlaces/interacciones */
-.download-link {
-  color: #4a6dd8;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-.download-link:hover {
-  color: #fefeff;
-  text-decoration: underline;
-}
-
-/* Contenedor de medios (imágenes y videos) */
 .media-scroll-container {
   display: flex;
   flex-wrap: wrap;
@@ -102,7 +282,6 @@ body {
   margin-top: 10px;
 }
 
-/* Estilo de cada elemento multimedia */
 .media-item {
   display: flex;
   flex-direction: column;
@@ -128,7 +307,6 @@ body {
   margin-top: 10px;
 }
 
-/* Enlace de descarga */
 .download-link {
   margin-top: 10px;
   font-size: 16px;
@@ -152,14 +330,6 @@ body {
   transform: scale(0.98);
 }
 
-/* Botón de volver */
-.backBotton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 5vh;
-}
-
 .back-button {
   display: inline-block;
   padding: 10px 20px;
@@ -180,10 +350,4 @@ body {
 
 .back-button:active {
   background-color: #004085;
-}
-
-header .icono {
-  width: 50px;
-  height: 50px;
-  margin-right: 15px;
 }
