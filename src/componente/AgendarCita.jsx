@@ -102,9 +102,10 @@ const AgendarCita = ({ setView }) => {
 
   return (
     <div className="agendar-cita-container">
-      <h2>Agendar Cita</h2>
+      
       <form onSubmit={handleSubmit}>
         <div className="form-group-cita">
+          <h2>Agendar Cita</h2>
           <label htmlFor="name">Nombre:</label>
           <input
             type="text"
@@ -178,6 +179,11 @@ const AgendarCita = ({ setView }) => {
       {/* Botón para regresar */}
       <button className="go-home-button" onClick={() => navigate('/home')}>
         Volver
+      </button>
+
+       {/* Botón para ver el historial de citas */}
+       <button className="history-button" onClick={() => navigate('/mis-citas')}>
+        Historial de mis citas
       </button>
     </div>
   );

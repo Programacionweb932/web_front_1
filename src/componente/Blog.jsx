@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../styles/Blog.css';
+import logo from '../assets/Foto 2.ico';
 
 function Blog() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   const blogPosts = [
     {
       title: 'Mantenimiento Preventivo de PCs',
@@ -17,7 +25,7 @@ function Blog() {
       description: 'Explora los diferentes sistemas operativos y aprende cómo elegir el adecuado para tus necesidades. Descubre sus ventajas, características y usos.',
       media: [
         { type: 'image', src: '/image/sistemao-video.png', alt: 'Sistema operativo' },
-        { type: 'video', src: '/public/videos/sistema operativo.mp4' }
+        { type: 'video', src: '/videos/sistema operativo.mp4' }
       ]
     },
     {
@@ -60,36 +68,106 @@ function Blog() {
 
   return (
     <div className="blog-container">
-      <nav>
-        <h1>EL MUNDO DE LA TECNOLOGÍA</h1>
-        <div>
+      <header>
+        <div className="hamburger-container">
+          <img src={logo} className="icono" alt="icono" />
+          <h1>EL MUNDO DE LA TECNOLOGÍA</h1>
+        </div>
+        
+        {/* Menú de escritorio (visible en pantallas grandes) */}
+        <div className="desktop-menu">
           <Link to="/" className="btn-nav">Inicio</Link>
           <Link to="/login" className="btn-nav">Iniciar Sesión</Link>
           <Link to="/registro" className="btn-nav">Registrarse</Link>
         </div>
-      </nav>
+        
+        {/* Botón hamburguesa (visible en móviles) */}
+        <button 
+          className={`menu-toggle ${isMenuOpen ? 'open' : ''}`}
+          onClick={toggleMenu}
+          aria-label="Menú de navegación"
+          aria-expanded={isMenuOpen}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </header>
+
+      {/* Menú móvil (se despliega al hacer clic) */}
+      <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
+        <Link 
+          to="/" 
+          className="btn-nav" 
+          onClick={() => setIsMenuOpen(false)}
+          aria-label="Ir a Inicio"
+        >
+          Inicio
+        </Link>
+        <Link 
+          to="/login" 
+          className="btn-nav" 
+          onClick={() => setIsMenuOpen(false)}
+          aria-label="Ir a Iniciar Sesión"
+        >
+          Iniciar Sesión
+        </Link>
+        <Link 
+          to="/registro" 
+          className="btn-nav" 
+          onClick={() => setIsMenuOpen(false)}
+          aria-label="Ir a Registrarse"
+        >
+          Registrarse
+        </Link>
+      </div>
 
       <h1 className="blog-title">Blog de Tecnología</h1>
+      
       <div className="blog-posts">
         {blogPosts.map((post, index) => (
           <div key={index} className="blog-post">
             <h2>{post.title}</h2>
             <p dangerouslySetInnerHTML={{ __html: post.description }}></p>
+            
             <div className="media-scroll-container">
               {post.media.map((item, idx) => (
                 <div key={idx} className="media-item">
                   {item.type === 'image' ? (
                     <>
-                      <img src={item.src} alt={item.alt} className="media-image" />
-                      <a href={item.src} download className="download-link">Descargar Imagen</a>
+                      <img 
+                        src={item.src} 
+                        alt={item.alt} 
+                        className="media-image" 
+                        loading="lazy"
+                      />
+                      <a 
+                        href={item.src} 
+                        download 
+                        className="download-link"
+                        aria-label={`Descargar imagen ${item.alt}`}
+                      >
+                        Descargar Imagen
+                      </a>
                     </>
                   ) : (
                     <>
-                      <video controls className="media-video">
+                      <video 
+                        controls 
+                        className="media-video"
+                        aria-label={`Video sobre ${post.title}`}
+                      >
                         <source src={item.src} type="video/mp4" />
                         Tu navegador no soporta el formato de video.
                       </video>
-                      <a href={item.src} download className="download-link">Descargar Video</a>
+                      <a 
+                        href={item.src} 
+                        download 
+                        className="download-link"
+                        aria-label={`Descargar video sobre ${post.title}`}
+                      >
+                        Descargar Video
+                      </a>
                     </>
                   )}
                 </div>

@@ -1,19 +1,45 @@
 import { Link } from "react-router-dom";
 import "../styles/LandinPage.css";
+import { useState } from "react";
+import logo from '../assets/Foto 2.ico';
 
 const LandingPage = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="container">
       {/* Barra de navegación */}
-      <nav>
+      <header>
+        <img src={logo} className="icono" alt="icono"/>
         <h1>EL MUNDO DE LA TECNOLOGIA</h1>
-        <div>
+        
+        {/* Botón hamburguesa para móviles */}
+        <button 
+          className={`menu-toggle ${menuOpen ? 'open' : ''}`} 
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menú"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        {/* Menú normal para desktop */}
+        <div className="desktop-menu">
           <Link to="/quienes-somos" className="btn-nav">Quienes Somos</Link>
           <Link to="/blog" className="btn-nav">Ver Blog</Link>
           <Link to="/login" className="btn-nav">Iniciar Sesión</Link>
           <Link to="/registro" className="btn-nav">Registrarse</Link>
         </div>
-      </nav>
+        
+        {/* Menú móvil desplegable */}
+        <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
+          <Link to="/quienes-somos" className="btn-nav" onClick={() => setMenuOpen(false)}>Quienes Somos</Link>
+          <Link to="/blog" className="btn-nav" onClick={() => setMenuOpen(false)}>Ver Blog</Link>
+          <Link to="/login" className="btn-nav" onClick={() => setMenuOpen(false)}>Iniciar Sesión</Link>
+          <Link to="/registro" className="btn-nav" onClick={() => setMenuOpen(false)}>Registrarse</Link>
+        </div>
+      </header>
 
       {/* Contenido principal */}
       <main>
@@ -42,10 +68,6 @@ const LandingPage = () => {
             <h3 className="feature-title">Reparacion de portatiles y PC</h3>
             <p className="feature-text">Diagnóstico y reparación de hardware y software, incluyendo cambio de piezas y optimización del sistema.</p>
           </Link>
-          <div className="feature">
-            <h3 className="feature-title"></h3>
-            <img src="/public/image nosotros/servicios.jpg" alt="Descripción de la imagen" className="feature-image" />
-          </div>
         </div>
       </main>
     </div>
