@@ -28,6 +28,7 @@ const Nosotros = () => {
         {/* Menú normal para desktop */}
         <div className="desktop-menu">
           <Link to="/" className="btn-nav">Inicio</Link>
+          <Link to="/contactenos" className="btn-nav">Contactenos</Link>
           <Link to="/blog" className="btn-nav">Ver Blog</Link>
           <Link to="/login" className="btn-nav">Iniciar Sesión</Link>
           <Link to="/registro" className="btn-nav">Registrarse</Link>
@@ -36,6 +37,7 @@ const Nosotros = () => {
         {/* Menú móvil desplegable */}
         <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
           <Link to="/" className="btn-nav" onClick={() => setMenuOpen(false)}>Inicio</Link>
+          <Link to="/contactenos" className="btn-nav" onClick={() => setMenuOpen(false)}>Contactenos</Link>
           <Link to="/blog" className="btn-nav" onClick={() => setMenuOpen(false)}>Ver Blog</Link>
           <Link to="/login" className="btn-nav" onClick={() => setMenuOpen(false)}>Iniciar Sesión</Link>
           <Link to="/registro" className="btn-nav" onClick={() => setMenuOpen(false)}>Registrarse</Link>

@@ -21,6 +21,8 @@ import Nosotros from './componente/Nosotros';
 import LandinAdmin from './componente/LandinAdmin';
 import HistorialCitasAdmin from './componente/HistorialCitasAdmin';
 import HistorialCitasPorUsuario from './componente/HistorialCitasPorUsuario';
+import Contacto from './componente/contacto';
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -71,6 +73,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Formulario setUser={handleLogin} />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/contactenos" element={<Contacto />} />
         <Route path="/admin" element={<RegisterAdmin />} />
         <Route path="/panel-admin" element={<LandinAdmin />} />
         <Route path="/citas-admin" element={<HistorialCitasAdmin />} />

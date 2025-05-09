@@ -77,6 +77,8 @@ function Blog() {
         {/* Menú de escritorio (visible en pantallas grandes) */}
         <div className="desktop-menu">
           <Link to="/" className="btn-nav">Inicio</Link>
+          <Link to="/quienes-somos" className="btn-nav">Quienes somos</Link>
+          <Link to="/contactenos" className="btn-nav">Contactenos</Link>
           <Link to="/login" className="btn-nav">Iniciar Sesión</Link>
           <Link to="/registro" className="btn-nav">Registrarse</Link>
         </div>
@@ -96,30 +98,11 @@ function Blog() {
 
       {/* Menú móvil (se despliega al hacer clic) */}
       <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
-        <Link 
-          to="/" 
-          className="btn-nav" 
-          onClick={() => setIsMenuOpen(false)}
-          aria-label="Ir a Inicio"
-        >
-          Inicio
-        </Link>
-        <Link 
-          to="/login" 
-          className="btn-nav" 
-          onClick={() => setIsMenuOpen(false)}
-          aria-label="Ir a Iniciar Sesión"
-        >
-          Iniciar Sesión
-        </Link>
-        <Link 
-          to="/registro" 
-          className="btn-nav" 
-          onClick={() => setIsMenuOpen(false)}
-          aria-label="Ir a Registrarse"
-        >
-          Registrarse
-        </Link>
+        <Link to="/" className="btn-nav" onClick={() => setIsMenuOpen(false)} aria-label="Ir a Inicio">Inicio</Link>
+        <Link to="/quienes-somos" className="btn-nav" onClick={() => setIsMenuOpen(false)} aria-label="Ir a Nosotros">Quienes Somos</Link>
+        <Link to="/contactenos" className="btn-nav" onClick={() => setIsMenuOpen(false)} aria-label="Ir a Contacto">Contactenos</Link>
+        <Link to="/login" className="btn-nav" onClick={() => setIsMenuOpen(false)} aria-label="Ir a Iniciar Sesión">Iniciar Sesión</Link>
+        <Link to="/registro" className="btn-nav" onClick={() => setIsMenuOpen(false)} aria-label="Ir a Registrarse">Registrarse</Link>
       </div>
 
       <h1 className="blog-title">Blog de Tecnología</h1>

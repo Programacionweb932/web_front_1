@@ -121,7 +121,11 @@ h1 {
 .register-link {
   text-align: center;
   margin-top: 20px;
-  color: #666;
+  color: black;
+}
+
+.fondo{
+  color:  #333;
 }
 
 .image-container {
