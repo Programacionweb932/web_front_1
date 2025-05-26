@@ -1,7 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import "../styles/Nosotros.css";
-import logo from '../assets/Foto 2.ico';
+import logo from '../assets/mundo.ico';
 
 const Nosotros = () => {
   const navigate = useNavigate();

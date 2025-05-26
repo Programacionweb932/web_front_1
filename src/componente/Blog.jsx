@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../styles/Blog.css';
-import logo from '../assets/Foto 2.ico';
+import logo from '../assets/mundo.ico';
 
 function Blog() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

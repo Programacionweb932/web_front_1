@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Contacto.css';
-import logo from '../assets/logo.png';
+import logo from '../assets/mundo.ico';
 import { FaFacebook, FaInstagram, FaWhatsapp, FaTiktok } from 'react-icons/fa';
 
 const Contacto = () => {
