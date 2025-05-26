@@ -19,9 +19,9 @@ a {
   margin-top: -300px;
 }
 
-/* Header - Estructura original con mejoras responsive */
-header {
-  padding: 0.8rem 2rem;
+/* Header styles */
+.header {
+  padding: 1rem 2rem;
   background-color: rgba(255, 255, 255, 0.98);
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   position: fixed;
@@ -29,27 +29,56 @@ header {
   top: 0;
   left: 0;
   z-index: 1000;
+  box-sizing: border-box;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.3s ease;
-}
-
-header.scrolled {
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-  padding: 0.5rem 2rem;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
-.icono {
-  width: 36px;
-  height: 36px;
+.header-icon {
+  width: 40px;
+  height: 40px;
   object-fit: contain;
+}
+
+.company-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-menu-button {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.mobile-menu-button span {
+  width: 22px;
+  height: 2px;
+  background: #1f2937;
+  border-radius: 2px;
+  transition: all 0.2s ease;
 }
 
 .desktop-menu {
@@ -75,34 +104,6 @@ header.scrolled {
 }
 
 /* Mobile Menu - Manteniendo tu estructura */
-.menu-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 4px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-}
-
-.menu-toggle span {
-  width: 22px;
-  height: 2px;
-  background: #1f2937;
-  border-radius: 2px;
-  transition: all 0.2s ease;
-}
-
-.menu-toggle.open span:nth-child(1) {
-  transform: rotate(45deg) translate(4px, 4px);
-}
-.menu-toggle.open span:nth-child(2) {
-  opacity: 0;
-}
-.menu-toggle.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(4px, -4px);
-}
-
 .mobile-menu {
   display: none;
   flex-direction: column;
@@ -400,16 +401,25 @@ footer {
 }
 
 @media (max-width: 768px) {
-  header {
+  .header {
     padding: 0.8rem 1rem;
+  }
+
+  .company-name {
+    font-size: 1.2rem;
+  }
+
+  .header-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .mobile-menu-button {
+    display: flex;
   }
 
   .desktop-menu {
     display: none;
-  }
-
-  .menu-toggle {
-    display: flex;
   }
 
   .mobile-menu {
@@ -447,10 +457,15 @@ footer {
 }
 
 @media (max-width: 480px) {
-  .logo-container h1 {
-    font-size: 0.9rem;
+  .company-name {
+    font-size: 1rem;
   }
-  
+
+  .header-icon {
+    width: 28px;
+    height: 28px;
+  }
+
   .hero h2 {
     font-size: 1.5rem;
   }

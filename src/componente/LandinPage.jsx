@@ -11,6 +11,7 @@ import {
   FaArrowRight 
 } from "react-icons/fa";
 import logo from '../assets/Foto 2.ico';
+import mundoIcon from '../assets/mundo.ico';
 import "../styles/LandinPage.css";
 
 // Componentes reutilizables
