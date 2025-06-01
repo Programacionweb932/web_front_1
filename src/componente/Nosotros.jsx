@@ -65,9 +65,9 @@ const Nosotros = () => {
         <div className="text-content">
           <h1 className="nosotros-h1">Visión</h1>
           <p className="nosotros-p">
-            Ser la empresa líder en soluciones tecnológicas innovadoras, reconocida por la calidad de nuestros servicios y el compromiso con la satisfacción de nuestros clientes. 
-            Buscamos transformar la manera en que las personas y empresas interactúan con la tecnología, brindando soluciones eficientes, seguras y adaptadas 
-            a las necesidades del mercado en constante evolución.
+            Ser la empresa líder en soluciones tecnológicas innovadoras, reconocida por la excelencia de nuestros servicios y el compromiso con la experiencia del cliente.
+            Para 2030, aspiramos a transformar la forma en que personas y organizaciones se relacionan con la tecnología, ofreciendo soluciones inteligentes, seguras y sostenibles,
+            adaptadas a un entorno global en constante evolución. Impulsamos el cambio mediante la integración de tecnologías emergentes, fomentando una transformación digital que genere valor, confianza e impacto positivo en la sociedad.
           </p>
         </div>
       </div>
