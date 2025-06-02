@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 import '../styles/HistorialCitasAdmin.css';
 
 function HistorialCitasAdmin() {
@@ -53,6 +53,8 @@ function HistorialCitasAdmin() {
               <th>Fecha</th>
               <th>Hora</th>
               <th>Servicio</th>
+              <th>Dirección</th>
+              <th>Observación</th>
               <th>Estado</th>
             </tr>
           </thead>
@@ -61,9 +63,11 @@ function HistorialCitasAdmin() {
               <tr key={cita._id}>
                 <td>{cita.name}</td>
                 <td>{cita.email}</td>
-                <td>{cita.date}</td>
+                <td>{new Date(cita.date).toLocaleDateString()}</td>
                 <td>{cita.hora}</td>
                 <td>{cita.tipoServicio}</td>
+                <td>{cita.direccion || 'No especificada'}</td>
+                <td>{cita.observacion || 'No hay observaciones'}</td>
                 <td>{cita.status}</td>
               </tr>
             ))}

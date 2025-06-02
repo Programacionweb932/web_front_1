@@ -4,9 +4,10 @@ import '../styles/HomeAdmin.css';
 
 function HomeAdmin() {
   const [tickets, setTickets] = useState([]);
-  const [appointments, setAppointments] = useState([]);  // Estado para las citas
+  const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [editingTicketIds, setEditingTicketIds] = useState([]); // <- NUEVO
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,15 +16,14 @@ function HomeAdmin() {
       navigate('/login');
     } else {
       fetchTickets();
-      fetchAppointments();  // Llamar a la función para obtener las citas
+      fetchAppointments();
     }
   }, [navigate]);
 
   const handleBack = () => {
-    navigate('/panel-admin'); // O usa navigate('/ruta-destino') si quieres una ruta específica
+    navigate('/panel-admin');
   };
 
-  // Obtener los tickets
   const fetchTickets = async () => {
     setLoading(true);
     try {
@@ -35,9 +35,7 @@ function HomeAdmin() {
         },
       });
 
-      if (!response.ok) {
-        throw new Error('Error al obtener los tickets.');
-      }
+      if (!response.ok) throw new Error('Error al obtener los tickets.');
 
       const data = await response.json();
       setTickets(data.tickets || []);
@@ -50,7 +48,6 @@ function HomeAdmin() {
     }
   };
 
-  // Obtener las citas (historial de citas)
   const fetchAppointments = async () => {
     setLoading(true);
     try {
@@ -61,7 +58,7 @@ function HomeAdmin() {
           'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
         },
       });
-  
+
       if (response.status === 401) {
         throw new Error('No autorizado. Por favor, inicie sesión nuevamente.');
       } else if (response.status === 404) {
@@ -69,9 +66,9 @@ function HomeAdmin() {
       } else if (!response.ok) {
         throw new Error('Error inesperado al obtener las citas.');
       }
-  
+
       const data = await response.json();
-      setAppointments(data.appointments || []); // Asegúrate de usar `appointments`
+      setAppointments(data.appointments || []);
       setMessage(data.appointments?.length ? '' : 'No se encontraron citas.');
     } catch (error) {
       setMessage(error.message);
@@ -80,7 +77,6 @@ function HomeAdmin() {
       setLoading(false);
     }
   };
-  
 
   const updateTicket = async (ticketId, status, adminDescription) => {
     if (!status && !adminDescription) {
@@ -100,13 +96,10 @@ function HomeAdmin() {
         body: JSON.stringify({ ticketId, status, adminDescription }),
       });
 
-      if (!response.ok) {
-        throw new Error('Error al actualizar el ticket.');
-      }
+      if (!response.ok) throw new Error('Error al actualizar el ticket.');
 
       const data = await response.json();
-      
-      // Si la actualización es exitosa, actualiza los tickets en el estado
+
       setTickets((prevTickets) =>
         prevTickets.map((ticket) =>
           ticket._id === ticketId
@@ -135,8 +128,13 @@ function HomeAdmin() {
     navigate('/login');
   };
 
+  const handleEditClick = (ticketId) => {
+    setEditingTicketIds((prev) => [...prev, ticketId]);
+  };
+
   const handleUpdateClick = (ticketId, status, adminDescription) => {
     updateTicket(ticketId, status, adminDescription);
+    setEditingTicketIds((prev) => prev.filter((id) => id !== ticketId));
   };
 
   return (
@@ -160,39 +158,50 @@ function HomeAdmin() {
           </tr>
         </thead>
         <tbody>
-          {tickets.map((ticket) => (
-            <tr key={ticket._id}>
-              <td>{ticket.ticketNumber}</td>
-              <td>{ticket.name}</td>
-              <td>{ticket.subject}</td>
-              <td>{ticket.description}</td>
-              <td>
-                <select
-                  value={ticket.status}
-                  onChange={(e) => handleFieldChange(ticket._id, 'status', e.target.value)}
-                >
-                  <option value="Pendiente">Pendiente</option>
-                  <option value="En Progreso">En Progreso</option>
-                  <option value="Cerrado">Cerrado</option>
-                </select>
-              </td>
-              <td>
-                <textarea
-                  value={ticket.adminDescription || ''}
-                  onChange={(e) => handleFieldChange(ticket._id, 'adminDescription', e.target.value)}
-                />
-              </td>
-              <td>
-                <button
-                  onClick={() =>
-                    handleUpdateClick(ticket._id, ticket.status, ticket.adminDescription)
-                  }
-                >
-                  Actualizar Ticket
-                </button>
-              </td>
-            </tr>
-          ))}
+          {tickets.map((ticket) => {
+            const isEditing = editingTicketIds.includes(ticket._id);
+            return (
+              <tr key={ticket._id}>
+                <td>{ticket.ticketNumber}</td>
+                <td>{ticket.name}</td>
+                <td>{ticket.subject}</td>
+                <td>{ticket.description}</td>
+                <td>
+                  <select
+                    value={ticket.status}
+                    onChange={(e) => handleFieldChange(ticket._id, 'status', e.target.value)}
+                    disabled={!isEditing}
+                  >
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="En Progreso">En Progreso</option>
+                    <option value="Cerrado">Cerrado</option>
+                  </select>
+                </td>
+                <td>
+                  <textarea
+                    value={ticket.adminDescription || ''}
+                    onChange={(e) =>
+                      handleFieldChange(ticket._id, 'adminDescription', e.target.value)
+                    }
+                    disabled={!isEditing}
+                  />
+                </td>
+                <td>
+                  {!isEditing ? (
+                    <button onClick={() => handleEditClick(ticket._id)}>Editar</button>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        handleUpdateClick(ticket._id, ticket.status, ticket.adminDescription)
+                      }
+                    >
+                      Actualizar Ticket
+                    </button>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
 
@@ -203,7 +212,6 @@ function HomeAdmin() {
       <button className="logout-button" onClick={handleBack}>
         Volver
       </button>
-
     </div>
   );
 }
