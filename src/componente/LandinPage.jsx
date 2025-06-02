@@ -2,15 +2,20 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { 
   FaShieldAlt, 
   FaLaptop, 
   FaHeadset, 
   FaFileWord, 
   FaTools, 
-  FaArrowRight 
+  FaArrowRight,
+  FaChevronLeft,
+  FaChevronRight 
 } from "react-icons/fa";
-import logo from '../assets/Foto 2.ico';
+import logo from '../assets/mundo.ico';
 import "../styles/LandinPage.css";
 
 // Componentes reutilizables
@@ -255,6 +260,91 @@ const LandingPage = () => {
   );
 };
 
+// Componentes de flechas personalizadas
+const PrevArrow = ({ onClick }) => (
+  <button className="slick-arrow slick-prev" onClick={onClick}>
+    <FaChevronLeft />
+  </button>
+);
+
+const NextArrow = ({ onClick }) => (
+  <button className="slick-arrow slick-next" onClick={onClick}>
+    <FaChevronRight />
+  </button>
+);
+
+const ImageGallery = () => {
+  const galleryImages = [
+    {
+      src: "/public/galeria/mantenimiento.jpg",
+      alt: "Servicio de mantenimiento",
+      title: "Mantenimiento de Equipos"
+    },
+    {
+      src: "/public/galeria/tecnolo.jpg",
+      alt: "Instalación de sistemas",
+      title: "Instalación de Software"
+    },
+    {
+      src: "/public/galeria/soporte.jpg",
+      alt: "Soporte técnico",
+      title: "Soporte Técnico Profesional"
+    },
+    {
+      src: "/public/galeria/reparacion.jpg",
+      alt: "Reparación de equipos",
+      title: "Reparación de Computadoras"
+    }
+  ];
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 800,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    fade: true,
+    cssEase: 'linear',
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
+
+  return (
+    <div className="slider-container">
+      <Slider {...settings}>
+        {galleryImages.map((image, index) => (
+          <div key={index} className="slider-item">
+            <div className="slider-content">
+              <img src={image.src} alt={image.alt} />
+              <div className="slider-title">
+                <h3>{image.title}</h3>
+              </div>
+            </div>
+          </div>
+        ))}
+      </Slider>
+    </div>
+  );
+};
+
 const HeroSection = () => (
   <section className="hero">
     <div className="hero-content">
@@ -264,6 +354,7 @@ const HeroSection = () => (
         <Link to="/registro" className="btn primary">Comenzar Ahora</Link>
         <Link to="/login" className="btn secondary">Ver Servicios</Link>
       </div>
+      <ImageGallery />
     </div>
   </section>
 );
