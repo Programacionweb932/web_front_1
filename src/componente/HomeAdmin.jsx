@@ -7,7 +7,7 @@ function HomeAdmin() {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const [editingTicketIds, setEditingTicketIds] = useState([]); // <- NUEVO
+  const [editingTicketIds, setEditingTicketIds] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,10 +19,6 @@ function HomeAdmin() {
       fetchAppointments();
     }
   }, [navigate]);
-
-  const handleBack = () => {
-    navigate('/panel-admin');
-  };
 
   const fetchTickets = async () => {
     setLoading(true);
@@ -36,7 +32,6 @@ function HomeAdmin() {
       });
 
       if (!response.ok) throw new Error('Error al obtener los tickets.');
-
       const data = await response.json();
       setTickets(data.tickets || []);
       setMessage(data.tickets?.length ? '' : 'No se encontraron tickets.');
@@ -122,19 +117,53 @@ function HomeAdmin() {
     );
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('authToken');
-    navigate('/login');
-  };
-
   const handleEditClick = (ticketId) => {
-    setEditingTicketIds((prev) => [...prev, ticketId]);
+    if (!editingTicketIds.includes(ticketId)) {
+      setEditingTicketIds((prev) => [...prev, ticketId]);
+    }
   };
 
   const handleUpdateClick = (ticketId, status, adminDescription) => {
     updateTicket(ticketId, status, adminDescription);
     setEditingTicketIds((prev) => prev.filter((id) => id !== ticketId));
+  };
+
+  const handleBack = async () => {
+    if (editingTicketIds.length > 0) {
+      const confirmLeave = window.confirm('Tienes cambios pendientes. ¿Deseas guardarlos antes de volver al Panel de administración?');
+      if (confirmLeave) {
+        await Promise.all(
+          editingTicketIds.map((ticketId) => {
+            const ticket = tickets.find((t) => t._id === ticketId);
+            return updateTicket(ticketId, ticket.status, ticket.adminDescription);
+          })
+        );
+        setEditingTicketIds([]);
+      } else {
+        return;
+      }
+    }
+    navigate('/panel-admin');
+  };
+
+  const handleLogout = async () => {
+    if (editingTicketIds.length > 0) {
+      const confirmLeave = window.confirm('Tienes cambios pendientes. ¿Deseas guardarlos antes de volver al Panel de administración?');
+      if (confirmLeave) {
+        await Promise.all(
+          editingTicketIds.map((ticketId) => {
+            const ticket = tickets.find((t) => t._id === ticketId);
+            return updateTicket(ticketId, ticket.status, ticket.adminDescription);
+          })
+        );
+        setEditingTicketIds([]);
+      } else {
+        return;
+      }
+    }
+    localStorage.removeItem('user');
+    localStorage.removeItem('authToken');
+    navigate('/login');
   };
 
   return (
@@ -188,7 +217,7 @@ function HomeAdmin() {
                 </td>
                 <td>
                   {!isEditing ? (
-                    <button onClick={() => handleEditClick(ticket._id)}>Editar</button>
+                    <button className='boton-editar' onClick={() => handleEditClick(ticket._id)}>Editar</button>
                   ) : (
                     <button
                       onClick={() =>
@@ -205,13 +234,14 @@ function HomeAdmin() {
         </tbody>
       </table>
 
-      <button className="logout-button" onClick={handleLogout}>
-        Cerrar Sesión
-      </button>
-
-      <button className="logout-button" onClick={handleBack}>
-        Volver
-      </button>
+      <div className="botones-container">
+        <button className="logout-button" onClick={handleLogout}>
+          Cerrar Sesión
+        </button>
+        <button className="logout-button" onClick={handleBack}>
+          Volver
+        </button>
+      </div>
     </div>
   );
 }
