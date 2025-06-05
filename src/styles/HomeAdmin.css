@@ -90,7 +90,7 @@
   margin-top: 30px;
 }
 
-.logout-button {
+.volver-button {
   padding: 10px 20px;
   background-color: #007bff;
   color: white;
@@ -101,8 +101,10 @@
   transition: background-color 0.3s ease;
 }
 
-.logout-button:hover {
-  background-color: #0056b3;
+.volver-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 9, 14, 0.5);
+    background-color: #0056b3;
 }
 
 

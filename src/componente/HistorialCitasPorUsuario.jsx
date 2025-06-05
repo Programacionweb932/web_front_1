@@ -106,7 +106,7 @@ const HistorialCitasPorUsuario = () => {
         </div>
       )}
 
-      <button className="go-home-button" onClick={() => navigate('/home')}>
+      <button className="go-home-button" onClick={() => navigate('/agendar-cita')}>
         Volver al inicio
       </button>
     </div>

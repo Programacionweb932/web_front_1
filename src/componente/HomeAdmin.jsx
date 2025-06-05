@@ -238,7 +238,7 @@ function HomeAdmin() {
         <button className="logout-button" onClick={handleLogout}>
           Cerrar Sesión
         </button>
-        <button className="logout-button" onClick={handleBack}>
+        <button className="volver-button" onClick={handleBack}>
           Volver
         </button>
       </div>

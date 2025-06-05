@@ -79,7 +79,7 @@ function HistorialCitasAdmin() {
         Cerrar Sesión
       </button>
 
-      <button className="logout-button" onClick={handleBack}>
+      <button className="volver-button" onClick={handleBack}>
         Volver
       </button>
     </section>
