@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/RegisterAdmin.css';
 import { useNavigate } from 'react-router-dom';
+import registerImage from '/public/admin/admin.jpg'; // Asegúrate de tener esta imagen o cambia la ruta
 
 function RegisterAdmin() {
   const [username, setUsername] = useState('');
@@ -34,7 +35,7 @@ function RegisterAdmin() {
 
       if (response.ok) {
         alert('Registro exitoso');
-        navigate('/login'); // Redirigir a la página de login
+        navigate('/login');
       } else {
         setError(data.message || 'Error al registrar el administrador');
       }
@@ -49,49 +50,60 @@ function RegisterAdmin() {
   };
 
   return (
-    <div className="registro-admin-container">
-      <h2>Registro de Administrador</h2>
-      <form onSubmit={handleRegister}>
-        <div>
-          <label>Nombre de usuario:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+    <div className="register-page-container">
+      <div className="register-image-container">
+        <img src={registerImage} alt="Registro" className="register-image" />
+      </div>
+      <div className="register-form-container">
+        <div className="register-form-wrapper">
+          <h2>Registro de Administrador</h2>
+          <form onSubmit={handleRegister} className="register-form">
+            <div className="form-group">
+              <label>Nombre de usuario:</label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                className="form-input"
+              />
+            </div>
+            <div className="form-group">
+              <label>Email:</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="form-input"
+              />
+            </div>
+            <div className="form-group">
+              <label>Contraseña:</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="form-input"
+              />
+            </div>
+            <div className="form-group">
+              <label>Confirmar Contraseña:</label>
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                className="form-input"
+              />
+            </div>
+            <button type="submit" className="register-button">Registrar</button>
+          </form>
+          <button onClick={handleBackToLogin} className="back-button">Volver a Login</button>
+          {error && <p className="error-message">{error}</p>}
         </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Contraseña:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Confirmar Contraseña:</label>
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Registrar</button>
-      </form>
-      <button onClick={handleBackToLogin}>Volver a Login</button>
-      {error && <p className="error-message">{error}</p>}
+      </div>
     </div>
   );
 }

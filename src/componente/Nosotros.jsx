@@ -1,7 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import "../styles/Nosotros.css";
-import logo from '../assets/Foto 2.ico';
+import logo from '../assets/mundo.ico';
 
 const Nosotros = () => {
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ const Nosotros = () => {
         {/* Menú normal para desktop */}
         <div className="desktop-menu">
           <Link to="/" className="btn-nav">Inicio</Link>
+          <Link to="/contactenos" className="btn-nav">Contactenos</Link>
           <Link to="/blog" className="btn-nav">Ver Blog</Link>
           <Link to="/login" className="btn-nav">Iniciar Sesión</Link>
           <Link to="/registro" className="btn-nav">Registrarse</Link>
@@ -36,6 +37,7 @@ const Nosotros = () => {
         {/* Menú móvil desplegable */}
         <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
           <Link to="/" className="btn-nav" onClick={() => setMenuOpen(false)}>Inicio</Link>
+          <Link to="/contactenos" className="btn-nav" onClick={() => setMenuOpen(false)}>Contactenos</Link>
           <Link to="/blog" className="btn-nav" onClick={() => setMenuOpen(false)}>Ver Blog</Link>
           <Link to="/login" className="btn-nav" onClick={() => setMenuOpen(false)}>Iniciar Sesión</Link>
           <Link to="/registro" className="btn-nav" onClick={() => setMenuOpen(false)}>Registrarse</Link>
@@ -63,9 +65,9 @@ const Nosotros = () => {
         <div className="text-content">
           <h1 className="nosotros-h1">Visión</h1>
           <p className="nosotros-p">
-            Ser la empresa líder en soluciones tecnológicas innovadoras, reconocida por la calidad de nuestros servicios y el compromiso con la satisfacción de nuestros clientes. 
-            Buscamos transformar la manera en que las personas y empresas interactúan con la tecnología, brindando soluciones eficientes, seguras y adaptadas 
-            a las necesidades del mercado en constante evolución.
+            Ser la empresa líder en soluciones tecnológicas innovadoras, reconocida por la excelencia de nuestros servicios y el compromiso con la experiencia del cliente.
+            Para 2030, aspiramos a transformar la forma en que personas y organizaciones se relacionan con la tecnología, ofreciendo soluciones inteligentes, seguras y sostenibles,
+            adaptadas a un entorno global en constante evolución. Impulsamos el cambio mediante la integración de tecnologías emergentes, fomentando una transformación digital que genere valor, confianza e impacto positivo en la sociedad.
           </p>
         </div>
       </div>

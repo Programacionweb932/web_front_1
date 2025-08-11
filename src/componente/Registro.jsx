@@ -29,7 +29,9 @@ function Registro() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Validaciones
     if (username === '') return setError('Debes ingresar un usuario.');
+    if (/\s/.test(username)) return setError('El nombre de usuario no debe contener espacios.');
     if (email === '') return setError('Debes ingresar un correo.');
     if (phone === '') return setError('Debes ingresar un número de teléfono.');
     if (!/^\d{7,15}$/.test(phone)) return setError('El número de teléfono no es válido.');

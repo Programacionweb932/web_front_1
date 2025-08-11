@@ -1,10 +1,19 @@
 .home-admin {
+<<<<<<< HEAD
   font-family: 'Arial', sans-serif;
   padding: 20px;
   min-height: 100vh;
   margin-top: 880px; /* <-- Añade esta línea */
 }
 
+=======
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    min-height: 100vh;
+  
+  }
+  
+>>>>>>> origin/Juan_Granja
   .home-admin h1 {
     font-size: 2.5rem;
     color: #000000;
@@ -62,3 +71,60 @@
     background-color: #fff ;
     color: #333;
   }
+<<<<<<< HEAD
+=======
+
+.boton-editar {
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 120px; /* Aumenta el ancho */
+}
+
+.boton-editar:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); /* efecto al pasar el mouse */
+}
+
+.botones-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Para centrar los botones horizontalmente */
+  gap: 15px;           /* Espacio vertical entre los botones */
+  margin-top: 30px;
+}
+
+.volver-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.volver-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 9, 14, 0.5);
+    background-color: #0056b3;
+}
+
+
+
+
+
+
+  
+  
+  
+  
+>>>>>>> origin/Juan_Granja

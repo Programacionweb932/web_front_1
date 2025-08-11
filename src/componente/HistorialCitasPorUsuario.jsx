@@ -23,8 +23,10 @@ const HistorialCitasPorUsuario = () => {
       });
 
       const data = await response.json();
+
       if (!response.ok) {
         setError(data.error || 'Error al obtener las citas.');
+        setLoading(false);
         return;
       }
 
@@ -51,13 +53,12 @@ const HistorialCitasPorUsuario = () => {
         return;
       }
 
-      // Actualiza el estado local
       setCitas((prevCitas) =>
         prevCitas.map((cita) =>
           cita._id === id ? { ...cita, status: 'cancelada' } : cita
         )
       );
-    } catch (error) {
+    } catch {
       setError('Error de red al cancelar la cita.');
     }
   };
@@ -89,9 +90,14 @@ const HistorialCitasPorUsuario = () => {
               <p><strong>Fecha:</strong> {new Date(cita.date).toLocaleDateString()}</p>
               <p><strong>Hora:</strong> {cita.hora}</p>
               <p><strong>Servicio:</strong> {cita.tipoServicio}</p>
+              <p><strong>Dirección:</strong> {cita.direccion || 'No especificada'}</p>
+              <p><strong>Observación:</strong> {cita.observacion || 'No hay observaciones'}</p>
               <p><strong>Estado:</strong> {cita.status}</p>
               {cita.status === 'reservada' && (
-                <button className="cancel-button" onClick={() => handleCancelar(cita._id)}>
+                <button
+                  className="cancel-button"
+                  onClick={() => handleCancelar(cita._id)}
+                >
                   Cancelar cita
                 </button>
               )}
@@ -100,7 +106,7 @@ const HistorialCitasPorUsuario = () => {
         </div>
       )}
 
-      <button className="go-home-button" onClick={() => navigate('/home')}>
+      <button className="go-home-button" onClick={() => navigate('/agendar-cita')}>
         Volver al inicio
       </button>
     </div>

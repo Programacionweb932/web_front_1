@@ -110,11 +110,11 @@ function Formulario({ setUser }) {
 
             <div className="register-link">
               ¿No tienes una cuenta?{' '}
-              <a href="/registro">Regístrate</a>
+              <a href="/registro" className="fondo">Regístrate</a>
             </div>
             <div className="register-link">
               ¿Deseas volver a nuestra página principal?{' '}
-              <a href="/">Inicio</a>
+              <a href="/" className="fondo">Inicio</a>
             </div>
           </form>
         </div>

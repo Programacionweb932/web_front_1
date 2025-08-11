@@ -7,6 +7,7 @@ function HomeAdmin() {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [editingTicketIds, setEditingTicketIds] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,25 +20,24 @@ function HomeAdmin() {
     }
   }, [navigate]);
 
-  const handleBack = () => {
-    navigate('/panel-admin'); // O usa navigate('/ruta-destino') si quieres una ruta específica
-  };
-
   const fetchTickets = async () => {
     setLoading(true);
     try {
       const response = await fetch('https://web-back-p.vercel.app/api/tickets/all', {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+          'Authorization': Bearer ${localStorage.getItem('authToken')},
         },
       });
+
+      if (!response.ok) throw new Error('Error al obtener los tickets.');
       const data = await response.json();
-      if (!response.ok) throw new Error(data.message || 'Error al obtener los tickets.');
       setTickets(data.tickets || []);
       setMessage(data.tickets?.length ? '' : 'No se encontraron tickets.');
     } catch (error) {
       setMessage(error.message);
+      setTickets([]);
     } finally {
       setLoading(false);
     }
@@ -46,17 +46,28 @@ function HomeAdmin() {
   const fetchAppointments = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/agenda/historial-citas`, {
+      const response = await fetch('https://web-back-p.vercel.app/api/historial-citas', {
+        method: 'GET',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+          'Content-Type': 'application/json',
+          'Authorization': Bearer ${localStorage.getItem('authToken')},
         },
       });
+
+      if (response.status === 401) {
+        throw new Error('No autorizado. Por favor, inicie sesión nuevamente.');
+      } else if (response.status === 404) {
+        throw new Error('No se encontraron citas en el historial.');
+      } else if (!response.ok) {
+        throw new Error('Error inesperado al obtener las citas.');
+      }
+
       const data = await response.json();
-      if (!response.ok) throw new Error(data.message || 'Error al obtener las citas.');
       setAppointments(data.appointments || []);
       setMessage(data.appointments?.length ? '' : 'No se encontraron citas.');
     } catch (error) {
       setMessage(error.message);
+      setAppointments([]);
     } finally {
       setLoading(false);
     }
@@ -64,27 +75,34 @@ function HomeAdmin() {
 
   const updateTicket = async (ticketId, status, adminDescription) => {
     if (!status && !adminDescription) {
-      return setMessage('Debe proporcionar al menos un campo para actualizar.');
+      setMessage('Debe proporcionar al menos un campo para actualizar.');
+      return;
     }
+
+    setMessage('');
 
     try {
       const response = await fetch('https://web-back-p.vercel.app/api/tickets/actualizar-estado', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+          'Authorization': Bearer ${localStorage.getItem('authToken')},
         },
         body: JSON.stringify({ ticketId, status, adminDescription }),
       });
+
+      if (!response.ok) throw new Error('Error al actualizar el ticket.');
+
       const data = await response.json();
-      if (!response.ok) throw new Error(data.message || 'Error al actualizar el ticket.');
-      setTickets((prev) =>
-        prev.map((ticket) =>
+
+      setTickets((prevTickets) =>
+        prevTickets.map((ticket) =>
           ticket._id === ticketId
             ? { ...ticket, status: data.ticket.status, adminDescription: data.ticket.adminDescription }
             : ticket
         )
       );
+
       setMessage(data.message);
     } catch (error) {
       setMessage(error.message);
@@ -92,40 +110,86 @@ function HomeAdmin() {
   };
 
   const handleFieldChange = (ticketId, field, value) => {
-    setTickets((prev) =>
-      prev.map((ticket) =>
+    setTickets((prevTickets) =>
+      prevTickets.map((ticket) =>
         ticket._id === ticketId ? { ...ticket, [field]: value } : ticket
       )
     );
   };
 
-  const handleLogout = () => {
-    localStorage.clear();
+  const handleEditClick = (ticketId) => {
+    if (!editingTicketIds.includes(ticketId)) {
+      setEditingTicketIds((prev) => [...prev, ticketId]);
+    }
+  };
+
+  const handleUpdateClick = (ticketId, status, adminDescription) => {
+    updateTicket(ticketId, status, adminDescription);
+    setEditingTicketIds((prev) => prev.filter((id) => id !== ticketId));
+  };
+
+  const handleBack = async () => {
+    if (editingTicketIds.length > 0) {
+      const confirmLeave = window.confirm('Tienes cambios pendientes. ¿Deseas guardarlos antes de volver al Panel de administración?');
+      if (confirmLeave) {
+        await Promise.all(
+          editingTicketIds.map((ticketId) => {
+            const ticket = tickets.find((t) => t._id === ticketId);
+            return updateTicket(ticketId, ticket.status, ticket.adminDescription);
+          })
+        );
+        setEditingTicketIds([]);
+      } else {
+        return;
+      }
+    }
+    navigate('/panel-admin');
+  };
+
+  const handleLogout = async () => {
+    if (editingTicketIds.length > 0) {
+      const confirmLeave = window.confirm('Tienes cambios pendientes. ¿Deseas guardarlos antes de volver al Panel de administración?');
+      if (confirmLeave) {
+        await Promise.all(
+          editingTicketIds.map((ticketId) => {
+            const ticket = tickets.find((t) => t._id === ticketId);
+            return updateTicket(ticketId, ticket.status, ticket.adminDescription);
+          })
+        );
+        setEditingTicketIds([]);
+      } else {
+        return;
+      }
+    }
+    localStorage.removeItem('user');
+    localStorage.removeItem('authToken');
     navigate('/login');
   };
 
   return (
     <div className="home-admin">
-      <h1>Panel de Administración</h1>
+      <h1>Administración de Tickets</h1>
+
       {loading && <p>Cargando información...</p>}
       {message && <p>{message}</p>}
 
-      <section>
-        <h2>Lista de Tickets</h2>
-        <table className="ticket-table">
-          <thead>
-            <tr>
-              <th># Ticket</th>
-              <th>Cliente</th>
-              <th>Tema</th>
-              <th>Descripción</th>
-              <th>Estado</th>
-              <th>Respuesta</th>
-              <th>Actualizar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tickets.map((ticket) => (
+      <h2>Lista de Tickets</h2>
+      <table className="ticket-table">
+        <thead>
+          <tr>
+            <th>Número de Ticket</th>
+            <th>Nombre Cliente</th>
+            <th>Tema del Ticket</th>
+            <th>Descripción del Ticket</th>
+            <th>Estado</th>
+            <th>Respuesta del Administrador</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tickets.map((ticket) => {
+            const isEditing = editingTicketIds.includes(ticket._id);
+            return (
               <tr key={ticket._id}>
                 <td>{ticket.ticketNumber}</td>
                 <td>{ticket.name}</td>
@@ -135,6 +199,7 @@ function HomeAdmin() {
                   <select
                     value={ticket.status}
                     onChange={(e) => handleFieldChange(ticket._id, 'status', e.target.value)}
+                    disabled={!isEditing}
                   >
                     <option value="Pendiente">Pendiente</option>
                     <option value="En Progreso">En Progreso</option>
@@ -143,58 +208,40 @@ function HomeAdmin() {
                 </td>
                 <td>
                   <textarea
-                    rows="2"
                     value={ticket.adminDescription || ''}
-                    onChange={(e) => handleFieldChange(ticket._id, 'adminDescription', e.target.value)}
+                    onChange={(e) =>
+                      handleFieldChange(ticket._id, 'adminDescription', e.target.value)
+                    }
+                    disabled={!isEditing}
                   />
                 </td>
                 <td>
-                  <button onClick={() => updateTicket(ticket._id, ticket.status, ticket.adminDescription)}>
-                    Actualizar
-                  </button>
+                  {!isEditing ? (
+                    <button className='boton-editar' onClick={() => handleEditClick(ticket._id)}>Editar</button>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        handleUpdateClick(ticket._id, ticket.status, ticket.adminDescription)
+                      }
+                    >
+                      Actualizar Ticket
+                    </button>
+                  )}
                 </td>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
+            );
+          })}
+        </tbody>
+      </table>
 
-      <section>
-        <h2>Historial de Citas</h2>
-        <table className="appointment-table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Fecha</th>
-              <th>Hora</th>
-              <th>Servicio</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            {appointments.map((cita) => (
-              <tr key={cita._id}>
-                <td>{cita.name}</td>
-                <td>{cita.email}</td>
-                <td>{cita.date}</td>
-                <td>{cita.hora}</td>
-                <td>{cita.tipoServicio}</td>
-                <td>{cita.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
-
-      <button className="logout-button" onClick={handleLogout}>
-        Cerrar Sesión
-      </button>
-
-      <button className="logout-button" onClick={handleBack}>
-        Volver
-      </button>
-
+      <div className="botones-container">
+        <button className="logout-button" onClick={handleLogout}>
+          Cerrar Sesión
+        </button>
+        <button className="volver-button" onClick={handleBack}>
+          Volver
+        </button>
+      </div>
     </div>
   );
 }

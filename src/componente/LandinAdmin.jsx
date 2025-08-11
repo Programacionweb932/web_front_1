@@ -7,7 +7,7 @@ function LandinAdmin() {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate('/login');
+    navigate('/');
   };
 
   const goToHistorialTickets = () => {

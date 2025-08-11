@@ -12,15 +12,17 @@ import InstalacionOS from './componente/InstalacionOS';
 import ReparacionPC from './componente/ReparacionPC';
 import AsistenciaTecnica from './componente/AsistenciaTecnica';
 import InstalacionOffice from './componente/InstalacionOffice';
-import HistorialTicket from './componente/HistorialTicket';
 import TicketComponent from './componente/TicketComponent';
 import Blog from './componente/Blog';
 import LandingPage from './componente/LandinPage';
 import './App.css';
+import HistorialTicket from './componente/HistorialTicket';
 import Nosotros from './componente/Nosotros';
 import LandinAdmin from './componente/LandinAdmin';
 import HistorialCitasAdmin from './componente/HistorialCitasAdmin';
 import HistorialCitasPorUsuario from './componente/HistorialCitasPorUsuario';
+import Contacto from './componente/contacto';
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -35,7 +37,7 @@ function App() {
 
   const handleLogin = async (username, password) => {
     try {
-      const response = await fetch('https://web-back-p.vercel.app/api/login', {
+      const response = await fetch('http://localhost:3000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -71,6 +73,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Formulario setUser={handleLogin} />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/contactenos" element={<Contacto />} />
         <Route path="/admin" element={<RegisterAdmin />} />
         <Route path="/panel-admin" element={<LandinAdmin />} />
         <Route path="/citas-admin" element={<HistorialCitasAdmin />} />
