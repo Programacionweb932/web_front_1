@@ -1,23 +1,50 @@
 import { useNavigate, Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import "../styles/Nosotros.css";
+import logo from '../assets/mundo.ico';
 
 const Nosotros = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="Nosotros-container">
-              {/* NAVBAR */}
-      <nav>
+      {/* HEADER CON MENÚ HAMBURGUESA */}
+      <header>
+        <img src={logo} className="icono" alt="icono"/>
         <h1>EL MUNDO DE LA TECNOLOGÍA</h1>
-        <div>
+        
+        {/* Botón hamburguesa para móviles */}
+        <button 
+          className={`menu-toggle ${menuOpen ? 'open' : ''}`} 
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menú"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        {/* Menú normal para desktop */}
+        <div className="desktop-menu">
           <Link to="/" className="btn-nav">Inicio</Link>
+          <Link to="/contactenos" className="btn-nav">Contactenos</Link>
           <Link to="/blog" className="btn-nav">Ver Blog</Link>
           <Link to="/login" className="btn-nav">Iniciar Sesión</Link>
           <Link to="/registro" className="btn-nav">Registrarse</Link>
         </div>
-      </nav>
-      {/* Quiénes Somos */}
+        
+        {/* Menú móvil desplegable */}
+        <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
+          <Link to="/" className="btn-nav" onClick={() => setMenuOpen(false)}>Inicio</Link>
+          <Link to="/contactenos" className="btn-nav" onClick={() => setMenuOpen(false)}>Contactenos</Link>
+          <Link to="/blog" className="btn-nav" onClick={() => setMenuOpen(false)}>Ver Blog</Link>
+          <Link to="/login" className="btn-nav" onClick={() => setMenuOpen(false)}>Iniciar Sesión</Link>
+          <Link to="/registro" className="btn-nav" onClick={() => setMenuOpen(false)}>Registrarse</Link>
+        </div>
+      </header>
+
+      {/* SECCIÓN QUIÉNES SOMOS */}
       <div className="section-container">
         <div className="text-content">
           <h1 className="nosotros-h1">Quiénes Somos</h1>
@@ -29,23 +56,23 @@ const Nosotros = () => {
             Estamos comprometidos a mantenernos actualizados y evolucionar constantemente para estar al día con los cambios y demandas del mercado tecnológico.
           </p>
         </div>
-        <img className="section-image" src="/public/image nosotros/quienes somos.jpeg" alt="Quiénes Somos" />
+        <img className="section-image" src="/image nosotros/quienes somos.jpeg" alt="Quiénes Somos" />
       </div>
 
-      {/* Visión */}
+      {/* SECCIÓN VISIÓN */}
       <div className="section-container reverse">
-        <img className="section-imagen" src="/public/image nosotros/vision.jpg" alt="Visión" />
+        <img className="section-image" src="/image nosotros/vision.jpg" alt="Visión" />
         <div className="text-content">
           <h1 className="nosotros-h1">Visión</h1>
           <p className="nosotros-p">
-            Ser la empresa líder en soluciones tecnológicas innovadoras, reconocida por la calidad de nuestros servicios y el compromiso con la satisfacción de nuestros clientes. 
-            Buscamos transformar la manera en que las personas y empresas interactúan con la tecnología, brindando soluciones eficientes, seguras y adaptadas 
-            a las necesidades del mercado en constante evolución.
+            Ser la empresa líder en soluciones tecnológicas innovadoras, reconocida por la excelencia de nuestros servicios y el compromiso con la experiencia del cliente.
+            Para 2030, aspiramos a transformar la forma en que personas y organizaciones se relacionan con la tecnología, ofreciendo soluciones inteligentes, seguras y sostenibles,
+            adaptadas a un entorno global en constante evolución. Impulsamos el cambio mediante la integración de tecnologías emergentes, fomentando una transformación digital que genere valor, confianza e impacto positivo en la sociedad.
           </p>
         </div>
       </div>
 
-      {/* Misión */}
+      {/* SECCIÓN MISIÓN */}
       <div className="section-container">
         <div className="text-content">
           <h1 className="nosotros-h1">Misión</h1>
@@ -55,7 +82,7 @@ const Nosotros = () => {
             ayudando a nuestros clientes a optimizar sus procesos y afrontar los desafíos del mundo digital con éxito.
           </p>
         </div>
-        <img className="section-image" src="/public/image nosotros/mision.jpeg" alt="Misión" />
+        <img className="section-image" src="/image nosotros/mision.jpeg" alt="Misión" />
       </div>
     </div>
   );

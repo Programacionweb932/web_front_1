@@ -1,71 +1,206 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+}
+
 .home-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 100vh;
-    color: aliceblue;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1c2c 0%, #2a3c77 100%);
+    color: #ffffff;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.home-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/public/admin/WhatsApp\ Image\ 2025-05-22\ at\ 10.22.52\ AM.jpeg');
+    opacity: 0.1;
+    z-index: 1;
 }
 
 .welcome-message {
-    margin-bottom: 20px;
-    color: #6f9dff;
+    margin-bottom: 2rem;
+    color: #7fdbff;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(127, 219, 255, 0.5);
+    animation: glow 2s ease-in-out infinite alternate;
+    position: relative;
+    z-index: 2;
 }
 
 .services-container {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap; /* Para que los servicios bajen si no caben en una fila */
-    justify-content: center;
-    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    padding: 1rem;
+    position: relative;
+    z-index: 2;
 }
 
 .service-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 180px; /* Tamaño consistente para cada tarjeta de servicio */
-    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.service-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 .service-button {
-    margin: 10px 0;
-    padding: 10px;
-    background-color: transparent; /* Cambiado a transparente */
-    color: #6f9dff;
-    border: 2px solid #6f9dff; /* Agregado un borde blanco */
-    border-radius: 5px;
+    margin: 15px 0;
+    padding: 12px 24px;
+    background: linear-gradient(45deg, #6f9dff, #4f73ff);
+    color: white;
+    border: none;
+    border-radius: 25px;
     cursor: pointer;
-    font-size: 16px;
-    width: 100%; /* Botón ocupa todo el ancho del contenedor */
-    transition: transform 0.3s ease, background-color 0.3s ease; /* Transición para el fondo */
+    font-size: 1rem;
+    font-weight: 600;
+    width: 100%;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.service-button:hover::before {
+    left: 100%;
 }
 
 .service-button:hover {
     transform: scale(1.05);
-    background-color: #f1f1f1;
+    box-shadow: 0 0 20px rgba(111, 157, 255, 0.5);
 }
 
 .service-image {
-    width: 150px;
-    height: 150px;
-    object-fit: cover; /* Mantiene la proporción de la imagen */
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
     margin-top: 10px;
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ligera para mejor apariencia */
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.service-image:hover {
+    transform: scale(1.05);
 }
 
 .logout-button {
-    padding: 10px;
-    background-color: #dc3545;
+    padding: 12px 24px;
+    background: linear-gradient(45deg, #ff4b4b, #dc3545);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 100;
 }
 
 .logout-button:hover {
-    background-color: #c82333;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(220, 53, 69, 0.5);
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(127, 219, 255, 0.5);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(127, 219, 255, 0.8),
+                     0 0 30px rgba(127, 219, 255, 0.6),
+                     0 0 40px rgba(127, 219, 255, 0.4);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Agregando delay a cada servicio para una entrada escalonada */
+.service-item:nth-child(1) { animation-delay: 0.1s; }
+.service-item:nth-child(2) { animation-delay: 0.2s; }
+.service-item:nth-child(3) { animation-delay: 0.3s; }
+.service-item:nth-child(4) { animation-delay: 0.4s; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .welcome-message {
+        font-size: 2rem;
+        margin: 1rem 0 2rem 0;
+    }
+
+    .services-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0.5rem;
+    }
+
+    .service-image {
+        width: 180px;
+        height: 180px;
+    }
+
+    .logout-button {
+        top: 1rem;
+        right: 1rem;
+        padding: 10px 20px;
+    }
 }

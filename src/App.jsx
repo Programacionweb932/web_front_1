@@ -12,12 +12,17 @@ import InstalacionOS from './componente/InstalacionOS';
 import ReparacionPC from './componente/ReparacionPC';
 import AsistenciaTecnica from './componente/AsistenciaTecnica';
 import InstalacionOffice from './componente/InstalacionOffice';
-import HistorialTicket from './componente/HistorialTicket';
 import TicketComponent from './componente/TicketComponent';
 import Blog from './componente/Blog';
 import LandingPage from './componente/LandinPage';
 import './App.css';
+import HistorialTicket from './componente/HistorialTicket';
 import Nosotros from './componente/Nosotros';
+import LandinAdmin from './componente/LandinAdmin';
+import HistorialCitasAdmin from './componente/HistorialCitasAdmin';
+import HistorialCitasPorUsuario from './componente/HistorialCitasPorUsuario';
+import Contacto from './componente/contacto';
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -32,7 +37,7 @@ function App() {
 
   const handleLogin = async (username, password) => {
     try {
-      const response = await fetch('https://web-back-p.vercel.app/api/login', {
+      const response = await fetch('http://localhost:3000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -54,19 +59,26 @@ function App() {
     <div className="App">
       {/* 🔹 Mostrar solo en /login y /registro cuando user es null */}
       {(user === null && (location.pathname === '/login' || location.pathname === '/registro')) && (
-        <div className="button-group">
+        
+        <header>
           <h1>EL MUNDO DE LA TECNOLOGÍA</h1>
+        <div className="button-group">
           <button onClick={() => navigate('/')}>Inicio</button>
           <button onClick={() => navigate('/registro')}>Registro</button>
         </div>
+        </header>
       )}
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Formulario setUser={handleLogin} />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/contactenos" element={<Contacto />} />
         <Route path="/admin" element={<RegisterAdmin />} />
+        <Route path="/panel-admin" element={<LandinAdmin />} />
+        <Route path="/citas-admin" element={<HistorialCitasAdmin />} />
         <Route path="/home-admin" element={<HomeAdmin />} />
+        <Route path="/mis-citas" element={<HistorialCitasPorUsuario />} />
         <Route path="/home" element={<Home />} />
         <Route path="/mantenimiento" element={<Mantenimiento />} />
         <Route path="/home-ticket" element={<HomeTicket />} />
