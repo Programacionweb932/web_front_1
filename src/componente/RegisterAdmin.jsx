@@ -25,7 +25,7 @@ function RegisterAdmin() {
     }
 
     try {
-      const response = await fetch('https://web-back-1.vercel.app/api/auth/register-admin', {
+      const response = await fetch('https://web-back-1.vercel.app/api/auth/registeradmin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password }),
