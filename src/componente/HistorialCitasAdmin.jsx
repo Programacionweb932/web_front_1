@@ -10,7 +10,7 @@ function HistorialCitasAdmin() {
     const fetchAppointments = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/agenda/historial-citas`, {
+        const response = await fetch(`https://web-back-1.vercel.app/api/agenda/historial-citas`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
           },
