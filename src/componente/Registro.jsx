@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Registro.css';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import registroImage from '../assets/imgregitro2.png';
 
 function Registro() {
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -142,24 +145,37 @@ function Registro() {
                 <label htmlFor="password">Contraseña</label>
                 <input
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={event => setPassword(event.target.value)}
                   placeholder='Ingrese su contraseña'
                   autoComplete="new-password"
                 />
+                <span
+                  className="toggle-password"
+                  onClick={() => setShowPassword(!showPassword)}
+                  >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
               </div>
               <div className="input-field">
-                <label htmlFor="confirmPassword">Confirmar Contraseña</label>
-                <input
-                  id="confirmPassword"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={event => setConfirmPassword(event.target.value)}
-                  placeholder='Confirme su contraseña'
-                  autoComplete="new-password"
-                />
-              </div>
+            <label htmlFor="confirmPassword">Confirmar Contraseña</label>
+            <input
+              id="confirmPassword"
+              type={showConfirmPassword ? "text" : "password"}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirme su contraseña"
+              autoComplete="new-password"
+            />
+            <span
+              className="toggle-password"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            >
+              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
             </div>
             <div className="form-footer">
               {error && <div className="error-message">{error}</div>}
