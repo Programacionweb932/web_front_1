@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "../styles/Formulario.css";
 import loginImage from "../assets/imglogin.png";
 
 function Formulario({ setUser }) {
+  const [showPassword, setShowPassword] = useState(false);
   const [usuario, setUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [error, setError] = useState("");
@@ -14,11 +16,11 @@ function Formulario({ setUser }) {
   const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
   useEffect(() => {
-    const header = document.querySelector('header');
-    if (header) header.style.display = 'none';
-    
+    const header = document.querySelector("header");
+    if (header) header.style.display = "none";
+
     return () => {
-      if (header) header.style.display = 'block';
+      if (header) header.style.display = "block";
     };
   }, []);
 
@@ -31,11 +33,18 @@ function Formulario({ setUser }) {
     setLoading(true);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: usuario, password: contraseña, captchaToken }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: usuario,
+            password: contraseña,
+            captchaToken,
+          }),
+        }
+      );
 
       const data = await response.json();
 
@@ -59,9 +68,13 @@ function Formulario({ setUser }) {
     <div className="login-page">
       <div className="login-container">
         <div className="image-container">
-          <img src={loginImage} alt="Imagen de inicio de sesión" className="login-image" />
+          <img
+            src={loginImage}
+            alt="Imagen de inicio de sesión"
+            className="login-image"
+          />
         </div>
-        
+
         <div className="form-container">
           <h1>INICIO DE SESIÓN</h1>
           <form onSubmit={handleSubmit}>
@@ -84,7 +97,7 @@ function Formulario({ setUser }) {
               <label htmlFor="contraseña">Contraseña</label>
               <input
                 id="contraseña"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={contraseña}
                 onChange={(e) => {
                   setContraseña(e.target.value);
@@ -93,11 +106,18 @@ function Formulario({ setUser }) {
                 placeholder="Ingrese su contraseña"
                 autoComplete="current-password"
               />
+
+              <span
+                className="toggle-password"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
             </div>
 
             <div className="recaptcha-container">
-              <ReCAPTCHA 
-                sitekey={siteKey} 
+              <ReCAPTCHA
+                sitekey={siteKey}
                 onChange={(value) => setCaptchaToken(value)}
               />
             </div>
@@ -109,12 +129,16 @@ function Formulario({ setUser }) {
             {error && <div className="error-message">{error}</div>}
 
             <div className="register-link">
-              ¿No tienes una cuenta?{' '}
-              <a href="/registro" className="fondo">Regístrate</a>
+              ¿No tienes una cuenta?{" "}
+              <a href="/registro" className="fondo">
+                Regístrate
+              </a>
             </div>
             <div className="register-link">
-              ¿Deseas volver a nuestra página principal?{' '}
-              <a href="/" className="fondo">Inicio</a>
+              ¿Deseas volver a nuestra página principal?{" "}
+              <a href="/" className="fondo">
+                Inicio
+              </a>
             </div>
           </form>
         </div>

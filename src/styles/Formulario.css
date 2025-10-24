@@ -219,3 +219,56 @@ h1 {
     padding: 10px;
   }
 }
+
+/* 🔒 Estilo del contenedor de entrada */
+.input-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.input-field label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.input-field input {
+  width: 100%;
+  padding: 10px 40px 10px 10px; /* Espacio a la derecha para el ojito */
+  font-size: 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input-field input:focus {
+  border-color: #4a90e2;
+}
+
+/* 👁️ Estilo del ícono del ojito */
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 55px; /* Ajusta según el alto del input */
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 18px;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.toggle-password:hover {
+  color: #4a90e2;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* 🧩 Ajuste responsive */
+@media (max-width: 600px) {
+  .toggle-password {
+    right: 10px;
+    font-size: 16px;
+  }
+}
