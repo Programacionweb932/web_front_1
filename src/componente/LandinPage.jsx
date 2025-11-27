@@ -17,7 +17,6 @@ import {
 } from "react-icons/fa";
 import logo from '../assets/mundo.ico';
 import "../styles/LandinPage.css";
-import tecnolo from "../assets/tecnolo.jpg"
 
 // Componentes reutilizables
 const ServiceCard = ({ icon, title, description }) => (
