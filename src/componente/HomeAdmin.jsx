@@ -82,7 +82,7 @@ function HomeAdmin() {
     setMessage('');
 
     try {
-      const response = await fetch('https://web-back-1.vercel.app/api/tickets/actualizar-estado', {
+      const response = await fetch('https://web-back-1.vercel.app/api/tickets/update-status', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
