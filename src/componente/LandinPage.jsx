@@ -281,7 +281,7 @@ const ImageGallery = () => {
       title: "Mantenimiento de Equipos"
     },
     {
-      src: "/public/galeria/tecnolo.jpg",
+      src: "../assets/tecnolo.jpg",
       alt: "Instalación de sistemas",
       title: "Instalación de Software"
     },
