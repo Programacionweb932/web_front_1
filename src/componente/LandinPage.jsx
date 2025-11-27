@@ -282,17 +282,17 @@ const ImageGallery = () => {
     title: "Mantenimiento de Equipos"
   },
     {
-      src: "../assets/tecnolo.jpg",
+      src: "/galeria/tecnolo.jpg",
       alt: "Instalación de sistemas",
       title: "Instalación de Software"
     },
     {
-      src: "/public/galeria/soporte.jpg",
+      src: "/galeria/soporte.jpg",
       alt: "Soporte técnico",
       title: "Soporte Técnico Profesional"
     },
     {
-      src: "/public/galeria/reparacion.jpg",
+      src: "/galeria/reparacion.jpg",
       alt: "Reparación de equipos",
       title: "Reparación de Computadoras"
     }
