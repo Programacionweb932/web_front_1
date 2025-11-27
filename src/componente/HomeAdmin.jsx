@@ -46,7 +46,7 @@ function HomeAdmin() {
   const fetchAppointments = async () => {
     setLoading(true);
     try {
-      const response = await fetch('https://web-back-1.vercel.app/api/historial-citas', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/agenda/historial-citas`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
