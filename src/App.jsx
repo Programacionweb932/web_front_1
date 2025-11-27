@@ -21,7 +21,7 @@ import Nosotros from './componente/Nosotros';
 import LandinAdmin from './componente/LandinAdmin';
 import HistorialCitasAdmin from './componente/HistorialCitasAdmin';
 import HistorialCitasPorUsuario from './componente/HistorialCitasPorUsuario';
-import Contacto from './componente/contacto';
+import Contacto from './componente/Contacto';
 
 
 function App() {
@@ -37,7 +37,7 @@ function App() {
 
   const handleLogin = async (username, password) => {
     try {
-      const response = await fetch('http://localhost:3000/api/login', {
+      const response = await fetch('https://web-back-1.vercel.app/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
