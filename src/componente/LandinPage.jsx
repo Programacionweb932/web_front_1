@@ -17,6 +17,7 @@ import {
 } from "react-icons/fa";
 import logo from '../assets/mundo.ico';
 import "../styles/LandinPage.css";
+import tecnolo from "../assets/tecnolo.jpg"
 
 // Componentes reutilizables
 const ServiceCard = ({ icon, title, description }) => (
@@ -276,7 +277,7 @@ const NextArrow = ({ onClick }) => (
 const ImageGallery = () => {
   const galleryImages = [
     {
-      src: "/public/galeria/mantenimiento.jpg",
+      src: tecnolo,
       alt: "Servicio de mantenimiento",
       title: "Mantenimiento de Equipos"
     },
