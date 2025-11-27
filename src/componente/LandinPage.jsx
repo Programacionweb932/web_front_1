@@ -277,10 +277,10 @@ const NextArrow = ({ onClick }) => (
 const ImageGallery = () => {
   const galleryImages = [
     {
-      src: tecnolo,
-      alt: "Servicio de mantenimiento",
-      title: "Mantenimiento de Equipos"
-    },
+    src: "/galeria/mantenimiento.jpg",
+    alt: "Servicio de mantenimiento",
+    title: "Mantenimiento de Equipos"
+  },
     {
       src: "../assets/tecnolo.jpg",
       alt: "Instalación de sistemas",
