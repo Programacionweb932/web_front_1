@@ -24,6 +24,35 @@
     color: white;
 }
 
+.created {
+  font-size: 14px;
+  text-align: center;
+  margin-top: 20px;
+  color: #444;
+  font-family: "Poppins", sans-serif;
+}
+
+.created a {
+  color: #fafafa;           /* Morado elegante */
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 4px;
+  transition: 0.3s ease;
+}
+
+.created a:hover {
+  color: #ffffff;           /* Un morado más oscuro */
+  text-decoration: underline;
+}
+
+.created::before {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 1px;
+  background: #ddd;
+  margin: 0 auto 10px;
+}
 
 
 .social-container {

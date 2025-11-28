@@ -194,6 +194,12 @@ function Registro() {
                 Iniciar sesión
               </a>
             </p>
+            <div className="register-link">
+              ¿Deseas volver a nuestra página principal?{" "}
+              <a href="/" className="fondo">
+                Inicio
+              </a>
+            </div>
           </form>
         </div>
         <div className="image-container">

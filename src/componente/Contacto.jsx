@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import '../styles/Contacto.css';
-import logo from '../assets/mundo.ico';
-import { FaFacebook, FaInstagram, FaWhatsapp, FaTiktok } from 'react-icons/fa';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import "../styles/Contacto.css";
+import logo from "../assets/mundo.ico";
+import { FaFacebook, FaInstagram, FaWhatsapp, FaTiktok } from "react-icons/fa";
 
 const Contacto = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,7 +10,6 @@ const Contacto = () => {
 
   return (
     <div className="contacto-container">
-
       {/* HEADER CON HAMBURGUESA */}
       <header className="header-contacto">
         <div className="hamburger-container">
@@ -20,16 +19,26 @@ const Contacto = () => {
 
         {/* Menú de escritorio */}
         <div className="desktop-menu">
-          <Link to="/" className="btn-nav">Inicio</Link>
-          <Link to="/blog" className="btn-nav">Blog</Link>
-          <Link to="/quienes-somos" className="btn-nav">Quienes Somos</Link>
-          <Link to="/login" className="btn-nav">Iniciar Sesión</Link>
-          <Link to="/registro" className="btn-nav">Registrarse</Link>
+          <Link to="/" className="btn-nav">
+            Inicio
+          </Link>
+          <Link to="/blog" className="btn-nav">
+            Blog
+          </Link>
+          <Link to="/quienes-somos" className="btn-nav">
+            Quienes Somos
+          </Link>
+          <Link to="/login" className="btn-nav">
+            Iniciar Sesión
+          </Link>
+          <Link to="/registro" className="btn-nav">
+            Registrarse
+          </Link>
         </div>
 
         {/* Botón hamburguesa */}
-        <button 
-          className={`menu-toggle ${isMenuOpen ? 'open' : ''}`}
+        <button
+          className={`menu-toggle ${isMenuOpen ? "open" : ""}`}
           onClick={toggleMenu}
           aria-label="Menú de navegación"
           aria-expanded={isMenuOpen}
@@ -40,33 +49,71 @@ const Contacto = () => {
         </button>
 
         {/* Menú desplegable móvil */}
-        <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
-          <Link to="/" className="btn-nav" onClick={toggleMenu}>Inicio</Link>
-          <Link to="/blog" className="btn-nav" onClick={toggleMenu}>Blog</Link>
-          <Link to="/quienes-somos" className="btn-nav" onClick={toggleMenu}>Quienes Somos</Link>
-          <Link to="/login" className="btn-nav" onClick={toggleMenu}>Iniciar Sesión</Link>
-          <Link to="/registro" className="btn-nav" onClick={toggleMenu}>Registrarse</Link>
+        <div className={`mobile-menu ${isMenuOpen ? "open" : ""}`}>
+          <Link to="/" className="btn-nav" onClick={toggleMenu}>
+            Inicio
+          </Link>
+          <Link to="/blog" className="btn-nav" onClick={toggleMenu}>
+            Blog
+          </Link>
+          <Link to="/quienes-somos" className="btn-nav" onClick={toggleMenu}>
+            Quienes Somos
+          </Link>
+          <Link to="/login" className="btn-nav" onClick={toggleMenu}>
+            Iniciar Sesión
+          </Link>
+          <Link to="/registro" className="btn-nav" onClick={toggleMenu}>
+            Registrarse
+          </Link>
         </div>
       </header>
 
       {/* Resto de tu contenido permanece igual */}
       <h1 className="contacto-title">¡CONTACTENOS!</h1>
-      <p><strong>Dirección:</strong> Diagonal 28d # t33g40 B/ El Paraiso<br />Cali, Valle del Cauca, Colombia</p>
-      <p><strong>Correo:</strong> mundodelatecnologia05@gmail.com</p>
-      <p><strong>Teléfono:</strong> 3052932750</p>
+      <p>
+        <strong>Dirección:</strong> Diagonal 28d # t33g40 B/ El Paraiso
+        <br />
+        Cali, Valle del Cauca, Colombia
+      </p>
+      <p>
+        <strong>Correo:</strong> mundodelatecnologia05@gmail.com
+      </p>
+      <p>
+        <strong>Teléfono:</strong> 3052932750
+      </p>
 
-      <p><strong>Visita Nuestras Redes Sociales <br></br>⬇️⬇️⬇️</strong></p>
+      <p>
+        <strong>
+          Visita Nuestras Redes Sociales <br></br>⬇️⬇️⬇️
+        </strong>
+      </p>
       <div className="social-container">
-        <a href="https://www.facebook.com/profile.php?id=100078258196205&sk=about" target="_blank" rel="noopener noreferrer">
-          <FaFacebook className='social-icon' />
+        <a
+          href="https://www.facebook.com/profile.php?id=100078258196205&sk=about"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaFacebook className="social-icon" />
         </a>
-        <a href="https://www.instagram.com/elmundo_de_la_tecnologia_/?igshid=OGQ5ZDc2ODk2ZA%3D%3D" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://www.instagram.com/elmundo_de_la_tecnologia_/?igshid=OGQ5ZDc2ODk2ZA%3D%3D"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <FaInstagram className="social-icon" />
         </a>
-        <a href="https://wa.me/573052939750" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://wa.me/573052939750"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <FaWhatsapp className="social-icon" />
         </a>
-        <a href="https://www.tiktok.com/@elmundodelatecnologia52?_t=ZS-8wDg2X8EirV&_r=1" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://www.tiktok.com/@elmundodelatecnologia52?_t=ZS-8wDg2X8EirV&_r=1"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <FaTiktok className="social-icon" />
         </a>
       </div>
@@ -82,7 +129,12 @@ const Contacto = () => {
           loading="lazy"
         ></iframe>
       </div>
-
+      <p className="created">
+        created by: Kevin rivas & Tatiana Montoya & 
+        <a href="https://mi-cv-juan-granja.vercel.app/" target="_blank">
+          Juan Granja
+        </a>
+      </p>
     </div>
   );
 };

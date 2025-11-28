@@ -514,7 +514,7 @@ const FooterSection = ({ logo }) => (
           <img src={logo} alt="Logo" />
           <span>EL MUNDO DE LA TECNOLOGÍA</span>
         </div>
-        <p>created by: Kevin rivas & <a href="https://mi-cv-juan-granja.vercel.app/" target="_blank">Juan Granja</a></p>
+        <p>created by: Kevin rivas & Tatiana Montoya & <a href="https://mi-cv-juan-granja.vercel.app/" target="_blank">Juan Granja</a></p>
       </div>
       <div className="footer-links">
         <Link to="/contactenos">Contacto</Link>

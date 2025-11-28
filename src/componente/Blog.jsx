@@ -158,6 +158,7 @@ function Blog() {
             </div>
           </div>
         ))}
+        <a href="" target="" className="created-blo">Created by: Leidy Montoya & Kevin Rivas & Juan Granja</a>
       </div>
     </div>
   );
