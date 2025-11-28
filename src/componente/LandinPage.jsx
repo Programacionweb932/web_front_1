@@ -442,7 +442,7 @@ const DownloadsSection = () => {
       id: 6,
       name: "Adobe Reader",
       image: "https://www.uab.edu/elearning/images/pictures/academic-technologies/logos/adobe.png",
-      downloadUrl: "https://ardownload2.adobe.com/pub/adobe/reader/win/AcrobatDC/2400129999/AcroRdrDC2400129999_es_ES.exe",
+      downloadUrl: "https://get.adobe.com/es/reader/",
       description: "Lector de documentos PDF de Adobe"
     },
     {
