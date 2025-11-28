@@ -460,37 +460,18 @@ const DownloadsSection = () => {
     const link = document.createElement('a');
     link.href = url;
     link.download = name.replace(/\s+/g, '_') + '.exe';
-    link.style.position = 'fixed';
-    link.style.left = '-9999px';
-    link.style.top = '-9999px';
+    link.style.display = 'none';
     document.body.appendChild(link);
     
-    // Intentar descargar
+    // Iniciar la descarga
     link.click();
     
-    // Limpiar después de un breve delay
+    // Limpiar el elemento después de un breve delay
     setTimeout(() => {
       if (link.parentNode) {
         document.body.removeChild(link);
       }
     }, 100);
-    
-    // Si el navegador no soporta download attribute, usar iframe como respaldo
-    // Esto funciona para URLs que redirigen
-    setTimeout(() => {
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.style.width = '0';
-      iframe.style.height = '0';
-      iframe.src = url;
-      document.body.appendChild(iframe);
-      
-      setTimeout(() => {
-        if (iframe.parentNode) {
-          document.body.removeChild(iframe);
-        }
-      }, 3000);
-    }, 500);
   };
 
   return (
