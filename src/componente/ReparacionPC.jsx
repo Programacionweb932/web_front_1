@@ -5,7 +5,7 @@ import '../styles/ReparacionPC.css'
 function ReparacionPC({ }) {
   const navigate = useNavigate();
   return (
-    <div className='Reparar-pc'>
+    <div className='reparacion-pc-container'>
       <h1>Reparacion de portatiles y PC </h1>
       <p>Realizamos una variedad de tareas y procedimientos, incluida la verificación de anomalías,<br /> 
         la limpieza y el reemplazo de piezas y materiales, que ayudan a evitar el mal funcionamiento de los equipos 
@@ -17,7 +17,7 @@ function ReparacionPC({ }) {
           alt="Reparacion PC"
         />
 
-        <div className="button-container-reparacion">
+        <div className="button-container">
         <button onClick={() => navigate('/home')} className="volver-servicio-btn">
           Volver a Servicios
         </button>

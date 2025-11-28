@@ -158,7 +158,6 @@ body, html {
     transition: all 0.3s ease;
     
     /* Posición fija que no se mueve */
-    position: fixed;
     bottom: clamp(1rem, 4vw, 2rem);
     right: clamp(1rem, 4vw, 2rem);
     z-index: 1000; /* Mayor z-index para estar siempre arriba */

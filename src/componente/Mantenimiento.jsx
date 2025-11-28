@@ -9,7 +9,7 @@ function Mantenimiento() {
     <div className="mantenimiento-container"> 
       <h1>Mantenimiento Preventivo y Correctivo</h1>
       <p>El mantenimiento preventivo se realiza a equipos en funcionamiento con el fin de prevenir posibles daños
-        causados por uso o desgaste,< br/> a diferencia del mantenimiento correctivo que repara aquellos que dejan de 
+        causados por uso o desgaste,<br/> a diferencia del mantenimiento correctivo que repara aquellos que dejan de 
         funcionar o están dañados.
       </p>
 
