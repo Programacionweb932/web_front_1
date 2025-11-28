@@ -250,7 +250,6 @@ const LandingPage = () => {
       <HeroSection />
 
       <ServicesSection services={services} />
-
       <TestimonialsSection testimonials={testimonials} />
 
       <FinalCTASection />
@@ -398,12 +397,139 @@ const FinalCTASection = () => (
   </section>
 );
 
+const DownloadsSection = () => {
+  const downloads = [
+    {
+      id: 1,
+      name: "Google Chrome",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Google_Chrome_icon_%28February_2022%29.svg/512px-Google_Chrome_icon_%28February_2022%29.svg.png",
+      downloadUrl: "https://dl.google.com/chrome/install/ChromeStandaloneSetup64.exe",
+      description: "Navegador web rápido y seguro"
+    },
+    {
+      id: 2,
+      name: "Mozilla Firefox",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/512px-Firefox_logo%2C_2019.svg.png",
+      downloadUrl: "https://download.mozilla.org/?product=firefox-latest&os=win64&lang=es-ES",
+      description: "Navegador de código abierto"
+    },
+    {
+      id: 3,
+      name: "Microsoft Edge",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Microsoft_Edge_logo_%282019%29.svg/512px-Microsoft_Edge_logo_%282019%29.svg.png",
+      downloadUrl: "https://go.microsoft.com/fwlink/?linkid=2108834&Channel=Stable&language=es",
+      description: "Navegador moderno de Microsoft"
+    },
+    {
+      id: 4,
+      name: "Anydesk",
+      image: "https://softwareforyou.lt/wp-content/uploads/2024/02/AnyDesk-new.png",
+      downloadUrl: "https://anydesk.com/es/downloads/thank-you?dv=win_exe",
+      description: "Software de escritorio remoto para ordenadores con Windows"
+    },
+    {
+      id: 5,
+      name: "Zoom",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Zoom_Communications_Logo.svg/512px-Zoom_Communications_Logo.svg.png",
+      downloadUrl: "https://zoom.us/client/latest/ZoomInstaller.exe",
+      description: "Plataforma de videoconferencias y reuniones virtuales"
+    },
+    {
+      id: 6,
+      name: "Adobe Reader",
+      image: "https://www.uab.edu/elearning/images/pictures/academic-technologies/logos/adobe.png",
+      downloadUrl: "https://ardownload2.adobe.com/pub/adobe/reader/win/AcrobatDC/2400129999/AcroRdrDC2400129999_es_ES.exe",
+      description: "Lector de documentos PDF de Adobe"
+    },
+    {
+      id: 7,
+      name: "WinRAR",
+      image: "https://keyoriginal.com/wp-content/uploads/2023/12/winrar-min.png",
+      downloadUrl: "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-624.exe",
+      description: "Compresor y descompresor de archivos"
+    }
+  ];
+
+  const handleDownload = (url, name) => {
+    // Crear un elemento <a> temporal para iniciar la descarga
+    // Usar download attribute para forzar descarga en lugar de navegación
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = name.replace(/\s+/g, '_') + '.exe';
+    link.style.position = 'fixed';
+    link.style.left = '-9999px';
+    link.style.top = '-9999px';
+    document.body.appendChild(link);
+    
+    // Intentar descargar
+    link.click();
+    
+    // Limpiar después de un breve delay
+    setTimeout(() => {
+      if (link.parentNode) {
+        document.body.removeChild(link);
+      }
+    }, 100);
+    
+    // Si el navegador no soporta download attribute, usar iframe como respaldo
+    // Esto funciona para URLs que redirigen
+    setTimeout(() => {
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      iframe.src = url;
+      document.body.appendChild(iframe);
+      
+      setTimeout(() => {
+        if (iframe.parentNode) {
+          document.body.removeChild(iframe);
+        }
+      }, 3000);
+    }, 500);
+  };
+
+  return (
+    <section className="downloads">
+      <h2>Descargas</h2>
+      <p className="downloads-subtitle">Descarga las mejores aplicaciones para tu computadora</p>
+      <div className="downloads-grid">
+        {downloads.map((app) => (
+          <div key={app.id} className="download-card">
+            <div className="download-image-container">
+              <img 
+                src={app.image} 
+                alt={app.name}
+                className="download-image"
+                onError={(e) => {
+                  e.target.src = "https://via.placeholder.com/150?text=" + app.name;
+                }}
+              />
+            </div>
+            <h3>{app.name}</h3>
+            <p className="download-description">{app.description}</p>
+            <button 
+              className="download-btn"
+              onClick={() => handleDownload(app.downloadUrl, app.name)}
+            >
+              <FaDownload /> Descargar
+            </button>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
 const FooterSection = ({ logo }) => (
   <footer>
     <div className="footer-content">
       <div className="footer-logo">
-        <img src={logo} alt="Logo" />
-        <span>EL MUNDO DE LA TECNOLOGÍA</span>
+        <div className="footer-logo-top">
+          <img src={logo} alt="Logo" />
+          <span>EL MUNDO DE LA TECNOLOGÍA</span>
+        </div>
+        <p>created by: Kevin rivas & <a href="https://mi-cv-juan-granja.vercel.app/" target="_blank">Juan Granja</a></p>
       </div>
       <div className="footer-links">
         <Link to="/contactenos">Contacto</Link>
