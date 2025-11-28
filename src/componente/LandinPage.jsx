@@ -5,15 +5,16 @@ import { loadFull } from "tsparticles";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {
-  FaShieldAlt,
-  FaLaptop,
-  FaHeadset,
-  FaFileWord,
-  FaTools,
+import { 
+  FaShieldAlt, 
+  FaLaptop, 
+  FaHeadset, 
+  FaFileWord, 
+  FaTools, 
   FaArrowRight,
   FaChevronLeft,
-  FaChevronRight
+  FaChevronRight,
+  FaDownload
 } from "react-icons/fa";
 import logo from '../assets/mundo.ico';
 import "../styles/LandinPage.css";
@@ -48,7 +49,7 @@ const NavigationMenu = ({ isMobile, isOpen, onItemClick }) => {
     { path: "/contactenos", label: "Contacto" },
     { path: "/blog", label: "Blog" },
     { path: "/login", label: "Iniciar Sesión" },
-    { path: "/registro", label: "Registrarse" }
+    { path: "/registro", label: "Registrarse"}
   ];
 
   return (
@@ -228,14 +229,14 @@ const LandingPage = () => {
 
       <header className={`${scrolled ? 'scrolled' : ''}`}>
         <div className="logo-container">
-          <img src={logo} className="icono" alt="icono" />
+          <img src={logo} className="icono" alt="icono"/>
           <h1>EL MUNDO DE LA TECNOLOGÍA</h1>
         </div>
-
+        
         <NavigationMenu isMobile={false} />
-
-        <button
-          className={`menu-toggle ${menuOpen ? 'open' : ''}`}
+        
+        <button 
+          className={`menu-toggle ${menuOpen ? 'open' : ''}`} 
           onClick={toggleMenu}
           aria-label="Menú"
         >
@@ -243,17 +244,20 @@ const LandingPage = () => {
           <span></span>
           <span></span>
         </button>
-
+        
         <NavigationMenu isMobile={true} isOpen={menuOpen} onItemClick={closeMenu} />
       </header>
 
       <HeroSection />
-
+      
       <ServicesSection services={services} />
+      
+      <DownloadsSection />
+      
       <TestimonialsSection testimonials={testimonials} />
-
+      
       <FinalCTASection />
-
+      
       <FooterSection logo={logo} />
     </div>
   );
@@ -275,22 +279,22 @@ const NextArrow = ({ onClick }) => (
 const ImageGallery = () => {
   const galleryImages = [
     {
-      src: "/galeria/mantenimiento.jpg",
+      src: "/public/galeria/mantenimiento.jpg",
       alt: "Servicio de mantenimiento",
       title: "Mantenimiento de Equipos"
     },
     {
-      src: "/galeria/tecnolo.jpg",
+      src: "/public/galeria/tecnolo.jpg",
       alt: "Instalación de sistemas",
       title: "Instalación de Software"
     },
     {
-      src: "/galeria/soporte.jpg",
+      src: "/public/galeria/soporte.jpg",
       alt: "Soporte técnico",
       title: "Soporte Técnico Profesional"
     },
     {
-      src: "/galeria/reparacion.jpg",
+      src: "/public/galeria/reparacion.jpg",
       alt: "Reparación de equipos",
       title: "Reparación de Computadoras"
     }
@@ -363,7 +367,7 @@ const ServicesSection = ({ services }) => (
     <h2>Nuestros Servicios</h2>
     <div className="services-grid">
       {services.map((service, index) => (
-        <ServiceCard
+        <ServiceCard 
           key={index}
           icon={service.icon}
           title={service.title}
@@ -379,7 +383,7 @@ const TestimonialsSection = ({ testimonials }) => (
     <h2>Lo que dicen nuestros clientes</h2>
     <div className="testimonials-grid">
       {testimonials.map((testimonial, index) => (
-        <TestimonialCard
+        <TestimonialCard 
           key={index}
           name={testimonial.name}
           role={testimonial.role}
