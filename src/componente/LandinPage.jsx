@@ -277,28 +277,28 @@ const NextArrow = ({ onClick }) => (
 );
 
 const ImageGallery = () => {
-  const galleryImages = [
-    {
-      src: "/public/galeria/mantenimiento.jpg",
-      alt: "Servicio de mantenimiento",
-      title: "Mantenimiento de Equipos"
-    },
-    {
-      src: "/public/galeria/tecnolo.jpg",
-      alt: "Instalación de sistemas",
-      title: "Instalación de Software"
-    },
-    {
-      src: "/public/galeria/soporte.jpg",
-      alt: "Soporte técnico",
-      title: "Soporte Técnico Profesional"
-    },
-    {
-      src: "/public/galeria/reparacion.jpg",
-      alt: "Reparación de equipos",
-      title: "Reparación de Computadoras"
-    }
-  ];
+const galleryImages = [
+  {
+    src: "/galeria/mantenimiento.jpg",
+    alt: "Servicio de mantenimiento",
+    title: "Mantenimiento de Equipos"
+  },
+  {
+    src: "/galeria/tecnolo.jpg",
+    alt: "Instalación de sistemas",
+    title: "Instalación de Software"
+  },
+  {
+    src: "/galeria/soporte.jpg",
+    alt: "Soporte técnico",
+    title: "Soporte Técnico Profesional"
+  },
+  {
+    src: "/galeria/reparacion.jpg",
+    alt: "Reparación de equipos",
+    title: "Reparación de Computadoras"
+  }
+];
 
   const settings = {
     dots: true,
