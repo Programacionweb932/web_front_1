@@ -48,6 +48,14 @@ function Blog() {
       `,
       media: [{ type: 'video', src: '/videos/consejo.mp4' }]
     },
+       {
+      title: 'Cambio de Disco Duro SSD',
+      description: 'Servicio especializado de instalación y configuración de discos de estado sólido Kingston. Incluye formateo, optimización del sistema y verificación de rendimiento para garantizar mayor velocidad y eficiencia en su equipo.',
+      media: [
+        { type: 'image', src: '/image/discoduro.jpg', alt: 'Instalación de Disco Duro' },
+        { type: 'video', src: '/videos/disco.mp4' }
+      ]
+    },
     {
       title: 'Asistencia Técnica y Remota',
       description: 'Brindamos soporte técnico tanto presencial como remoto. Soluciona problemas técnicos sin moverte de casa con nuestra asistencia remota.',

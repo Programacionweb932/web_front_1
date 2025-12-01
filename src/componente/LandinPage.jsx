@@ -297,6 +297,11 @@ const galleryImages = [
     src: "/galeria/reparacion.jpg",
     alt: "Reparación de equipos",
     title: "Reparación de Computadoras"
+  },
+   {
+    src: "/galeria/kevin.jpg",
+    alt: "Feria empresarial",
+    title: "Participación Feria Empreserarial"
   }
 ];
 
