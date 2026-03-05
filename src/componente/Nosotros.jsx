@@ -1,89 +1,167 @@
-import { useNavigate, Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
 import "../styles/Nosotros.css";
 import logo from '../assets/mundo.ico';
+import { FaBars, FaTimes, FaRocket, FaEye, FaBullseye } from 'react-icons/fa';
+
+/* Hook animación entrada */
+const useInView = () => {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true); }, { threshold: 0.12 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, inView];
+};
+
+const navItems = [
+  { path: '/', label: 'Inicio' },
+  { path: '/contactenos', label: 'Contacto' },
+  { path: '/blog', label: 'Blog' },
+  { path: '/login', label: 'Iniciar Sesión' },
+];
+
+const sections = [
+  {
+    icon: <FaRocket />,
+    iconColor: '#63CAB7',
+    tag: 'Equipo',
+    title: 'Quiénes Somos',
+    text: 'Somos un equipo de profesionales en el campo de las tecnologías de la información, liderados por Juan Pablo Granja, Kevin Alexis Rivas y Tatiana Montoya. Nuestro principal objetivo es ofrecer un excelente servicio a nuestros clientes. Siempre estamos constantemente aprendiendo y buscando nuevas soluciones para enfrentar los desafíos del mercado de sistemas. Estamos comprometidos a mantenernos actualizados y evolucionar constantemente para estar al día con los cambios y demandas del mercado tecnológico.',
+    image: '/image nosotros/quienes somos.jpeg',
+    alt: 'Quiénes Somos',
+    reverse: false,
+  },
+  {
+    icon: <FaEye />,
+    iconColor: '#4A90D9',
+    tag: 'Futuro',
+    title: 'Visión',
+    text: 'Ser la empresa líder en soluciones tecnológicas innovadoras, reconocida por la excelencia de nuestros servicios y el compromiso con la experiencia del cliente. Para 2030, aspiramos a transformar la forma en que personas y organizaciones se relacionan con la tecnología, ofreciendo soluciones inteligentes, seguras y sostenibles, adaptadas a un entorno global en constante evolución. Impulsamos el cambio mediante la integración de tecnologías emergentes, fomentando una transformación digital que genere valor, confianza e impacto positivo en la sociedad.',
+    image: '/image nosotros/vision.jpg',
+    alt: 'Visión',
+    reverse: true,
+  },
+  {
+    icon: <FaBullseye />,
+    iconColor: '#7B68EE',
+    tag: 'Propósito',
+    title: 'Misión',
+    text: 'Brindar servicios tecnológicos de alta calidad, enfocados en la innovación, la actualización constante y la satisfacción del cliente. Nuestro equipo de profesionales trabaja con pasión y compromiso para ofrecer soluciones personalizadas en el área de tecnologías de la información, ayudando a nuestros clientes a optimizar sus procesos y afrontar los desafíos del mundo digital con éxito.',
+    image: '/image nosotros/mision.jpeg',
+    alt: 'Misión',
+    reverse: false,
+  },
+];
+
+const Section = ({ icon, iconColor, tag, title, text, image, alt, reverse }) => {
+  const [ref, inView] = useInView();
+  return (
+    <div
+      ref={ref}
+      className={`n-section ${reverse ? 'n-section--reverse' : ''} ${inView ? 'n-section--visible' : ''}`}
+    >
+      {/* Imagen */}
+      <div className="n-img-wrap">
+        <div className="n-img-glow" style={{ background: `radial-gradient(circle, ${iconColor}25 0%, transparent 70%)` }} />
+        <img src={image} alt={alt} className="n-img" />
+        <div className="n-img-border" style={{ borderColor: `${iconColor}30` }} />
+      </div>
+
+      {/* Texto */}
+      <div className="n-text">
+        <div className="n-tag" style={{ background: `${iconColor}15`, border: `1px solid ${iconColor}40`, color: iconColor }}>
+          <span className="n-tag-icon">{icon}</span>
+          {tag}
+        </div>
+        <h2 className="n-title">{title}</h2>
+        <div className="n-divider" style={{ background: `linear-gradient(90deg, ${iconColor}, transparent)` }} />
+        <p className="n-desc">{text}</p>
+      </div>
+    </div>
+  );
+};
 
 const Nosotros = () => {
-  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="Nosotros-container">
-      {/* HEADER CON MENÚ HAMBURGUESA */}
-      <header>
-        <img src={logo} className="icono" alt="icono"/>
-        <h1>EL MUNDO DE LA TECNOLOGÍA</h1>
-        
-        {/* Botón hamburguesa para móviles */}
-        <button 
-          className={`menu-toggle ${menuOpen ? 'open' : ''}`} 
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Menú"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
+    <div className="nosotros-page">
+
+      {/* HEADER */}
+      <header className="n-header">
+        <Link to="/" className="n-logo">
+          <div className="n-logo-icon">
+            <img src={logo} alt="logo" />
+          </div>
+          <div className="n-logo-text">
+            EL MUNDO DE<br /><span>LA TECNOLOGÍA</span>
+          </div>
+        </Link>
+
+        <nav className="n-desktop-nav">
+          {navItems.map(item => (
+            <Link key={item.path} to={item.path} className="n-nav-link">{item.label}</Link>
+          ))}
+          <Link to="/registro" className="n-nav-btn">Registrarse</Link>
+        </nav>
+
+        <button className="n-hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menú">
+          {menuOpen ? <FaTimes /> : <FaBars />}
         </button>
-        
-        {/* Menú normal para desktop */}
-        <div className="desktop-menu">
-          <Link to="/" className="btn-nav">Inicio</Link>
-          <Link to="/contactenos" className="btn-nav">Contactenos</Link>
-          <Link to="/blog" className="btn-nav">Ver Blog</Link>
-          <Link to="/login" className="btn-nav">Iniciar Sesión</Link>
-          <Link to="/registro" className="btn-nav">Registrarse</Link>
-        </div>
-        
-        {/* Menú móvil desplegable */}
-        <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
-          <Link to="/" className="btn-nav" onClick={() => setMenuOpen(false)}>Inicio</Link>
-          <Link to="/contactenos" className="btn-nav" onClick={() => setMenuOpen(false)}>Contactenos</Link>
-          <Link to="/blog" className="btn-nav" onClick={() => setMenuOpen(false)}>Ver Blog</Link>
-          <Link to="/login" className="btn-nav" onClick={() => setMenuOpen(false)}>Iniciar Sesión</Link>
-          <Link to="/registro" className="btn-nav" onClick={() => setMenuOpen(false)}>Registrarse</Link>
+
+        <div className={`n-mobile-nav ${menuOpen ? 'open' : ''}`}>
+          {[...navItems, { path: '/registro', label: 'Registrarse' }].map(item => (
+            <Link key={item.path} to={item.path} className="n-nav-link" onClick={() => setMenuOpen(false)}>
+              {item.label}
+            </Link>
+          ))}
         </div>
       </header>
 
-      {/* SECCIÓN QUIÉNES SOMOS */}
-      <div className="section-container">
-        <div className="text-content">
-          <h1 className="nosotros-h1">Quiénes Somos</h1>
-          <p className="nosotros-p">
-            Somos un equipo de profesionales en el campo de las tecnologías de la información, 
-            liderados por Juan Pablo Granja, Kevin Alexis Rivas y Tatiana Montoya, cuyo principal objetivo es ofrecer un excelente servicio a nuestros clientes. 
-            Siempre estamos constantemente aprendiendo y buscando nuevas soluciones para enfrentar los desafíos del mercado de sistemas. 
-            Nuestra empresa está impulsada por la pasión de crecer y ofrecer el mejor servicio posible, buscando siempre la satisfacción total de nuestros clientes. 
-            Estamos comprometidos a mantenernos actualizados y evolucionar constantemente para estar al día con los cambios y demandas del mercado tecnológico.
-          </p>
+      {/* HERO */}
+      <section className="n-hero">
+        <div className="n-hero-blob" />
+        <div className="n-hero-badge">
+          <span className="n-hero-dot" />
+          <span>Conoce nuestro equipo</span>
         </div>
-        <img className="section-image" src="/image nosotros/quienes somos.jpeg" alt="Quiénes Somos" />
-      </div>
+        <h1>Somos <span>El Mundo de</span><br />la Tecnología</h1>
+        <p>Profesionales apasionados por ofrecer soluciones tecnológicas de calidad en Cali, Colombia.</p>
 
-      {/* SECCIÓN VISIÓN */}
-      <div className="section-container reverse">
-        <img className="section-image" src="/image nosotros/vision.jpg" alt="Visión" />
-        <div className="text-content">
-          <h1 className="nosotros-h1">Visión</h1>
-          <p className="nosotros-p">
-            Ser la empresa líder en soluciones tecnológicas innovadoras, reconocida por la excelencia de nuestros servicios y el compromiso con la experiencia del cliente.
-            Para 2030, aspiramos a transformar la forma en que personas y organizaciones se relacionan con la tecnología, ofreciendo soluciones inteligentes, seguras y sostenibles,
-            adaptadas a un entorno global en constante evolución. Impulsamos el cambio mediante la integración de tecnologías emergentes, fomentando una transformación digital que genere valor, confianza e impacto positivo en la sociedad.
-          </p>
+        {/* Stats */}
+        <div className="n-stats">
+          {[['500+', 'Clientes'], ['3', 'Expertos', ], ['5★', 'Calificación'], ['2+', 'Años']].map(([n, l]) => (
+            <div key={l} className="n-stat">
+              <span className="n-stat-num">{n}</span>
+              <span className="n-stat-label">{l}</span>
+            </div>
+          ))}
         </div>
-      </div>
+      </section>
 
-      {/* SECCIÓN MISIÓN */}
-      <div className="section-container">
-        <div className="text-content">
-          <h1 className="nosotros-h1">Misión</h1>
-          <p className="nosotros-p">
-            Brindar servicios tecnológicos de alta calidad, enfocados en la innovación, la actualización constante y la satisfacción del cliente.
-            Nuestro equipo de profesionales trabaja con pasión y compromiso para ofrecer soluciones personalizadas en el área de tecnologías de la información, 
-            ayudando a nuestros clientes a optimizar sus procesos y afrontar los desafíos del mundo digital con éxito.
+      {/* SECCIONES */}
+      <main className="n-main">
+        {sections.map((s, i) => <Section key={i} {...s} />)}
+      </main>
+
+      {/* FOOTER */}
+      <footer className="n-footer">
+        <div className="n-footer-inner">
+          <p className="n-footer-credits">
+            created by: Kevin Rivas · Tatiana Montoya ·{' '}
+            <a href="https://mi-cv-juan-granja.vercel.app/" target="_blank" rel="noreferrer">Juan Granja</a>
           </p>
+          <div className="n-footer-links">
+            <Link to="/contactenos">Contacto</Link>
+            <Link to="/terminos">Términos</Link>
+            <Link to="/">Inicio</Link>
+          </div>
         </div>
-        <img className="section-image" src="/image nosotros/mision.jpeg" alt="Misión" />
-      </div>
+      </footer>
+
     </div>
   );
 };
