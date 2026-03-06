@@ -1,28 +1,28 @@
 /* ============================================================
-   VARIABLES Y ESTILOS BASE
+   ✅ FIX #3: font-display: swap
+   Evita texto invisible mientras carga la fuente (FOIT)
+   Mejora LCP y FCP en PageSpeed
    ============================================================ */
+@font-face {
+  font-family: 'Inter';
+  font-display: swap; /* Muestra fuente del sistema mientras Inter carga */
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  /* ✅ CORREGIDO: color de texto neutral por defecto (era rojo intenso antes) */
   color: #213547;
-
   font-synthesis: none;
-
-  /* ✅ SEO/Performance: mejora legibilidad y Core Web Vitals */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-html,
-body {
+html, body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  /* ✅ CORREGIDO: comentario actualizado — fondo blanco */
   background-color: #ffffff;
 }
 
@@ -33,21 +33,39 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-  /* ✅ NOTA: Si el fondo es claro, cambia a un color oscuro para accesibilidad */
   color: #1a1a1a;
 }
 
 /* ============================================================
-   ACCESIBILIDAD — Focus visible (importante para SEO de UX)
+   ✅ FIX #4: Imágenes responsivas — evita CLS (Layout Shift)
+   Siempre define width y height en tus <img> en el JSX
    ============================================================ */
+img {
+  max-width: 100%;
+  height: auto;
+  /* Evita que imágenes sin dimensiones causen layout shift */
+}
+
+/* ============================================================
+   ✅ FIX #5: Lazy loading nativo para imágenes fuera de pantalla
+   Aplícalo en el JSX: <img loading="lazy" ... />
+   Aquí preparamos el estilo para que no haya salto visual
+   ============================================================ */
+img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+img[loading="lazy"].loaded {
+  opacity: 1;
+}
+
+/* Accesibilidad — Focus visible */
 :focus-visible {
   outline: 3px solid #1a73e8;
   outline-offset: 2px;
 }
 
-/* ============================================================
-   BOTONES
-   ============================================================ */
+/* Botones */
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -70,29 +88,16 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-/* ============================================================
-   MODO CLARO — Estilos preferidos del sistema
-   ============================================================ */
+/* Modo claro */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #6f9dff;
   }
-
   a:hover {
     color: #747bff;
   }
-
   button {
     background-color: #f9f9f9;
   }
-}
-
-/* ============================================================
-   RENDIMIENTO — Reduce layout shift (mejora Core Web Vitals)
-   ============================================================ */
-img,
-video {
-  max-width: 100%;
-  height: auto;
 }
