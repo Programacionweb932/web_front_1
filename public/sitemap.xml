@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/0.5/sitemaps"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!--
+    ⚠️ IMPORTANTE:
+    - Cambia "elmundodelatecnologia.com" por tu dominio real en todas las URLs
+    - Actualiza <lastmod> cada vez que hagas cambios importantes
+    - Agrega nuevas <url> por cada página/ruta que agregues al sitio
+  -->
+
+  <!-- Página principal — Mayor prioridad -->
+  <url>
+    <loc>https://www.elmundodelatecnologia.com/</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Servicios — Segunda prioridad más alta (añade tus rutas reales) -->
+  <url>
+    <loc>https://www.elmundodelatecnologia.com/servicios</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.elmundodelatecnologia.com/servicios/mantenimiento-computadores</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.elmundodelatecnologia.com/servicios/soporte-tecnico-domicilio</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.elmundodelatecnologia.com/servicios/redes-y-cableado</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.elmundodelatecnologia.com/servicios/recuperacion-de-datos</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Sobre nosotros -->
+  <url>
+    <loc>https://www.elmundodelatecnologia.com/nosotros</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Contacto — Importante para SEO local -->
+  <url>
+    <loc>https://www.elmundodelatecnologia.com/contacto</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

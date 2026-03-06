@@ -1,0 +1,32 @@
+# ============================================================
+# robots.txt — El Mundo de la Tecnología
+# Instrucciones para rastreadores de motores de búsqueda
+# ============================================================
+
+# Permitir acceso a todos los bots (Google, Bing, etc.)
+User-agent: *
+Allow: /
+
+# Bloquear rutas internas que no deben indexarse
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /*.json$
+Disallow: /api/
+Disallow: /admin/
+
+# Referencia al sitemap para acelerar la indexación
+# ⚠️ CAMBIA por tu dominio real
+Sitemap: https://www.elmundodelatecnologia.com/sitemap.xml
+
+# ============================================================
+# Bots específicos (opcional)
+# ============================================================
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /

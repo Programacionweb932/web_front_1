@@ -1,0 +1,87 @@
+# ============================================================
+# .htaccess — El Mundo de la Tecnología
+# Solo aplica si tu servidor web es Apache
+# (No usar en Vercel, Netlify, Nginx, etc.)
+# ============================================================
+
+Options -Indexes
+RewriteEngine On
+
+# ============================================================
+# 1. FORZAR HTTPS — Evita contenido duplicado HTTP/HTTPS
+# ============================================================
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ============================================================
+# 2. FORZAR WWW — Elige UNA versión canónica del dominio
+#    ⚠️ ELIGE: forzar www O forzar sin www, nunca ambos
+#    Descomenta el bloque que prefieras
+# ============================================================
+
+# OPCIÓN A: Forzar CON www (recomendado)
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [L,R=301]
+
+# OPCIÓN B: Forzar SIN www (comenta la opción A y descomenta esta)
+# RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+# RewriteRule ^(.*)$ https://%1/$1 [L,R=301]
+
+# ============================================================
+# 3. REACT ROUTER — Redirige todas las rutas al index.html
+#    Necesario para que funcione React Router en producción
+# ============================================================
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
+
+# ============================================================
+# 4. CACHÉ DEL NAVEGADOR — Mejora Core Web Vitals (LCP/FCP)
+# ============================================================
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # HTML — No cachear para que Google vea cambios inmediato
+  ExpiresByType text/html                  "access plus 0 seconds"
+
+  # CSS y JavaScript
+  ExpiresByType text/css                   "access plus 1 year"
+  ExpiresByType application/javascript     "access plus 1 year"
+  ExpiresByType text/javascript            "access plus 1 year"
+
+  # Imágenes
+  ExpiresByType image/jpeg                 "access plus 1 year"
+  ExpiresByType image/png                  "access plus 1 year"
+  ExpiresByType image/webp                 "access plus 1 year"
+  ExpiresByType image/svg+xml              "access plus 1 year"
+  ExpiresByType image/x-icon              "access plus 1 year"
+
+  # Fuentes
+  ExpiresByType font/woff2                 "access plus 1 year"
+  ExpiresByType font/woff                  "access plus 1 year"
+</IfModule>
+
+# ============================================================
+# 5. COMPRESIÓN GZIP — Reduce el tamaño de archivos enviados
+#    Mejora velocidad de carga (Core Web Vitals)
+# ============================================================
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE font/woff2
+</IfModule>
+
+# ============================================================
+# 6. HEADERS DE SEGURIDAD — Google los considera para ranking
+# ============================================================
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>

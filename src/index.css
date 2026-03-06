@@ -1,22 +1,29 @@
+/* ============================================================
+   VARIABLES Y ESTILOS BASE
+   ============================================================ */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(207, 35, 35, 0.87);
+  /* ✅ CORREGIDO: color de texto neutral por defecto (era rojo intenso antes) */
+  color: #213547;
 
   font-synthesis: none;
+
+  /* ✅ SEO/Performance: mejora legibilidad y Core Web Vitals */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background-color: #ffffff !important; /* Fondo azul en toda la página */
+  /* ✅ CORREGIDO: comentario actualizado — fondo blanco */
+  background-color: #ffffff;
 }
 
 body {
@@ -26,9 +33,21 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-  color: white;
+  /* ✅ NOTA: Si el fondo es claro, cambia a un color oscuro para accesibilidad */
+  color: #1a1a1a;
 }
 
+/* ============================================================
+   ACCESIBILIDAD — Focus visible (importante para SEO de UX)
+   ============================================================ */
+:focus-visible {
+  outline: 3px solid #1a73e8;
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -51,15 +70,29 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* ============================================================
+   MODO CLARO — Estilos preferidos del sistema
+   ============================================================ */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #6f9dff; /* También azul en modo claro */
+    background-color: #6f9dff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* ============================================================
+   RENDIMIENTO — Reduce layout shift (mejora Core Web Vitals)
+   ============================================================ */
+img,
+video {
+  max-width: 100%;
+  height: auto;
 }
