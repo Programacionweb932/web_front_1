@@ -51,13 +51,14 @@ img {
    Aplícalo en el JSX: <img loading="lazy" ... />
    Aquí preparamos el estilo para que no haya salto visual
    ============================================================ */
+/* esconde mis imagenes del blog
 img[loading="lazy"] {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 img[loading="lazy"].loaded {
   opacity: 1;
-}
+} */
 
 /* Accesibilidad — Focus visible */
 :focus-visible {

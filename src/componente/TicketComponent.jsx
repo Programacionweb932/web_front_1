@@ -1,150 +1,193 @@
-import React, { useState, useEffect } from 'react'; 
-import { useNavigate } from 'react-router-dom'; // Asegúrate de usar useNavigate
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/TicketComponent.css';
+import logo from '../assets/mundo.ico';
+import {
+  FaArrowLeft, FaTicketAlt, FaUser, FaEnvelope,
+  FaTags, FaAlignLeft, FaPaperPlane, FaCheckCircle,
+  FaShieldAlt, FaClock, FaBell
+} from 'react-icons/fa';
 
-const TicketComponent = ({ setView }) => {  
-  const [token, setToken] = useState('');
-  const [ticket, setTicket] = useState(null);
-  const [error, setError] = useState(null);
-  const [ticketsHistory, setTicketsHistory] = useState([]);
-  const [description, setDescription] = useState(''); 
-  const [subject, setSubject] = useState('');
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [formErrors, setFormErrors] = useState({});  // Para gestionar los errores de validación
-  const navigate = useNavigate(); // Usamos navigate para redirigir
+const temas = [
+  'Consulta sobre el uso',
+  'Problema técnico',
+  'Otro',
+];
 
-  // Función para validar los campos del formulario
-  const validateForm = () => {
-    let errors = {};
-    if (!name) errors.name = 'El nombre es obligatorio';
-    if (!email) errors.email = 'El correo electrónico es obligatorio';
-    if (!subject) errors.subject = 'El tema es obligatorio';
-    if (!description) errors.description = 'La descripción es obligatoria';
-    setFormErrors(errors);
-    return Object.keys(errors).length === 0;  // Retorna true si no hay errores
+const TicketComponent = ({ setView }) => {
+  const navigate = useNavigate();
+  const [form, setForm] = useState({ name: '', email: '', subject: '', description: '' });
+  const [formErrors, setFormErrors] = useState({});
+  const [ticket, setTicket]   = useState(null);
+  const [error, setError]     = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const set = (field) => (e) => {
+    setForm(f => ({ ...f, [field]: e.target.value }));
+    setFormErrors(fe => ({ ...fe, [field]: '' }));
   };
 
-  const handleGenerateTicket = async () => {
-    if (!validateForm()) return;  // Si hay errores, no envíes el ticket
+  const validate = () => {
+    const errs = {};
+    if (!form.name)        errs.name        = 'El nombre es obligatorio';
+    if (!form.email)       errs.email       = 'El correo es obligatorio';
+    if (!form.subject)     errs.subject     = 'El tema es obligatorio';
+    if (!form.description) errs.description = 'La descripción es obligatoria';
+    setFormErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+    setLoading(true); setError(null);
     try {
-      const response = await fetch('https://web-back-1.vercel.app/api/ticket', {
+      const res  = await fetch('https://web-back-1.vercel.app/api/ticket', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ description, subject, email, name }),
+        body: JSON.stringify(form),
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Error al generar el ticket');
-      }
-
-      const data = await response.json();
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Error al generar el ticket');
       setTicket(data.ticket);
-      setError(null);
-    } catch (error) {
-      setError(error.message);
-      setTicket(null);
+      setForm({ name: '', email: '', subject: '', description: '' });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
-
-  const fetchTicketsHistory = async () => {
-    try {
-      const response = await fetch('https://web-back-1.vercel.app/api/tickets', {
-        method: 'GET',
-        headers: { 'Authorization': `Bearer ${token}` },
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Error al obtener el historial');
-      }
-
-      const data = await response.json();
-      setTicketsHistory(data.tickets);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  useEffect(() => {
-    if (token) {
-      fetchTicketsHistory();
-    }
-  }, [token]);
 
   return (
-    <div className="ticket-container">
-      <h2>Crear un ticket de soporte</h2>
+    <div className="tc-page">
 
-      <div className="form-group">
-        <label>Nombre</label>
-        <input 
-          type="text" 
-          placeholder="Nombre"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className={formErrors.name ? 'error-input' : ''}  // Aplica clase error si hay error
-        />
-        {formErrors.name && <p className="error-text">{formErrors.name}</p>}  {/* Muestra mensaje de error */}
-      </div>
+      <img src={logo} alt="" className="tc-watermark" aria-hidden="true" />
+      <div className="tc-blob tc-blob--1" />
+      <div className="tc-blob tc-blob--2" />
 
-      <div className="form-group">
-        <label>E-Mail</label>
-        <input 
-          type="email" 
-          placeholder="Correo electrónico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={formErrors.email ? 'error-input' : ''}  // Aplica clase error si hay error
-        />
-        {formErrors.email && <p className="error-text">{formErrors.email}</p>}  {/* Muestra mensaje de error */}
-      </div>
-
-      <div className="form-group">
-        <label>Tema</label>
-        <select
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)}
-          className={formErrors.subject ? 'error-input' : ''}  // Aplica clase error si hay error
-        >
-          <option value="">Selecciona un tema</option>
-          <option value="Consulta sobre el uso">Consulta sobre el uso</option>
-          <option value="Problema técnico">Problema técnico</option>
-          <option value="Otro">Otro</option>
-        </select>
-        {formErrors.subject && <p className="error-text">{formErrors.subject}</p>}  {/* Muestra mensaje de error */}
-      </div>
-
-      <div className="form-group">
-        <label>Descripcion</label>
-        <textarea
-          type="text" 
-          placeholder="Descripcion"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className={formErrors.description ? 'error-input' : ''}  // Aplica clase error si hay error
-        />
-        {formErrors.description && <p className="error-text">{formErrors.description}</p>}  {/* Muestra mensaje de error */}
-      </div>
-
-      <button onClick={handleGenerateTicket} className="ticket-button">
-        Enviar Ticket
-      </button>
-
-      {ticket && (
-        <div className="ticket-generated">
-          <h3>Ticket Generado Exitosamente</h3>
+      {/* Header */}
+      <header className="tc-header">
+        <button className="tc-back" onClick={() => navigate('/home-ticket')}>
+          <FaArrowLeft /> Gestión de Tickets
+        </button>
+        <div className="tc-header-badge">
+          <FaTicketAlt />
+          <span>Nuevo Ticket</span>
         </div>
-      )}
+      </header>
 
+      {/* Contenido */}
+      <div className="tc-content">
 
-      {error && <p className="error-message">Error: {error}</p>}
+        {/* Panel izquierdo */}
+        <div className="tc-info-panel">
+          <span className="tc-eyebrow">✦ Soporte técnico en Cali ✦</span>
+          <h1 className="tc-title">
+            Crear Ticket de{' '}
+            <span className="tc-glow">Soporte</span>
+          </h1>
+          <p className="tc-desc">
+            Completa el formulario y nuestro equipo técnico atenderá
+            tu solicitud lo antes posible.
+          </p>
 
-      <button className="ggo-home-ticket-btn" onClick={() => navigate('/home-ticket')}>
-        Volver
-      </button>
+          <ul className="tc-tips">
+            {[
+              { icon: <FaShieldAlt />, text: 'Tu solicitud es confidencial' },
+              { icon: <FaClock />,     text: 'Respuesta en menos de 24 horas' },
+              { icon: <FaBell />,      text: 'Notificación por correo al resolverse' },
+              { icon: <FaCheckCircle />, text: 'Seguimiento en tiempo real' },
+            ].map((t, i) => (
+              <li key={i} className="tc-tip-item">
+                <span className="tc-tip-icon">{t.icon}</span>
+                <span>{t.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Formulario — card blanca */}
+        <div className="tc-form-card">
+
+          {/* Éxito */}
+          {ticket && (
+            <div className="tc-success-banner">
+              <FaCheckCircle className="tc-success-icon" />
+              <div>
+                <p className="tc-success-title">¡Ticket generado exitosamente!</p>
+                <p className="tc-success-sub">Recibirás una respuesta en tu correo pronto.</p>
+              </div>
+            </div>
+          )}
+
+          <h2 className="tc-card-title">Datos del ticket</h2>
+
+          <form onSubmit={handleSubmit} noValidate>
+            <div className="tc-fields-grid">
+
+              {/* Nombre */}
+              <div className={`tc-field ${formErrors.name ? 'tc-field--error' : ''}`}>
+                <label htmlFor="tc-name">
+                  <FaUser className="tc-field-icon" /> Nombre
+                </label>
+                <input id="tc-name" type="text" value={form.name}
+                  onChange={set('name')} placeholder="Tu nombre completo" />
+                {formErrors.name && <span className="tc-error-text">{formErrors.name}</span>}
+              </div>
+
+              {/* Email */}
+              <div className={`tc-field ${formErrors.email ? 'tc-field--error' : ''}`}>
+                <label htmlFor="tc-email">
+                  <FaEnvelope className="tc-field-icon" /> Correo electrónico
+                </label>
+                <input id="tc-email" type="email" value={form.email}
+                  onChange={set('email')} placeholder="correo@ejemplo.com" />
+                {formErrors.email && <span className="tc-error-text">{formErrors.email}</span>}
+              </div>
+
+              {/* Tema — ancho completo */}
+              <div className={`tc-field tc-field--full ${formErrors.subject ? 'tc-field--error' : ''}`}>
+                <label htmlFor="tc-subject">
+                  <FaTags className="tc-field-icon" /> Tema
+                </label>
+                <select id="tc-subject" value={form.subject} onChange={set('subject')}>
+                  <option value="">Selecciona un tema</option>
+                  {temas.map(t => <option key={t} value={t}>{t}</option>)}
+                </select>
+                {formErrors.subject && <span className="tc-error-text">{formErrors.subject}</span>}
+              </div>
+
+              {/* Descripción — ancho completo */}
+              <div className={`tc-field tc-field--full ${formErrors.description ? 'tc-field--error' : ''}`}>
+                <label htmlFor="tc-desc">
+                  <FaAlignLeft className="tc-field-icon" /> Descripción
+                </label>
+                <textarea id="tc-desc" value={form.description}
+                  onChange={set('description')} rows={5}
+                  placeholder="Describe detalladamente tu problema o consulta..." />
+                {formErrors.description && <span className="tc-error-text">{formErrors.description}</span>}
+              </div>
+
+            </div>
+
+            {error && <p className="tc-error-msg">⚠ {error}</p>}
+
+            <div className="tc-btns">
+              <button type="submit" className="tc-btn tc-btn--submit" disabled={loading}>
+                {loading ? <span className="tc-spinner" /> : <><FaPaperPlane /> Enviar Ticket</>}
+              </button>
+              <button type="button" className="tc-btn tc-btn--outline"
+                onClick={() => navigate('/home-ticket')}>
+                <FaArrowLeft /> Volver
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+
+      <div className="tc-deco-icon" aria-hidden="true"><FaTicketAlt /></div>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Blog.css';
 import logo from '../assets/mundo.ico';
-import { FaBars, FaTimes, FaDownload, FaPlay } from 'react-icons/fa';
+import { FaBars, FaTimes, FaDownload } from 'react-icons/fa';
 
 const blogPosts = [
   {
@@ -22,7 +22,7 @@ const blogPosts = [
     description: 'Explora los diferentes sistemas operativos y aprende cómo elegir el adecuado para tus necesidades. Descubre sus ventajas, características y usos.',
     media: [
       { type: 'image', src: '/image/sistemao-video.png', alt: 'Sistema operativo' },
-      { type: 'video', src: '/videos/sistema operativo.mp4' }
+      { type: 'video', src: '/videos/sistema-operativo.mp4' }
     ]
   },
   {
@@ -89,6 +89,20 @@ const navItems = [
 function Blog() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const handleImgError = (e) => {
+    e.target.style.display = 'none';
+    const wrap = e.target.closest('.b-media-img-wrap');
+    if (wrap) {
+      wrap.style.display = 'flex';
+      wrap.style.alignItems = 'center';
+      wrap.style.justifyContent = 'center';
+      wrap.style.height = '220px';
+      wrap.style.color = 'rgba(255,255,255,0.3)';
+      wrap.style.fontSize = '0.85rem';
+      wrap.innerHTML = '⚠️ Imagen no encontrada';
+    }
+  };
+
   return (
     <div className="blog-page">
 
@@ -139,8 +153,16 @@ function Blog() {
         <div className="b-posts-grid">
           {blogPosts.map((post, index) => (
             <article key={index} className="b-post-card">
+
               {/* Tag */}
-              <div className="b-post-tag" style={{ background: `${post.tagColor}18`, border: `1px solid ${post.tagColor}40`, color: post.tagColor }}>
+              <div
+                className="b-post-tag"
+                style={{
+                  background: `${post.tagColor}18`,
+                  border: `1px solid ${post.tagColor}40`,
+                  color: post.tagColor
+                }}
+              >
                 {post.tag}
               </div>
 
@@ -160,7 +182,13 @@ function Blog() {
                     {item.type === 'image' ? (
                       <>
                         <div className="b-media-img-wrap">
-                          <img src={item.src} alt={item.alt} loading="lazy" className="b-media-img" />
+                          <img
+                            src={item.src}
+                            alt={item.alt}
+                            loading="lazy"
+                            className="b-media-img"
+                            onError={handleImgError}
+                          />
                         </div>
                         <a href={item.src} download className="b-dl-btn">
                           <FaDownload /> Descargar imagen
@@ -169,7 +197,11 @@ function Blog() {
                     ) : (
                       <>
                         <div className="b-media-video-wrap">
-                          <video controls className="b-media-video" aria-label={`Video sobre ${post.title}`}>
+                          <video
+                            controls
+                            className="b-media-video"
+                            aria-label={`Video sobre ${post.title}`}
+                          >
                             <source src={item.src} type="video/mp4" />
                             Tu navegador no soporta el video.
                           </video>
@@ -182,6 +214,7 @@ function Blog() {
                   </div>
                 ))}
               </div>
+
             </article>
           ))}
         </div>

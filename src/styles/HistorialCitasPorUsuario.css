@@ -1,251 +1,397 @@
-/* HistorialCitas.css */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
 
-/* Asegura que no haya márgenes/paddings globales */
-body, html, #root {
-  margin: 0;
-  padding: 0;
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { background: #080B14 !important; overflow-x: hidden; }
+
+body {
+  background: #080B14 !important;
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  margin: 0 !important; padding: 0 !important;
+  min-height: 100vh; overflow-x: hidden;
+}
+
+#root { background: #080B14 !important; min-height: 100vh; }
+
+/* ── PÁGINA ── */
+.hcp-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.historial-citas-container {
-  max-width: 900px;
-  width: 90%;
-  margin-top: 2rem;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-  text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(7px);
-  transition: all 0.3s ease;
-  animation: fadeIn 0.5s ease-out;
-}
-
-.historial-citas-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(31, 38, 135, 0.2);
-}
-
-.historial-citas-container h2 {
-  color: #2c3e50;
-  font-size: 2rem;
-  margin: 0 0 2rem 0;
-  font-weight: 600;
+  padding-bottom: 5rem;
   position: relative;
-  padding-bottom: 1rem;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 55% 45% at 90%  5%, rgba(99,102,241,0.17) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 45% at  5% 90%, rgba(74,144,217,0.12) 0%, transparent 65%),
+    #080B14;
 }
 
-.historial-citas-container h2::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 3px;
-  background: linear-gradient(90deg, #3182ce, #2b6cb0);
-  border-radius: 2px;
+/* ── MARCA DE AGUA ── */
+.hcp-watermark {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: min(65vw, 480px); height: min(65vw, 480px);
+  object-fit: contain; opacity: 0.05;
+  filter: grayscale(1); pointer-events: none; z-index: 0;
+  animation: wmPulse 7s ease-in-out infinite alternate;
 }
 
-.formulario-citas {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  align-items: center;
-  animation: slideUp 0.5s ease-out;
+@keyframes wmPulse {
+  from { opacity: 0.03; transform: translate(-50%,-50%) scale(0.97); }
+  to   { opacity: 0.07; transform: translate(-50%,-50%) scale(1.03); }
 }
 
-.formulario-citas input[type="email"] {
+/* ── BLOBS ── */
+.hcp-blob { position: fixed; border-radius: 50%; pointer-events: none; filter: blur(80px); z-index: 0; }
+.hcp-blob--1 { width: 500px; height: 500px; top: -15%; right: -10%; background: rgba(99,102,241,0.15); animation: blobFloat 11s ease-in-out infinite alternate; }
+.hcp-blob--2 { width: 420px; height: 420px; bottom: -10%; left: -8%;  background: rgba(74,144,217,0.10); animation: blobFloat 8s  ease-in-out infinite alternate-reverse; }
+
+@keyframes blobFloat {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(25px,-18px) scale(1.07); }
+}
+
+/* ── HEADER ── */
+.hcp-header {
+  position: relative; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 2.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  background: rgba(8,11,20,0.7);
+  backdrop-filter: blur(12px);
+}
+
+.hcp-back {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 100px;
+  color: rgba(255,255,255,0.6);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.88rem; font-weight: 600;
+  padding: 0.5rem 1.1rem; cursor: pointer;
+  transition: all 0.25s;
+}
+
+.hcp-back:hover {
+  border-color: #818cf8; color: #818cf8;
+  background: rgba(99,102,241,0.08);
+}
+
+.hcp-header-badge {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.4rem 1rem; border-radius: 100px;
+  background: rgba(99,102,241,0.12);
+  border: 1px solid rgba(99,102,241,0.35);
+  color: #818cf8;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+
+/* ── LAYOUT ── */
+.hcp-content {
+  position: relative; z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 3rem;
+  max-width: 1200px; margin: 0 auto;
+  padding: 3rem 2.5rem 2rem;
+  align-items: start;
+}
+
+/* ── PANEL IZQUIERDO ── */
+.hcp-info-panel {
+  display: flex; flex-direction: column; gap: 1.5rem;
+  animation: slideUp 0.7s cubic-bezier(.22,1,.36,1) both;
+  position: sticky; top: 2rem;
+}
+
+.hcp-eyebrow {
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: #818cf8;
+}
+
+.hcp-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.9rem, 4vw, 3.2rem);
+  font-weight: 800; line-height: 1.1;
+  letter-spacing: -0.025em; color: #fff;
+  background: transparent !important; border: none !important;
+}
+
+/* ── GLOW ANIMADO ── */
+.hcp-glow {
+  display: inline-block;
+  background: linear-gradient(110deg, #a5b4fc 0%, #818cf8 30%, #6366f1 60%, #4f46e5 100%);
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradMove 4s ease infinite alternate, glowAura 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes gradMove {
+  0%   { background-position: 0%   50%; }
+  100% { background-position: 100% 50%; }
+}
+
+@keyframes glowAura {
+  from {
+    filter: drop-shadow(0 0 8px  rgba(99,102,241,0.5))
+            drop-shadow(0 0 20px rgba(129,140,248,0.35));
+  }
+  to {
+    filter: drop-shadow(0 0 22px rgba(99,102,241,0.95))
+            drop-shadow(0 0 50px rgba(129,140,248,0.8))
+            drop-shadow(0 0 80px rgba(79,70,229,0.5));
+  }
+}
+
+.hcp-desc {
+  font-size: clamp(0.93rem, 1.8vw, 1.05rem);
+  color: rgba(255,255,255,0.45); line-height: 1.75;
+}
+
+.hcp-tips { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+
+.hcp-tip-item {
+  display: flex; align-items: center; gap: 0.7rem;
+  font-size: 0.9rem; color: rgba(255,255,255,0.65);
+  padding: 0.65rem 0.9rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  transition: border-color 0.2s;
+}
+
+.hcp-tip-item:hover { border-color: rgba(99,102,241,0.3); }
+.hcp-tip-icon { color: #818cf8; flex-shrink: 0; }
+
+/* ── PANEL DERECHO ── */
+.hcp-right {
+  display: flex; flex-direction: column; gap: 1.5rem;
+  animation: slideUp 0.8s cubic-bezier(.22,1,.36,1) 0.12s both;
+}
+
+/* ── SEARCH CARD — BLANCO ── */
+.hcp-search-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.hcp-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem; font-weight: 800;
+  color: #1e1b4b; margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e0e7ff;
+}
+
+.hcp-form { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.hcp-field { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.hcp-field label {
+  display: flex; align-items: center; gap: 0.45rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem; font-weight: 700;
+  color: #374151; letter-spacing: 0.03em; text-transform: uppercase;
+}
+
+.hcp-field-icon { color: #6366f1; font-size: 0.78rem; }
+
+.hcp-field input {
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem; color: #111827;
+  transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
   width: 100%;
-  max-width: 400px;
-  padding: 1rem 1.5rem;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  background-color: white;
-  color: #2d3748;
 }
 
-.formulario-citas input[type="email"]:focus {
-  border-color: #3182ce;
-  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+.hcp-field input::placeholder { color: #9ca3af; }
+
+.hcp-field input:focus {
   outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+  background: #fff;
 }
 
-.formulario-citas input[type="email"]:hover {
-  border-color: #3182ce;
+.hcp-field input:hover { border-color: #a5b4fc; }
+
+/* ── MENSAJES ── */
+.hcp-error {
+  padding: 0.9rem 1rem; border-radius: 12px; margin-top: 1rem;
+  background: #fef2f2; border: 1px solid #fecaca;
+  color: #dc2626; font-size: 0.9rem; font-weight: 500;
+  animation: fadeIn 0.3s ease;
 }
 
-.formulario-citas button {
-  padding: 1rem 2rem;
-  background: linear-gradient(45deg, #3182ce, #2b6cb0);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  min-width: 200px;
+/* ── BOTONES ── */
+.hcp-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  padding: 0.85rem 1.6rem; border-radius: 100px; border: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem; font-weight: 700;
+  cursor: pointer; transition: all 0.3s;
+  letter-spacing: 0.02em; min-height: 48px;
 }
 
-.formulario-citas button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(49, 130, 206, 0.3);
+.hcp-btn--search {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(99,102,241,0.35);
+  width: 100%;
 }
 
-.error-message {
-  color: #e53e3e;
-  background-color: rgba(229, 62, 62, 0.1);
-  padding: 1rem;
-  border-radius: 12px;
-  margin: 1rem 0;
-  font-weight: 500;
-  animation: shake 0.5s ease-in-out;
-  border: 1px solid rgba(229, 62, 62, 0.2);
-}
-
-.citas-list {
-  text-align: left;
-  animation: fadeIn 0.5s ease-out;
-}
-
-.citas-list h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  color: #2d3748;
-  font-weight: 600;
-}
-
-.cita-card {
-  background: white;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-  animation: slideIn 0.3s ease-out;
-}
-
-.cita-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-}
-
-.cita-card p {
-  margin: 0.5rem 0;
-  font-size: 1rem;
-  color: #4a5568;
-  line-height: 1.6;
-}
-
-.cancel-button {
-  margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
-  background: linear-gradient(45deg, #e53e3e, #c53030);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 0.9rem;
-}
-
-.cancel-button:hover {
+.hcp-btn--search:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+  box-shadow: 0 12px 35px rgba(99,102,241,0.55);
 }
 
-.go-home-button {
-  margin-top: 2rem;
-  padding: 1rem 2rem;
-  background: linear-gradient(45deg, #4a5568, #2d3748);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  min-width: 200px;
+.hcp-btn--search:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── LISTA LABEL ── */
+.hcp-list-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  padding-left: 0.25rem;
 }
 
-.go-home-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(74, 85, 104, 0.3);
+/* ── CITA CARD — BLANCO ── */
+.hcp-card {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  opacity: 0;
+  animation: fadeInCard 0.45s ease forwards;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-/* Animaciones */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.hcp-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 55px rgba(0,0,0,0.28);
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+@keyframes fadeInCard {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Head de la card */
+.hcp-card-head {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: #f5f3ff;
+  border-bottom: 1px solid #ede9fe;
+}
+
+.hcp-card-date {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.88rem; font-weight: 600;
+  color: #3730a3;
+}
+
+/* Badge de estado */
+.hcp-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.3rem 0.85rem; border-radius: 100px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+
+.hcp-badge--pending   { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+.hcp-badge--cancelled { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.hcp-badge--done      { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+
+/* Body de la card */
+.hcp-card-body {
+  padding: 1.25rem;
+  display: flex; flex-direction: column; gap: 0.6rem;
+}
+
+.hcp-card-row {
+  display: flex; align-items: flex-start; gap: 0.6rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.92rem; color: #374151; line-height: 1.5;
+}
+
+.hcp-ci { color: #6366f1; flex-shrink: 0; margin-top: 2px; font-size: 0.85rem; }
+.hcp-ci--muted { color: #9ca3af; }
+
+/* Botón cancelar */
+.hcp-cancel-btn {
+  display: flex; align-items: center; gap: 0.45rem;
+  margin: 0 1.25rem 1.25rem;
+  padding: 0.65rem 1.4rem; border: none; border-radius: 100px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem; font-weight: 700;
+  cursor: pointer; transition: all 0.25s;
+  box-shadow: 0 4px 14px rgba(239,68,68,0.3);
+}
+
+.hcp-cancel-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(239,68,68,0.45);
+}
+
+/* ── SPINNER ── */
+.hcp-spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── DECO ICON ── */
+.hcp-deco-icon {
+  position: fixed; bottom: -3rem; right: -3rem;
+  font-size: 18rem; color: rgba(99,102,241,0.04);
+  pointer-events: none; z-index: 0; line-height: 1;
+}
+
+/* ── ANIMACIONES ── */
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-  20%, 40%, 60%, 80% { transform: translateX(5px); }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .historial-citas-container {
-    width: 95%;
-    margin: 1rem;
-    padding: 1.5rem;
-  }
-
-  .historial-citas-container h2 {
-    font-size: 1.75rem;
-  }
-
-  .formulario-citas input[type="email"] {
-    max-width: 100%;
-  }
-
-  .cita-card {
-    padding: 1rem;
-  }
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hcp-content { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 1.5rem; }
+  .hcp-info-panel { position: static; }
 }
+
+@media (max-width: 560px) {
+  .hcp-header { padding: 1rem 1.25rem; }
+  .hcp-content { padding: 1.5rem 1rem; }
+  .hcp-search-card { padding: 1.5rem 1.25rem; }
+  .hcp-card-head { flex-direction: column; align-items: flex-start; }
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #080B14; }
+::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.35); border-radius: 4px; }
