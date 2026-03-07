@@ -1,143 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
 
-  h2 {
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 30px;
-   
-  }
-  
-  .appointment-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 30px;
-    color: black;
-  }
-  
-  .appointment-table th,
-  .appointment-table td {
-    padding: 12px 16px;
-    border: 1px solid #ddd;
-    text-align: center;
-  }
-  
-  .appointment-table th {
-    background-color: #0e43f1 !important;
-    color: white !important;
-    font-weight: bold;
-  }
-  
-  .appointment-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .appointment-table tr:hover {
-    background-color: #eef6ff;
-  }
-  
-  p {
-    text-align: center;
-    font-size: 16px;
-    color: #555;
-  }
-  
-  .logout-button {
-    display: inline-block;
-    margin: 10px 10px 0;
-    padding: 10px 20px;
-    background-color: #0e43f1;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .logout-button:hover {
-    background-color: #1999e4;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .appointment-table th,
-    .appointment-table td {
-      padding: 8px;
-      font-size: 14px;
-    }
-  
-    .logout-button {
-      width: 100%;
-      margin: 10px 0;
-    }
-  }
-  
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: #080B14 !important; overflow-x: hidden; }
+body { background: #080B14 !important; color: #fff; font-family: 'Outfit', sans-serif; margin: 0 !important; padding: 0 !important; min-height: 100vh; overflow-x: hidden; }
+#root { background: #080B14 !important; min-height: 100vh; }
 
-h2 {
-  text-align: center;
-  color: #2c3e50;
-  margin-bottom: 30px;
-  
+/* ── PÁGINA ── */
+.hca-page {
+  min-height: 100vh; padding-bottom: 5rem;
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(ellipse 55% 45% at 90%  5%, rgba(16,185,129,0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 45% at  5% 90%, rgba(245,158,11,0.10) 0%, transparent 65%),
+    #080B14;
 }
 
-.appointment-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 30px;
-  color: black;
+/* ── WATERMARK ── */
+.hca-watermark {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: min(65vw,480px); height: min(65vw,480px);
+  object-fit: contain; opacity: 0.05;
+  filter: grayscale(1); pointer-events: none; z-index: 0;
+  animation: wmPulse 7s ease-in-out infinite alternate;
+}
+@keyframes wmPulse {
+  from { opacity: 0.03; transform: translate(-50%,-50%) scale(0.97); }
+  to   { opacity: 0.07; transform: translate(-50%,-50%) scale(1.03); }
 }
 
-.appointment-table th,
-.appointment-table td {
-  padding: 12px 16px;
-  border: 1px solid #ddd;
-  text-align: center;
+/* ── BLOBS ── */
+.hca-blob { position: fixed; border-radius: 50%; pointer-events: none; filter: blur(80px); z-index: 0; }
+.hca-blob--1 { width: 520px; height: 520px; top: -15%; right: -10%; background: rgba(16,185,129,0.13); animation: blobFloat 11s ease-in-out infinite alternate; }
+.hca-blob--2 { width: 440px; height: 440px; bottom: -10%; left: -8%;  background: rgba(245,158,11,0.09); animation: blobFloat 8s  ease-in-out infinite alternate-reverse; }
+@keyframes blobFloat {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(25px,-18px) scale(1.07); }
 }
 
-.appointment-table th {
-  background-color: #f5f5f5;
-  color: #34495e;
-  font-weight: bold;
+/* ── HEADER ── */
+.hca-header {
+  position: relative; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 2.5rem; gap: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  background: rgba(8,11,20,0.75); backdrop-filter: blur(14px);
 }
 
-.appointment-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+.hca-brand {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 700;
+  color: #34d399; letter-spacing: 0.03em;
 }
+.hca-brand-icon { font-size: 1.1rem; }
 
-.appointment-table tr:hover {
-  background-color: #eef6ff;
+.hca-header-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+.hca-btn-header {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.48rem 1.1rem; border-radius: 100px;
+  font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 600;
+  cursor: pointer; transition: all 0.25s; border: 1px solid transparent;
 }
-
-p {
-  text-align: center;
-  font-size: 16px;
-  color: #555;
+.hca-btn-back {
+  background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.6);
 }
+.hca-btn-back:hover { border-color: #34d399; color: #34d399; background: rgba(16,185,129,0.08); }
 
-.logout-button {
+.hca-btn-logout {
+  background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.3); color: #f87171;
+}
+.hca-btn-logout:hover { background: rgba(239,68,68,0.18); border-color: #f87171; transform: translateY(-1px); }
+
+/* ── HERO ── */
+.hca-hero {
+  position: relative; z-index: 10; text-align: center;
+  padding: 2.75rem 2rem 1rem; max-width: 720px; margin: 0 auto;
+}
+.hca-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem); font-weight: 800;
+  line-height: 1.1; letter-spacing: -0.02em; color: #fff;
+  margin-bottom: 0.75rem;
+  background: transparent !important; border: none !important;
+  animation: slideUp 0.7s cubic-bezier(.22,1,.36,1) both;
+}
+.hca-glow {
   display: inline-block;
-  margin: 10px 10px 0;
-  padding: 10px 20px;
-  background-color: #0e43f1;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  background: linear-gradient(110deg, #6ee7b7 0%, #34d399 30%, #10b981 60%, #059669 100%);
+  background-size: 250% 250%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: gradMove 4s ease infinite alternate, glowGreen 2.8s ease-in-out infinite alternate;
+}
+@keyframes gradMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+@keyframes glowGreen {
+  from { filter: drop-shadow(0 0 8px rgba(16,185,129,0.5)) drop-shadow(0 0 20px rgba(52,211,153,0.35)); }
+  to   { filter: drop-shadow(0 0 22px rgba(16,185,129,0.95)) drop-shadow(0 0 50px rgba(52,211,153,0.8)) drop-shadow(0 0 80px rgba(5,150,105,0.5)); }
+}
+.hca-sub {
+  font-size: 1rem; color: rgba(255,255,255,0.4); line-height: 1.6;
+  animation: fadeIn 0.9s ease 0.3s both;
 }
 
-.logout-button:hover {
-  background-color: #1999e4;
+/* ── STATS ── */
+.hca-stats {
+  position: relative; z-index: 10;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;
+  padding: 0 2rem; margin: 1.5rem auto 0; max-width: 900px;
+}
+.hca-stat {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  padding: 0.45rem 1.1rem; border-radius: 100px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.83rem; color: rgba(255,255,255,0.55);
+}
+.hca-stat svg          { color: #34d399; }
+.hca-stat strong       { color: #fff; font-weight: 700; }
+.hca-stat--done svg    { color: #34d399; }
+.hca-stat--pending svg { color: #fbbf24; }
+
+/* ── MENSAJES ── */
+.hca-msg {
+  position: relative; z-index: 10;
+  max-width: 900px; margin: 1.25rem auto 0; padding: 0.85rem 1.25rem;
+  border-radius: 12px; font-size: 0.9rem; font-weight: 500;
+  font-family: 'Outfit', sans-serif; text-align: center;
+}
+.hca-msg--info  { background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.2); color: #6ee7b7; }
+.hca-msg--error { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; }
+
+/* ── TABLA WRAPPER ── */
+.hca-table-wrap {
+  position: relative; z-index: 10;
+  max-width: 1500px; margin: 2rem auto 0; padding: 0 2rem;
+  overflow-x: auto; animation: slideUp 0.7s cubic-bezier(.22,1,.36,1) 0.1s both;
 }
 
-@media screen and (max-width: 768px) {
-  .appointment-table th,
-  .appointment-table td {
-    padding: 8px;
-    font-size: 14px;
-  }
-
-  .logout-button {
-    width: 100%;
-    margin: 10px 0;
-  }
+/* ── TABLA BLANCA ── */
+.hca-table {
+  width: 100%; border-collapse: collapse;
+  background: #fff; border-radius: 20px; overflow: hidden;
+  min-width: 950px;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+  font-family: 'Outfit', sans-serif;
 }
+
+.hca-table thead tr { background: linear-gradient(135deg, #10b981, #059669); }
+.hca-table th {
+  padding: 1rem 1.1rem; text-align: left; color: #fff;
+  font-size: 0.76rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+  white-space: nowrap;
+}
+.hca-table th svg { margin-right: 0.3rem; vertical-align: middle; opacity: 0.85; }
+
+.hca-table tbody tr {
+  border-bottom: 1px solid #f3f4f6; transition: background 0.2s;
+  animation: fadeInRow 0.4s ease both;
+}
+@keyframes fadeInRow { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }
+.hca-table tbody tr:last-child { border-bottom: none; }
+.hca-table tbody tr:nth-child(even) { background: #fafafa; }
+.hca-table tbody tr:hover { background: #f0fdf4; }
+
+.hca-table td {
+  padding: 0.9rem 1.1rem; font-size: 0.88rem; color: #374151;
+  vertical-align: top; line-height: 1.45;
+}
+
+.hca-td-name    { font-weight: 700; color: #1f2937; white-space: nowrap; }
+.hca-td-email   { color: #6b7280; font-size: 0.83rem; }
+.hca-td-date    { white-space: nowrap; color: #374151; font-weight: 500; }
+.hca-td-service { font-weight: 600; color: #065f46; }
+.hca-td-addr    { max-width: 160px; color: #6b7280; font-size: 0.84rem; }
+.hca-td-obs     { max-width: 150px; color: #9ca3af; font-style: italic; font-size: 0.84rem; }
+
+/* ── BADGES ── */
+.hca-badge {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.28rem 0.8rem; border-radius: 100px;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
+  text-transform: uppercase; white-space: nowrap;
+}
+.hca-badge--pending   { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+.hca-badge--done      { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+.hca-badge--cancelled { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+
+/* ── CARDS MÓVIL ── */
+.hca-mobile-cards { display: none; flex-direction: column; gap: 1rem; padding: 0 1.25rem; margin-top: 1.5rem; position: relative; z-index: 10; }
+
+.hca-mobile-card {
+  background: #fff; border-radius: 18px; padding: 1.4rem;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.22);
+  display: flex; flex-direction: column; gap: 0.6rem;
+  font-family: 'Outfit', sans-serif;
+  border-left: 4px solid #10b981;
+  opacity: 0; animation: slideUp 0.5s cubic-bezier(.22,1,.36,1) forwards;
+}
+.hca-mobile-head {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.25rem;
+}
+.hca-mobile-card p { font-size: 0.88rem; color: #374151; line-height: 1.5; display: flex; align-items: center; gap: 0.45rem; }
+
+.hca-row-icon { color: #10b981; font-size: 0.78rem; flex-shrink: 0; }
+
+/* ── DECO ICON ── */
+.hca-deco-icon {
+  position: fixed; bottom: -3rem; right: -3rem;
+  font-size: 18rem; color: rgba(16,185,129,0.04);
+  pointer-events: none; z-index: 0; line-height: 1;
+}
+
+/* ── ANIMACIONES ── */
+@keyframes slideUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hca-table-wrap    { display: none; }
+  .hca-mobile-cards  { display: flex; }
+  .hca-header { padding: 1rem 1.25rem; }
+  .hca-hero   { padding: 2rem 1.25rem 1rem; }
+}
+@media (max-width: 480px) {
+  .hca-header-actions { gap: 0.5rem; }
+  .hca-btn-header { font-size: 0.75rem; padding: 0.42rem 0.85rem; }
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #080B14; }
+::-webkit-scrollbar-thumb { background: rgba(16,185,129,0.35); border-radius: 4px; }
