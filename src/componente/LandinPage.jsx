@@ -1,3 +1,4 @@
+import "../styles/LandinPage.css";
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import {
@@ -8,17 +9,22 @@ import {
 } from "react-icons/fa";
 import logo from "../assets/mundo.ico";
 
+/* ─── HOOK IntersectionObserver ─── */
 const useInView = (threshold = 0.15) => {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
   useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true); }, { threshold });
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setInView(true); },
+      { threshold }
+    );
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, [threshold]);
   return [ref, inView];
 };
 
+/* ─── HEADER ─── */
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,45 +33,40 @@ const Header = () => {
     window.addEventListener("scroll", fn);
     return () => window.removeEventListener("scroll", fn);
   }, []);
+
   const navItems = [
     { path: "/quienes-somos", label: "Quiénes Somos" },
-    { path: "/contactenos", label: "Contacto" },
-    { path: "/blog", label: "Blog" },
-    { path: "/login", label: "Iniciar Sesión" },
+    { path: "/contactenos",   label: "Contacto" },
+    { path: "/blog",          label: "Blog" },
+    { path: "/login",         label: "Iniciar Sesión" },
   ];
+
   return (
-    <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000, padding: scrolled ? "0.75rem 2rem" : "1.2rem 2rem", background: scrolled ? "rgba(10,14,27,0.97)" : "transparent", backdropFilter: scrolled ? "blur(20px)" : "none", borderBottom: scrolled ? "1px solid rgba(99,202,183,0.15)" : "none", transition: "all 0.4s cubic-bezier(0.4,0,0.2,1)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-        <div style={{ width: 40, height: 40, borderRadius: "10px", background: "linear-gradient(135deg, #63CAB7, #4A90D9)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 20px rgba(99,202,183,0.4)" }}>
-          <img src={logo} alt="logo" style={{ width: 26, height: 26, objectFit: "contain" }} />
+    <header className={`lp-header${scrolled ? " scrolled" : ""}`}>
+      <div className="lp-header__brand">
+        <div className="lp-header__logo">
+          <img src={logo} alt="logo" />
         </div>
-        <span style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "1.15rem", fontWeight: 700, letterSpacing: "0.05em", color: "#fff", lineHeight: 1.2 }}>
-          EL MUNDO DE<br /><span style={{ color: "#63CAB7" }}>LA TECNOLOGÍA</span>
+        <span className="lp-header__name">
+          EL MUNDO DE<br /><span>LA TECNOLOGÍA</span>
         </span>
       </div>
-      <nav style={{ display: "flex", gap: "0.25rem", alignItems: "center" }} className="desktop-nav">
+
+      <nav className="lp-header__nav">
         {navItems.map((item) => (
-          <Link key={item.path} to={item.path} style={{ padding: "0.5rem 1rem", borderRadius: "8px", color: "rgba(255,255,255,0.8)", fontSize: "0.9rem", fontFamily: "'DM Sans', sans-serif", fontWeight: 500, transition: "all 0.2s", textDecoration: "none" }}
-            onMouseEnter={e => { e.target.style.color = "#63CAB7"; e.target.style.background = "rgba(99,202,183,0.08)"; }}
-            onMouseLeave={e => { e.target.style.color = "rgba(255,255,255,0.8)"; e.target.style.background = "transparent"; }}>
-            {item.label}
-          </Link>
+          <Link key={item.path} to={item.path} className="lp-nav-link">{item.label}</Link>
         ))}
-        <Link to="/registro" style={{ marginLeft: "0.5rem", padding: "0.6rem 1.4rem", borderRadius: "8px", background: "linear-gradient(135deg, #63CAB7, #4A90D9)", color: "#fff", fontSize: "0.9rem", fontWeight: 600, textDecoration: "none", fontFamily: "'DM Sans', sans-serif", boxShadow: "0 4px 15px rgba(99,202,183,0.3)", transition: "all 0.2s" }}
-          onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-1px)"; e.currentTarget.style.boxShadow = "0 8px 25px rgba(99,202,183,0.45)"; }}
-          onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 4px 15px rgba(99,202,183,0.3)"; }}>
-          Registrarse
-        </Link>
+        <Link to="/registro" className="lp-nav-cta">Registrarse</Link>
       </nav>
-      <button onClick={() => setMenuOpen(!menuOpen)} className="mobile-toggle" style={{ background: "none", border: "none", color: "#fff", fontSize: "1.4rem", cursor: "pointer", display: "none", padding: "0.5rem" }}>
+
+      <button className="lp-mobile-toggle" onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? <FaTimes /> : <FaBars />}
       </button>
+
       {menuOpen && (
-        <div style={{ position: "fixed", top: "70px", left: 0, right: 0, background: "rgba(10,14,27,0.98)", backdropFilter: "blur(20px)", padding: "1.5rem 2rem", display: "flex", flexDirection: "column", gap: "0.5rem", borderBottom: "1px solid rgba(99,202,183,0.2)", zIndex: 999 }}>
+        <div className="lp-mobile-menu">
           {[...navItems, { path: "/registro", label: "Registrarse" }].map((item) => (
-            <Link key={item.path} to={item.path} onClick={() => setMenuOpen(false)} style={{ padding: "0.75rem 1rem", borderRadius: "8px", color: "rgba(255,255,255,0.85)", fontSize: "1rem", fontFamily: "'DM Sans', sans-serif", borderBottom: "1px solid rgba(255,255,255,0.06)", textDecoration: "none" }}>
-              {item.label}
-            </Link>
+            <Link key={item.path} to={item.path} onClick={() => setMenuOpen(false)}>{item.label}</Link>
           ))}
         </div>
       )}
@@ -73,102 +74,108 @@ const Header = () => {
   );
 };
 
+/* ─── IMAGE SLIDER ─── */
 const ImageSlider = () => {
   const [current, setCurrent] = useState(0);
   const galleryImages = [
     { src: "/galeria/mantenimiento.jpg", alt: "Mantenimiento", title: "Mantenimiento de Equipos" },
-    { src: "/galeria/tecnolo.jpg", alt: "Instalación", title: "Instalación de Software" },
-    { src: "/galeria/soporte.jpg", alt: "Soporte", title: "Soporte Técnico Profesional" },
-    { src: "/galeria/reparacion.jpg", alt: "Reparación", title: "Reparación de Computadoras" },
-    { src: "/galeria/kevin.jpg", alt: "Feria", title: "Participación Feria Empresarial" },
+    { src: "/galeria/tecnolo.jpg",       alt: "Instalación",   title: "Instalación de Software" },
+    { src: "/galeria/soporte.jpg",       alt: "Soporte",       title: "Soporte Técnico Profesional" },
+    { src: "/galeria/reparacion.jpg",    alt: "Reparación",    title: "Reparación de Computadoras" },
+    { src: "/galeria/kevin.jpg",         alt: "Feria",         title: "Participación Feria Empresarial" },
   ];
-  useEffect(() => { const t = setInterval(() => setCurrent(c => (c + 1) % galleryImages.length), 4500); return () => clearInterval(t); }, []);
+  useEffect(() => {
+    const t = setInterval(() => setCurrent(c => (c + 1) % galleryImages.length), 4500);
+    return () => clearInterval(t);
+  }, []);
+
   return (
-    <div style={{ position: "relative", borderRadius: "20px", overflow: "hidden", boxShadow: "0 30px 80px rgba(0,0,0,0.5)" }}>
-      {galleryImages.map((img, i) => (
-        <div key={i} style={{ display: i === current ? "block" : "none", position: "relative" }}>
-          <img src={img.src} alt={img.alt} style={{ width: "100%", height: "420px", objectFit: "cover", display: "block" }} />
-          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "linear-gradient(to top, rgba(10,14,27,0.9) 0%, transparent 100%)", padding: "3rem 2rem 1.5rem" }}>
-            <span style={{ display: "inline-block", padding: "0.3rem 0.9rem", borderRadius: "20px", background: "rgba(99,202,183,0.2)", border: "1px solid rgba(99,202,183,0.4)", color: "#63CAB7", fontSize: "0.85rem", fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}>{img.title}</span>
+    <div className="lp-slider">
+      {galleryImages.map((img, i) => i === current && (
+        <div key={i} className="lp-slider__slide">
+          <img src={img.src} alt={img.alt} className="lp-slider__img" />
+          <div className="lp-slider__overlay">
+            <span className="lp-slider__label">{img.title}</span>
           </div>
         </div>
       ))}
-      {[{ dir: -1, icon: <FaChevronLeft /> }, { dir: 1, icon: <FaChevronRight /> }].map((a, i) => (
-        <button key={i} onClick={() => setCurrent(c => (c + a.dir + galleryImages.length) % galleryImages.length)} style={{ position: "absolute", top: "50%", transform: "translateY(-50%)", [a.dir === -1 ? "left" : "right"]: "1rem", width: 44, height: 44, borderRadius: "50%", border: "none", background: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)", color: "#fff", fontSize: "1rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s" }}
-          onMouseEnter={e => { e.currentTarget.style.background = "#63CAB7"; }}
-          onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.15)"; }}>
-          {a.icon}
-        </button>
-      ))}
-      <div style={{ position: "absolute", bottom: "1rem", left: "50%", transform: "translateX(-50%)", display: "flex", gap: "0.4rem" }}>
+      <button className="lp-slider__arrow lp-slider__arrow--prev"
+        onClick={() => setCurrent(c => (c - 1 + galleryImages.length) % galleryImages.length)}>
+        <FaChevronLeft />
+      </button>
+      <button className="lp-slider__arrow lp-slider__arrow--next"
+        onClick={() => setCurrent(c => (c + 1) % galleryImages.length)}>
+        <FaChevronRight />
+      </button>
+      <div className="lp-slider__dots">
         {galleryImages.map((_, i) => (
-          <button key={i} onClick={() => setCurrent(i)} style={{ width: i === current ? 24 : 8, height: 8, borderRadius: "4px", border: "none", background: i === current ? "#63CAB7" : "rgba(255,255,255,0.35)", cursor: "pointer", transition: "all 0.3s", padding: 0 }} />
+          <button key={i} onClick={() => setCurrent(i)}
+            className={`lp-slider__dot${i === current ? " lp-slider__dot--active" : ""}`} />
         ))}
       </div>
     </div>
   );
 };
 
+/* ─── HERO ─── */
 const HeroSection = () => (
-  <section style={{ minHeight: "100vh", background: "#0A0E1B", display: "flex", alignItems: "center", position: "relative", overflow: "hidden", paddingTop: "80px" }}>
-    <div style={{ position: "absolute", top: "-20%", right: "-10%", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(circle, rgba(74,144,217,0.18) 0%, transparent 70%)", pointerEvents: "none" }} />
-    <div style={{ position: "absolute", bottom: "-10%", left: "-5%", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(circle, rgba(99,202,183,0.12) 0%, transparent 70%)", pointerEvents: "none" }} />
-    <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(99,202,183,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(99,202,183,0.04) 1px, transparent 1px)", backgroundSize: "50px 50px", pointerEvents: "none" }} />
-    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "4rem 2rem", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center", width: "100%", boxSizing: "border-box" }} className="hero-grid">
+  <section className="lp-hero">
+    <div className="lp-hero__blob1" />
+    <div className="lp-hero__blob2" />
+    <div className="lp-hero__grid-bg" />
+    <div className="lp-hero__inner">
       <div>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.4rem 1rem", borderRadius: "20px", border: "1px solid rgba(99,202,183,0.35)", background: "rgba(99,202,183,0.08)", marginBottom: "1.5rem" }}>
-          <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#63CAB7", display: "inline-block", animation: "pulse 2s infinite" }} />
-          <span style={{ color: "#63CAB7", fontSize: "0.82rem", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>Tecnología · Soporte · Desarrollo</span>
+        <div className="lp-hero__badge">
+          <span className="lp-hero__badge-dot" />
+          <span className="lp-hero__badge-text">Tecnología · Soporte · Desarrollo</span>
         </div>
-        <h1 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "clamp(2.4rem, 5vw, 3.8rem)", fontWeight: 800, color: "#fff", lineHeight: 1.1, margin: "0 0 1.5rem" }}>
-          Tu aliado en{" "}<span style={{ background: "linear-gradient(135deg, #63CAB7, #4A90D9)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>tecnología</span>{" "}empresarial
+        <h1 className="lp-hero__h1">
+          Tu aliado en{" "}
+          <span>tecnología</span>{" "}
+          empresarial
         </h1>
-        <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "1.05rem", lineHeight: 1.75, fontFamily: "'DM Sans', sans-serif", marginBottom: "2.5rem", maxWidth: "480px" }}>Soporte técnico, mantenimiento y desarrollo de software a medida para impulsar tu empresa.</p>
-        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-          <Link to="/registro" style={{ padding: "0.85rem 2rem", borderRadius: "10px", background: "linear-gradient(135deg, #63CAB7, #4A90D9)", color: "#fff", fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: "0.95rem", textDecoration: "none", boxShadow: "0 8px 30px rgba(99,202,183,0.35)", transition: "all 0.3s", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}
-            onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 40px rgba(99,202,183,0.5)"; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 8px 30px rgba(99,202,183,0.35)"; }}>
-            Comenzar Ahora <FaArrowRight />
-          </Link>
-          <Link to="/login" style={{ padding: "0.85rem 2rem", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.05)", color: "#fff", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: "0.95rem", textDecoration: "none", transition: "all 0.3s" }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = "#63CAB7"; e.currentTarget.style.color = "#63CAB7"; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)"; e.currentTarget.style.color = "#fff"; }}>
-            Ver Servicios
-          </Link>
+        <p className="lp-hero__sub">
+          Soporte técnico, mantenimiento y desarrollo de software a medida para impulsar tu empresa.
+        </p>
+        <div className="lp-hero__btns">
+          <Link to="/registro" className="lp-btn-primary">Comenzar Ahora <FaArrowRight /></Link>
+          <Link to="/login"    className="lp-btn-ghost">Ver Servicios</Link>
         </div>
-        <div style={{ display: "flex", gap: "2.5rem", marginTop: "3rem", flexWrap: "wrap" }}>
+        <div className="lp-hero__stats">
           {[["500+", "Clientes"], ["5★", "Calificación"], ["24h", "Soporte"]].map(([n, l]) => (
             <div key={l}>
-              <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "2rem", fontWeight: 800, color: "#63CAB7" }}>{n}</div>
-              <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "0.08em" }}>{l}</div>
+              <div className="lp-hero__stat-n">{n}</div>
+              <div className="lp-hero__stat-l">{l}</div>
             </div>
           ))}
         </div>
       </div>
-      <div style={{ position: "relative" }}><ImageSlider /></div>
+      <ImageSlider />
     </div>
   </section>
 );
 
+/* ─── SERVICES ─── */
 const techServices = [
-  { icon: <FaShieldAlt />, title: "Mantenimientos Preventivos", description: "Automatizamos la asignación y recordatorios de citas para mantener tus equipos en óptimas condiciones.", color: "#63CAB7" },
-  { icon: <FaLaptop />, title: "Instalación de Sistemas Operativos", description: "Instalamos sistemas operativos de forma rápida y segura, con todos los drivers actualizados.", color: "#4A90D9" },
-  { icon: <FaHeadset />, title: "Asistencia Remota", description: "Soporte técnico inmediato con notificaciones en tiempo real sin necesidad de desplazamientos.", color: "#7B68EE" },
-  { icon: <FaFileWord />, title: "Instalación de Microsoft Office", description: "Configuración profesional con herramientas personalizadas para pacientes y administradores.", color: "#63CAB7" },
-  { icon: <FaTools />, title: "Reparación de Portátiles y PC", description: "Diagnóstico y reparación de hardware y software, incluyendo cambio de piezas y optimización.", color: "#4A90D9" },
+  { icon: <FaShieldAlt />, title: "Mantenimientos Preventivos",        description: "Automatizamos la asignación y recordatorios de citas para mantener tus equipos en óptimas condiciones.", color: "#63CAB7" },
+  { icon: <FaLaptop />,    title: "Instalación de Sistemas Operativos", description: "Instalamos sistemas operativos de forma rápida y segura, con todos los drivers actualizados.",           color: "#4A90D9" },
+  { icon: <FaHeadset />,   title: "Asistencia Remota",                  description: "Soporte técnico inmediato con notificaciones en tiempo real sin necesidad de desplazamientos.",            color: "#7B68EE" },
+  { icon: <FaFileWord />,  title: "Instalación de Microsoft Office",    description: "Configuración profesional con herramientas personalizadas para pacientes y administradores.",              color: "#63CAB7" },
+  { icon: <FaTools />,     title: "Reparación de Portátiles y PC",      description: "Diagnóstico y reparación de hardware y software, incluyendo cambio de piezas y optimización.",             color: "#4A90D9" },
 ];
 
 const ServiceCard = ({ icon, title, description, color, index }) => {
   const [ref, inView] = useInView();
-  const [hovered, setHovered] = useState(false);
   return (
-    <div ref={ref} style={{ background: hovered ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.03)", border: `1px solid ${hovered ? color : "rgba(255,255,255,0.08)"}`, borderRadius: "16px", padding: "2rem", transition: "all 0.4s cubic-bezier(0.4,0,0.2,1)", transform: inView ? "translateY(0)" : "translateY(30px)", opacity: inView ? 1 : 0, transitionDelay: `${index * 0.08}s`, cursor: "default" }}
-      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-      <div style={{ width: 52, height: 52, borderRadius: "12px", background: `${color}18`, border: `1px solid ${color}40`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.4rem", color, marginBottom: "1.25rem", transition: "all 0.3s", boxShadow: hovered ? `0 0 20px ${color}30` : "none" }}>{icon}</div>
-      <h3 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "1.2rem", fontWeight: 700, color: "#fff", margin: "0 0 0.75rem" }}>{title}</h3>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.92rem", color: "rgba(255,255,255,0.5)", lineHeight: 1.7, margin: "0 0 1.25rem" }}>{description}</p>
-      <Link to="/login" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", color, fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", fontWeight: 600, textDecoration: "none", transition: "gap 0.2s" }}
-        onMouseEnter={e => { e.currentTarget.style.gap = "0.7rem"; }} onMouseLeave={e => { e.currentTarget.style.gap = "0.4rem"; }}>
+    <div ref={ref} className={`lp-card${inView ? " in-view" : ""}`}
+      style={{ transitionDelay: `${index * 0.08}s`, borderColor: undefined }}>
+      <div className="lp-card__icon"
+        style={{ background: `${color}18`, border: `1px solid ${color}40`, color }}>
+        {icon}
+      </div>
+      <h3 className="lp-card__h3">{title}</h3>
+      <p className="lp-card__p">{description}</p>
+      <Link to="/login" className="lp-card__link" style={{ color }}>
         Más información <FaArrowRight style={{ fontSize: "0.8rem" }} />
       </Link>
     </div>
@@ -178,14 +185,14 @@ const ServiceCard = ({ icon, title, description, color, index }) => {
 const ServicesSection = () => {
   const [ref, inView] = useInView();
   return (
-    <section style={{ background: "#0D1120", padding: "6rem 2rem" }}>
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-        <div ref={ref} style={{ textAlign: "center", marginBottom: "4rem", opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(20px)", transition: "all 0.6s" }}>
-          <span style={{ display: "inline-block", padding: "0.3rem 1rem", borderRadius: "20px", border: "1px solid rgba(99,202,183,0.3)", background: "rgba(99,202,183,0.07)", color: "#63CAB7", fontSize: "0.8rem", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem" }}>Soporte Técnico</span>
-          <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 800, color: "#fff", margin: "0 0 1rem" }}>Todo lo que tu empresa necesita</h2>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.5)", fontSize: "1rem", maxWidth: "500px", margin: "0 auto", lineHeight: 1.7 }}>Soluciones integrales de tecnología para mantener tu negocio funcionando sin interrupciones.</p>
+    <section className="lp-section lp-section--dark">
+      <div className="lp-section__inner">
+        <div ref={ref} className={`lp-section__head${inView ? " in-view" : ""}`}>
+          <span className="lp-eyebrow lp-eyebrow--teal">Soporte Técnico</span>
+          <h2 className="lp-section__h2">Todo lo que tu empresa necesita</h2>
+          <p className="lp-section__sub">Soluciones integrales de tecnología para mantener tu negocio funcionando sin interrupciones.</p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
+        <div className="lp-services__grid">
           {techServices.map((s, i) => <ServiceCard key={i} {...s} index={i} />)}
         </div>
       </div>
@@ -193,27 +200,32 @@ const ServicesSection = () => {
   );
 };
 
+/* ─── DEV SECTION ─── */
 const devServices = [
-  { icon: <FaCode />, title: "Desarrollo Web", description: "Creamos sitios y aplicaciones web modernas, rápidas y responsivas con React, Node.js y las últimas tecnologías del mercado.", color: "#63CAB7", tag: "Frontend & Backend" },
-  { icon: <FaDatabase />, title: "Bases de Datos & APIs", description: "Diseño e implementación de bases de datos relacionales y no relacionales, integración de APIs REST y microservicios.", color: "#7B68EE", tag: "Backend" },
-  { icon: <FaPalette />, title: "Diseño UI/UX", description: "Interfaces atractivas y funcionales. Prototipado, wireframes y diseño de experiencias digitales que convierten.", color: "#63CAB7", tag: "Diseño" },
-  { icon: <FaRocket />, title: "Sistemas a Medida", description: "Desarrollamos software personalizado para tu negocio: CRM, ERP, paneles administrativos y automatizaciones.", color: "#4A90D9", tag: "Software" },
-  { icon: <FaCogs />, title: "Mantenimiento de Software", description: "Actualizaciones, corrección de errores, mejoras de rendimiento y escalabilidad para tus proyectos en producción.", color: "#7B68EE", tag: "DevOps" },
+  { icon: <FaCode />,     title: "Desarrollo Web",            description: "Creamos sitios y aplicaciones web modernas, rápidas y responsivas con React, Node.js y las últimas tecnologías del mercado.", color: "#63CAB7", tag: "Frontend & Backend" },
+  { icon: <FaDatabase />, title: "Bases de Datos & APIs",     description: "Diseño e implementación de bases de datos relacionales y no relacionales, integración de APIs REST y microservicios.",         color: "#7B68EE", tag: "Backend" },
+  { icon: <FaPalette />,  title: "Diseño UI/UX",              description: "Interfaces atractivas y funcionales. Prototipado, wireframes y diseño de experiencias digitales que convierten.",               color: "#63CAB7", tag: "Diseño" },
+  { icon: <FaRocket />,   title: "Sistemas a Medida",         description: "Desarrollamos software personalizado para tu negocio: CRM, ERP, paneles administrativos y automatizaciones.",                   color: "#4A90D9", tag: "Software" },
+  { icon: <FaCogs />,     title: "Mantenimiento de Software", description: "Actualizaciones, corrección de errores, mejoras de rendimiento y escalabilidad para tus proyectos en producción.",              color: "#7B68EE", tag: "DevOps" },
 ];
 
 const DevCard = ({ icon, title, description, color, tag, index }) => {
   const [ref, inView] = useInView();
-  const [hovered, setHovered] = useState(false);
   return (
-    <div ref={ref} style={{ background: hovered ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.02)", border: `1px solid ${hovered ? color : "rgba(255,255,255,0.07)"}`, borderRadius: "16px", padding: "2rem", transition: "all 0.4s cubic-bezier(0.4,0,0.2,1)", transform: inView ? "translateY(0)" : "translateY(30px)", opacity: inView ? 1 : 0, transitionDelay: `${index * 0.08}s`, cursor: "default", position: "relative", overflow: "hidden" }}
-      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-      <div style={{ position: "absolute", top: -40, right: -40, width: 120, height: 120, borderRadius: "50%", background: `${color}${hovered ? "18" : "08"}`, transition: "all 0.4s", pointerEvents: "none" }} />
-      <div style={{ display: "inline-block", padding: "0.2rem 0.7rem", borderRadius: "20px", background: `${color}15`, border: `1px solid ${color}35`, color, fontSize: "0.72rem", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, letterSpacing: "0.07em", textTransform: "uppercase", marginBottom: "1.25rem" }}>{tag}</div>
-      <div style={{ width: 52, height: 52, borderRadius: "12px", background: `${color}18`, border: `1px solid ${color}40`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.4rem", color, marginBottom: "1.25rem", boxShadow: hovered ? `0 0 20px ${color}30` : "none", transition: "all 0.3s" }}>{icon}</div>
-      <h3 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "1.2rem", fontWeight: 700, color: "#fff", margin: "0 0 0.75rem" }}>{title}</h3>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.92rem", color: "rgba(255,255,255,0.5)", lineHeight: 1.7, margin: "0 0 1.25rem" }}>{description}</p>
-      <Link to="/contactenos" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", color, fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", fontWeight: 600, textDecoration: "none", transition: "gap 0.2s" }}
-        onMouseEnter={e => { e.currentTarget.style.gap = "0.7rem"; }} onMouseLeave={e => { e.currentTarget.style.gap = "0.4rem"; }}>
+    <div ref={ref} className={`lp-dev-card${inView ? " in-view" : ""}`}
+      style={{ transitionDelay: `${index * 0.08}s` }}>
+      <div className="lp-dev-card__glow" style={{ background: color }} />
+      <span className="lp-dev-card__tag"
+        style={{ background: `${color}15`, border: `1px solid ${color}35`, color }}>
+        {tag}
+      </span>
+      <div className="lp-dev-card__icon"
+        style={{ background: `${color}18`, border: `1px solid ${color}40`, color }}>
+        {icon}
+      </div>
+      <h3 className="lp-card__h3">{title}</h3>
+      <p className="lp-card__p">{description}</p>
+      <Link to="/contactenos" className="lp-card__link" style={{ color }}>
         Solicitar cotización <FaArrowRight style={{ fontSize: "0.8rem" }} />
       </Link>
     </div>
@@ -224,30 +236,31 @@ const DevSection = () => {
   const [ref, inView] = useInView();
   const techs = ["React", "Node.js", "Python", "MongoDB", "PostgreSQL", "Vite", "Express", "React Native"];
   return (
-    <section style={{ background: "#0A0E1B", padding: "6rem 2rem", position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", top: "10%", left: "-5%", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(circle, rgba(99,202,183,0.07) 0%, transparent 70%)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: "5%", right: "-5%", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(circle, rgba(74,144,217,0.08) 0%, transparent 70%)", pointerEvents: "none" }} />
-      <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative" }}>
-        <div ref={ref} style={{ textAlign: "center", marginBottom: "5rem", opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(20px)", transition: "all 0.6s" }}>
-          <span style={{ display: "inline-block", padding: "0.3rem 1rem", borderRadius: "20px", border: "1px solid rgba(74,144,217,0.35)", background: "rgba(74,144,217,0.08)", color: "#4A90D9", fontSize: "0.8rem", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem" }}>Desarrollo de Software</span>
-          <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "clamp(2rem, 4vw, 3.2rem)", fontWeight: 800, color: "#fff", margin: "0 0 1rem", lineHeight: 1.1 }}>
-            También somos{" "}<span style={{ background: "linear-gradient(135deg, #63CAB7, #4A90D9)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>desarrolladores</span>
+    <section className="lp-section lp-section--darker lp-dev">
+      <div className="lp-dev__blob1" />
+      <div className="lp-dev__blob2" />
+      <div className="lp-section__inner">
+        <div ref={ref} className={`lp-section__head lp-dev__head${inView ? " in-view" : ""}`}>
+          <span className="lp-eyebrow lp-eyebrow--blue">Desarrollo de Software</span>
+          <h2 className="lp-dev__h2 lp-section__h2">
+            También somos{" "}<span>desarrolladores</span>
           </h2>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.5)", fontSize: "1rem", maxWidth: "560px", margin: "0 auto 2.5rem", lineHeight: 1.75 }}>Más allá del soporte técnico, construimos soluciones digitales a medida: desde sitios web hasta sistemas empresariales completos.</p>
-          <div style={{ display: "flex", gap: "0.6rem", justifyContent: "center", flexWrap: "wrap" }}>
-            {techs.map(t => (<span key={t} style={{ padding: "0.3rem 0.9rem", borderRadius: "20px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.55)", fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", fontWeight: 500 }}>{t}</span>))}
+          <p className="lp-section__sub lp-dev__sub">
+            Más allá del soporte técnico, construimos soluciones digitales a medida: desde sitios web hasta sistemas empresariales completos.
+          </p>
+          <div className="lp-dev__techs">
+            {techs.map(t => <span key={t} className="lp-dev__tech">{t}</span>)}
           </div>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
+        <div className="lp-dev__grid">
           {devServices.map((s, i) => <DevCard key={i} {...s} index={i} />)}
         </div>
-        <div style={{ marginTop: "4rem", padding: "2.5rem 2rem", background: "linear-gradient(135deg, rgba(99,202,183,0.06), rgba(74,144,217,0.06))", border: "1px solid rgba(99,202,183,0.15)", borderRadius: "20px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1.5rem" }}>
+        <div className="lp-dev__cta-banner">
           <div>
-            <h3 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "1.6rem", fontWeight: 800, color: "#fff", margin: "0 0 0.4rem" }}>¿Tienes un proyecto en mente?</h3>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.5)", fontSize: "0.95rem", margin: 0 }}>Hablemos — te damos una cotización sin compromiso.</p>
+            <h3 className="lp-dev__cta-h3">¿Tienes un proyecto en mente?</h3>
+            <p className="lp-dev__cta-sub">Hablemos — te damos una cotización sin compromiso.</p>
           </div>
-          <Link to="/contactenos" style={{ padding: "0.85rem 2rem", borderRadius: "10px", background: "linear-gradient(135deg, #63CAB7, #4A90D9)", color: "#fff", fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: "0.95rem", textDecoration: "none", boxShadow: "0 8px 25px rgba(99,202,183,0.3)", display: "inline-flex", alignItems: "center", gap: "0.5rem", transition: "all 0.3s", whiteSpace: "nowrap" }}
-            onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; }} onMouseLeave={e => { e.currentTarget.style.transform = "none"; }}>
+          <Link to="/contactenos" className="lp-btn-primary--sm">
             Contactar ahora <FaArrowRight />
           </Link>
         </div>
@@ -257,136 +270,216 @@ const DevSection = () => {
 };
 
 /* ─── CASE STUDY SECTION ─── */
-const caseScreenshots = [
-  { src: "/cases/gestor-login.png",   alt: "Login del gestor",      label: "Acceso seguro",       caption: "Autenticación personalizada con fondo temático e interfaz limpia y moderna." },
-  { src: "/cases/gestor-form.png",    alt: "Formulario nueva tarea", label: "Creación de tareas",  caption: "Panel de estadísticas en tiempo real y formulario intuitivo con asignación de técnico." },
-  { src: "/cases/gestor-tablero.png", alt: "Tablero de tareas",      label: "Tablero colaborativo", caption: "Vista de tarjetas con estados, historial de ediciones y seguimiento por responsable." },
-];
-const caseFeatures = [
-  "Panel de métricas: Completadas, Pendientes y Total",
-  "Creación y asignación de tareas a técnicos",
-  "Estados en tiempo real: Pendiente · En Proceso · Completada",
-  "Historial completo con fechas y registro de ediciones",
-  "Sistema de notas, observaciones y comentarios",
-  "Interfaz responsiva, rápida e intuitiva",
+const caseProjects = [
+  {
+    tab:      "Gestor de Tareas",
+    url:      "gestor.elmundodelatecnologia.com",
+    accent:   "#7B68EE",
+    badge:    "En producción · Funcionando al 100%",
+    title:    <>Gestor de Tareas<br /><span>Colaborativo a Medida</span></>,
+    desc:     "Un sistema completo para gestionar el trabajo interno del equipo: creación de tareas, asignación de responsables, seguimiento de estados y métricas de productividad. Diseñado, desarrollado y entregado en tiempo récord.",
+    features: [
+      "Panel de métricas: Completadas, Pendientes y Total",
+      "Creación y asignación de tareas a técnicos",
+      "Estados en tiempo real: Pendiente · En Proceso · Completada",
+      "Historial completo con fechas y registro de ediciones",
+      "Sistema de notas, observaciones y comentarios",
+      "Interfaz responsiva, rápida e intuitiva",
+    ],
+    slides: [
+      { src: "/cases/gestor-login.png",    alt: "Login",    label: "Acceso seguro",        caption: "Autenticación personalizada con fondo temático e interfaz limpia y moderna." },
+      { src: "/cases/gestor-form.png",     alt: "Tareas",   label: "Creación de tareas",   caption: "Panel de estadísticas en tiempo real y formulario intuitivo con asignación de técnico." },
+      { src: "/cases/gestor-tablero.png",  alt: "Tablero",  label: "Tablero colaborativo", caption: "Vista de tarjetas con estados, historial de ediciones y seguimiento por responsable." },
+    ],
+  },
+  {
+    tab:      "Tienda Virtual",
+    url:      "tienda.elmundodelatecnologia.com",
+    accent:   "#63CAB7",
+    badge:    "En producción · Funcionando al 100%",
+    title:    <>Tienda Virtual<br /><span style={{ color: "#63CAB7" }}>de Ropa a Medida</span></>,
+    desc:     "E-commerce completo con catálogo de productos, carrito de compras y panel de administración para gestionar el inventario. El administrador puede agregar, editar y eliminar productos en tiempo real.",
+    features: [
+      "Catálogo de productos con filtros y búsqueda",
+      "Carrito de compras con gestión de cantidades",
+      "Panel admin: agregar, editar y eliminar productos",
+      "Subida de imágenes y gestión de inventario",
+      "Diseño atractivo y experiencia de compra fluida",
+      "Interfaz responsiva optimizada para móviles",
+    ],
+    slides: [
+      { src: "/cases/tienda-catalogo.png", alt: "Catálogo", label: "Catálogo",       caption: "Vitrina de productos con tarjetas visuales, filtros y búsqueda en tiempo real." },
+      { src: "/cases/tienda-carrito.png",  alt: "Carrito",  label: "Carrito",         caption: "Gestión de compras con control de cantidades y resumen del pedido al instante." },
+      { src: "/cases/tienda-admin.png",    alt: "Admin",    label: "Panel Admin",     caption: "Panel privado para agregar, editar y eliminar productos con subida de imágenes." },
+    ],
+  },
 ];
 
 const CaseStudySection = () => {
-  const [current, setCurrent] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [ref, inView] = useInView();
+  const [activeTab, setActiveTab] = useState(0);
+  const [current, setCurrent]     = useState(0);
+  const [paused, setPaused]       = useState(false);
+  const [ref, inView]             = useInView();
+
+  const project = caseProjects[activeTab];
+
+  // Reset slide when switching tabs
+  const switchTab = (i) => { setActiveTab(i); setCurrent(0); };
+
   useEffect(() => {
     if (paused) return;
-    const t = setInterval(() => setCurrent(c => (c + 1) % caseScreenshots.length), 5000);
+    const t = setInterval(() => setCurrent(c => (c + 1) % project.slides.length), 5000);
     return () => clearInterval(t);
-  }, [paused]);
+  }, [paused, activeTab, project.slides.length]);
+
   return (
-    <section style={{ background: "#0D1120", padding: "6rem 2rem", position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", top: "10%", right: "-5%", width: 520, height: 520, borderRadius: "50%", background: "radial-gradient(circle, rgba(123,104,238,0.10) 0%, transparent 70%)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: "5%", left: "-5%", width: 420, height: 420, borderRadius: "50%", background: "radial-gradient(circle, rgba(99,202,183,0.07) 0%, transparent 70%)", pointerEvents: "none" }} />
-      <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative" }}>
-        <div ref={ref} style={{ textAlign: "center", marginBottom: "4.5rem", opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(20px)", transition: "all 0.6s" }}>
-          <span style={{ display: "inline-block", padding: "0.3rem 1rem", borderRadius: "20px", border: "1px solid rgba(123,104,238,0.35)", background: "rgba(123,104,238,0.08)", color: "#9b8ff5", fontSize: "0.8rem", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem" }}>✦ Soluciones Efectivas · Caso Real ✦</span>
-          <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "clamp(2rem, 4.5vw, 3.2rem)", fontWeight: 800, color: "#fff", margin: "0 0 1rem", lineHeight: 1.1 }}>
-            Software que ya está{" "}<span style={{ background: "linear-gradient(135deg, #63CAB7, #7B68EE)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>transformando equipos</span>
+    <section className="lp-section lp-section--dark lp-case">
+      <div className="lp-case__blob1" />
+      <div className="lp-case__blob2" />
+      <div className="lp-section__inner">
+
+        {/* Encabezado */}
+        <div ref={ref} className={`lp-section__head lp-case__head${inView ? " in-view" : ""}`}>
+          <span className="lp-eyebrow lp-eyebrow--violet">✦ Soluciones Efectivas · Casos Reales ✦</span>
+          <h2 className="lp-section__h2" style={{ fontSize: "clamp(2rem, 4.5vw, 3.2rem)" }}>
+            Software que ya está{" "}
+            <span className="grad-teal-violet">transformando negocios</span>
           </h2>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.5)", fontSize: "1rem", maxWidth: "580px", margin: "0 auto", lineHeight: 1.8 }}>
-            Desarrollamos un <strong style={{ color: "rgba(255,255,255,0.78)" }}>Gestor de Tareas Colaborativo</strong> completamente personalizado. Desde la asignación de técnicos hasta el seguimiento en tiempo real, cada funcionalidad fue construida para la operación diaria del equipo.
+          <p className="lp-section__sub lp-case__sub">
+            Proyectos reales, entregados y funcionando. Cada solución fue construida
+            a medida para las necesidades específicas del cliente.
           </p>
+
+          {/* Tabs selector */}
+          <div className="lp-case__tabs">
+            {caseProjects.map((p, i) => (
+              <button key={i} onClick={() => switchTab(i)}
+                className={`lp-case__tab${activeTab === i ? " lp-case__tab--active" : ""}`}
+                style={{ "--tab-accent": p.accent }}>
+                {p.tab}
+              </button>
+            ))}
+          </div>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: "3.5rem", alignItems: "center" }} className="case-grid">
+
+        {/* Grid */}
+        <div className="lp-case__grid">
+
           {/* Carrusel */}
-          <div onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-            <div style={{ borderRadius: "16px", overflow: "hidden", border: "1px solid rgba(123,104,238,0.25)", boxShadow: "0 30px 80px rgba(0,0,0,0.55), 0 0 60px rgba(123,104,238,0.12)", background: "#0a0e1b" }}>
-              {/* Barra ventana */}
-              <div style={{ background: "rgba(255,255,255,0.04)", padding: "0.65rem 1rem", display: "flex", alignItems: "center", gap: "0.5rem", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-                {["#ff5f57", "#febc2e", "#28c840"].map((c, i) => <div key={i} style={{ width: 12, height: 12, borderRadius: "50%", background: c }} />)}
-                <span style={{ flex: 1, textAlign: "center", fontSize: "0.78rem", color: "rgba(255,255,255,0.3)", fontFamily: "'DM Sans', sans-serif" }}>El Mundo De La Tecnologia Tu Mejor Aliado</span>
+          <div className="lp-case__carousel"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}>
+
+            <div className="lp-case__frame" style={{ borderColor: `${project.accent}40` }}>
+              <div className="lp-case__winbar">
+                <div className="lp-case__dot lp-case__dot--red" />
+                <div className="lp-case__dot lp-case__dot--yellow" />
+                <div className="lp-case__dot lp-case__dot--green" />
+                <span className="lp-case__url">{project.url}</span>
               </div>
-              {/* Imagen */}
-              <div style={{ position: "relative", height: "380px", overflow: "hidden" }}>
-                {caseScreenshots.map((s, i) => (
-                  <div key={i} style={{ position: "absolute", inset: 0, opacity: i === current ? 1 : 0, transform: i === current ? "scale(1)" : "scale(1.03)", transition: "opacity 0.55s ease, transform 0.55s ease" }}>
-                    <img src={s.src} alt={s.alt} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
+
+              <div className="lp-case__slides">
+                {project.slides.map((s, i) => (
+                  <div key={i} className={`lp-case__slide${i === current ? " lp-case__slide--active" : ""}`}>
+                    <img src={s.src} alt={s.alt} />
                   </div>
                 ))}
-                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "linear-gradient(to top, rgba(10,14,27,0.95) 0%, transparent 100%)", padding: "2.5rem 1.5rem 1.25rem" }}>
-                  <span style={{ display: "inline-block", padding: "0.25rem 0.8rem", borderRadius: "20px", background: "rgba(123,104,238,0.2)", border: "1px solid rgba(123,104,238,0.4)", color: "#a89ef5", fontSize: "0.78rem", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, marginBottom: "0.4rem" }}>{caseScreenshots[current].label}</span>
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.55)", fontSize: "0.85rem", lineHeight: 1.5, margin: 0 }}>{caseScreenshots[current].caption}</p>
+                <div className="lp-case__caption">
+                  <span className="lp-case__caption-badge"
+                    style={{ background: `${project.accent}25`, borderColor: `${project.accent}55`, color: project.accent }}>
+                    {project.slides[current].label}
+                  </span>
+                  <p className="lp-case__caption-text">{project.slides[current].caption}</p>
                 </div>
               </div>
             </div>
+
             {/* Controles */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", marginTop: "1.25rem" }}>
-              {[{ fn: () => setCurrent(c => (c - 1 + caseScreenshots.length) % caseScreenshots.length), icon: <FaChevronLeft /> }, { fn: () => setCurrent(c => (c + 1) % caseScreenshots.length), icon: <FaChevronRight /> }].map((a, i) => (
-                <button key={i} onClick={a.fn} style={{ width: 38, height: 38, borderRadius: "50%", border: "1px solid rgba(123,104,238,0.35)", background: "rgba(123,104,238,0.08)", color: "#a89ef5", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.9rem", transition: "all 0.2s" }}
-                  onMouseEnter={e => { e.currentTarget.style.background = "rgba(123,104,238,0.25)"; }} onMouseLeave={e => { e.currentTarget.style.background = "rgba(123,104,238,0.08)"; }}>
-                  {a.icon}
-                </button>
-              ))}
-              <div style={{ display: "flex", gap: "0.4rem" }}>
-                {caseScreenshots.map((_, i) => (<button key={i} onClick={() => setCurrent(i)} style={{ width: i === current ? 22 : 8, height: 8, borderRadius: "4px", border: "none", background: i === current ? "#7B68EE" : "rgba(255,255,255,0.2)", cursor: "pointer", transition: "all 0.3s", padding: 0 }} />))}
+            <div className="lp-case__controls">
+              <button className="lp-case__arrow"
+                style={{ borderColor: `${project.accent}40`, color: project.accent }}
+                onClick={() => setCurrent(c => (c - 1 + project.slides.length) % project.slides.length)}>
+                <FaChevronLeft />
+              </button>
+              <button className="lp-case__arrow"
+                style={{ borderColor: `${project.accent}40`, color: project.accent }}
+                onClick={() => setCurrent(c => (c + 1) % project.slides.length)}>
+                <FaChevronRight />
+              </button>
+              <div className="lp-case__pips">
+                {project.slides.map((_, i) => (
+                  <button key={i} onClick={() => setCurrent(i)}
+                    className={`lp-case__pip${i === current ? " lp-case__pip--active" : ""}`}
+                    style={i === current ? { background: project.accent } : {}} />
+                ))}
               </div>
             </div>
           </div>
+
           {/* Texto */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+          <div className="lp-case__text">
             <div>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", padding: "0.35rem 0.9rem", borderRadius: "20px", background: "rgba(99,202,183,0.08)", border: "1px solid rgba(99,202,183,0.25)", marginBottom: "1rem" }}>
-                <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#63CAB7", display: "block", animation: "pulse 2s infinite" }} />
-                <span style={{ color: "#63CAB7", fontSize: "0.8rem", fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}>En producción · Funcionando al 100%</span>
+              <div className="lp-case__live-badge">
+                <span className="lp-case__live-dot" />
+                <span className="lp-case__live-label">{project.badge}</span>
               </div>
-              <h3 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "1.9rem", fontWeight: 800, color: "#fff", lineHeight: 1.15, margin: "0 0 1rem" }}>
-                Gestor de Tareas<br /><span style={{ color: "#9b8ff5" }}>Colaborativo a Medida</span>
-              </h3>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.5)", fontSize: "0.96rem", lineHeight: 1.8, margin: 0 }}>Un sistema completo para gestionar el trabajo interno del equipo: creación de tareas, asignación de responsables, seguimiento de estados y métricas de productividad. Diseñado, desarrollado y entregado en tiempo récord.</p>
+              <h3 className="lp-case__h3">{project.title}</h3>
+              <p className="lp-case__desc">{project.desc}</p>
             </div>
-            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.65rem" }}>
-              {caseFeatures.map((f, i) => (
-                <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "0.65rem", fontFamily: "'DM Sans', sans-serif", fontSize: "0.92rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.5 }}>
-                  <FaCheck style={{ color: "#63CAB7", fontSize: "0.75rem", marginTop: "0.2rem", flexShrink: 0 }} />{f}
+
+            <ul className="lp-case__features">
+              {project.features.map((f, i) => (
+                <li key={i} className="lp-case__feat">
+                  <FaCheck className="lp-case__feat-icon" style={{ color: project.accent }} />
+                  {f}
                 </li>
               ))}
             </ul>
-            <div style={{ paddingTop: "0.5rem", borderTop: "1px solid rgba(255,255,255,0.07)", display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "center" }}>
-              <Link to="/contactenos" style={{ padding: "0.75rem 1.75rem", borderRadius: "10px", background: "linear-gradient(135deg, #7B68EE, #4A90D9)", color: "#fff", fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: "0.9rem", textDecoration: "none", boxShadow: "0 6px 20px rgba(123,104,238,0.35)", display: "inline-flex", alignItems: "center", gap: "0.5rem", transition: "all 0.3s" }}
-                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 35px rgba(123,104,238,0.5)"; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 6px 20px rgba(123,104,238,0.35)"; }}>
+
+            <div className="lp-case__footer">
+              <Link to="/contactenos" className="lp-btn-violet"
+                style={{ background: `linear-gradient(135deg, ${project.accent}, #4A90D9)` }}>
                 Quiero algo así <FaArrowRight style={{ fontSize: "0.8rem" }} />
               </Link>
-              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", color: "rgba(255,255,255,0.3)" }}>Sin compromiso</span>
+              <span className="lp-case__no-commit">Sin compromiso</span>
             </div>
           </div>
         </div>
       </div>
-      <style>{`@media (max-width: 900px) { .case-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; } }`}</style>
     </section>
   );
 };
 
+/* ─── DOWNLOADS ─── */
 const downloads = [
-  { id: 1, name: "Google Chrome", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Google_Chrome_icon_%28February_2022%29.svg/512px-Google_Chrome_icon_%28February_2022%29.svg.png", downloadUrl: "https://dl.google.com/chrome/install/ChromeStandaloneSetup64.exe", description: "Navegador web rápido y seguro" },
-  { id: 2, name: "Mozilla Firefox", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/512px-Firefox_logo%2C_2019.svg.png", downloadUrl: "https://download.mozilla.org/?product=firefox-latest&os=win64&lang=es-ES", description: "Navegador de código abierto" },
-  { id: 3, name: "Microsoft Edge", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Microsoft_Edge_logo_%282019%29.svg/512px-Microsoft_Edge_logo_%282019%29.svg.png", downloadUrl: "https://go.microsoft.com/fwlink/?linkid=2108834&Channel=Stable&language=es", description: "Navegador moderno de Microsoft" },
-  { id: 4, name: "Anydesk", image: "https://softwareforyou.lt/wp-content/uploads/2024/02/AnyDesk-new.png", downloadUrl: "https://anydesk.com/es/downloads/thank-you?dv=win_exe", description: "Escritorio remoto para Windows" },
-  { id: 5, name: "Zoom", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Zoom_Communications_Logo.svg/512px-Zoom_Communications_Logo.svg.png", downloadUrl: "https://zoom.us/client/latest/ZoomInstaller.exe", description: "Videoconferencias y reuniones" },
-  { id: 6, name: "Adobe Reader", image: "https://www.uab.edu/elearning/images/pictures/academic-technologies/logos/adobe.png", downloadUrl: "https://get.adobe.com/es/reader/", description: "Lector de documentos PDF" },
-  { id: 7, name: "WinRAR", image: "https://keyoriginal.com/wp-content/uploads/2023/12/winrar-min.png", downloadUrl: "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-624.exe", description: "Compresor de archivos" },
+  { id: 1, name: "Google Chrome",  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Google_Chrome_icon_%28February_2022%29.svg/512px-Google_Chrome_icon_%28February_2022%29.svg.png", downloadUrl: "https://dl.google.com/chrome/install/ChromeStandaloneSetup64.exe",                  description: "Navegador web rápido y seguro" },
+  { id: 2, name: "Mozilla Firefox", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/512px-Firefox_logo%2C_2019.svg.png",                                     downloadUrl: "https://download.mozilla.org/?product=firefox-latest&os=win64&lang=es-ES",         description: "Navegador de código abierto" },
+  { id: 3, name: "Microsoft Edge",  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Microsoft_Edge_logo_%282019%29.svg/512px-Microsoft_Edge_logo_%282019%29.svg.png",                   downloadUrl: "https://go.microsoft.com/fwlink/?linkid=2108834&Channel=Stable&language=es",       description: "Navegador moderno de Microsoft" },
+  { id: 4, name: "Anydesk",         image: "https://softwareforyou.lt/wp-content/uploads/2024/02/AnyDesk-new.png",                                                                                       downloadUrl: "https://anydesk.com/es/downloads/thank-you?dv=win_exe",                           description: "Escritorio remoto para Windows" },
+  { id: 5, name: "Zoom",            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Zoom_Communications_Logo.svg/512px-Zoom_Communications_Logo.svg.png",                              downloadUrl: "https://zoom.us/client/latest/ZoomInstaller.exe",                                  description: "Videoconferencias y reuniones" },
+  { id: 6, name: "Adobe Reader",    image: "https://www.uab.edu/elearning/images/pictures/academic-technologies/logos/adobe.png",                                                                         downloadUrl: "https://get.adobe.com/es/reader/",                                                 description: "Lector de documentos PDF" },
+  { id: 7, name: "WinRAR",          image: "https://keyoriginal.com/wp-content/uploads/2023/12/winrar-min.png",                                                                                           downloadUrl: "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-624.exe",       description: "Compresor de archivos" },
 ];
 
 const DownloadCard = ({ name, image, downloadUrl, description, index }) => {
   const [ref, inView] = useInView();
-  const [hovered, setHovered] = useState(false);
-  const handleDownload = () => { const link = document.createElement("a"); link.href = downloadUrl; link.download = name.replace(/\s+/g, "_") + ".exe"; document.body.appendChild(link); link.click(); setTimeout(() => document.body.removeChild(link), 100); };
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = name.replace(/\s+/g, "_") + ".exe";
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => document.body.removeChild(link), 100);
+  };
   return (
-    <div ref={ref} style={{ background: hovered ? "rgba(255,255,255,0.07)" : "rgba(255,255,255,0.03)", border: `1px solid ${hovered ? "rgba(99,202,183,0.5)" : "rgba(255,255,255,0.07)"}`, borderRadius: "16px", padding: "1.75rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", transition: "all 0.35s cubic-bezier(0.4,0,0.2,1)", transform: inView ? "translateY(0)" : "translateY(25px)", opacity: inView ? 1 : 0, transitionDelay: `${index * 0.06}s` }}
-      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-      <div style={{ width: 80, height: 80, borderRadius: "16px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem", padding: "1rem", boxSizing: "border-box", boxShadow: hovered ? "0 0 25px rgba(99,202,183,0.2)" : "none", transition: "all 0.3s" }}>
-        <img src={image} alt={name} style={{ width: "100%", height: "100%", objectFit: "contain" }} onError={e => { e.target.src = `https://via.placeholder.com/60?text=${name[0]}`; }} />
+    <div ref={ref} className={`lp-dl-card${inView ? " in-view" : ""}`}
+      style={{ transitionDelay: `${index * 0.06}s` }}>
+      <div className="lp-dl-card__img-wrap">
+        <img src={image} alt={name} onError={e => { e.target.src = `https://via.placeholder.com/60?text=${name[0]}`; }} />
       </div>
-      <h3 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "1.1rem", fontWeight: 700, color: "#fff", margin: "0 0 0.4rem" }}>{name}</h3>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.84rem", color: "rgba(255,255,255,0.45)", margin: "0 0 1.25rem", lineHeight: 1.6 }}>{description}</p>
-      <button onClick={handleDownload} style={{ padding: "0.65rem 1.5rem", borderRadius: "8px", border: "none", background: "linear-gradient(135deg, #63CAB7, #4A90D9)", color: "#fff", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: "0.88rem", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.4rem", boxShadow: hovered ? "0 6px 20px rgba(99,202,183,0.35)" : "none", transition: "all 0.2s" }}>
+      <h3 className="lp-dl-card__name">{name}</h3>
+      <p className="lp-dl-card__desc">{description}</p>
+      <button onClick={handleDownload} className="lp-dl-card__btn">
         <FaDownload style={{ fontSize: "0.8rem" }} /> Descargar
       </button>
     </div>
@@ -396,15 +489,15 @@ const DownloadCard = ({ name, image, downloadUrl, description, index }) => {
 const DownloadsSection = () => {
   const [ref, inView] = useInView();
   return (
-    <section style={{ background: "#0D1120", padding: "6rem 2rem", position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: "800px", height: "400px", borderRadius: "50%", background: "radial-gradient(ellipse, rgba(74,144,217,0.07) 0%, transparent 70%)", pointerEvents: "none" }} />
-      <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative" }}>
-        <div ref={ref} style={{ textAlign: "center", marginBottom: "4rem", opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(20px)", transition: "all 0.6s" }}>
-          <span style={{ display: "inline-block", padding: "0.3rem 1rem", borderRadius: "20px", border: "1px solid rgba(74,144,217,0.3)", background: "rgba(74,144,217,0.07)", color: "#4A90D9", fontSize: "0.8rem", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem" }}>Descargas</span>
-          <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 800, color: "#fff", margin: "0 0 1rem" }}>Software esencial para tu equipo</h2>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.5)", fontSize: "1rem", maxWidth: "500px", margin: "0 auto", lineHeight: 1.7 }}>Descarga las mejores aplicaciones directamente desde aquí.</p>
+    <section className="lp-section lp-section--dark lp-dl">
+      <div className="lp-dl__blob" />
+      <div className="lp-section__inner">
+        <div ref={ref} className={`lp-section__head${inView ? " in-view" : ""}`}>
+          <span className="lp-eyebrow lp-eyebrow--blue2">Descargas</span>
+          <h2 className="lp-section__h2">Software esencial para tu equipo</h2>
+          <p className="lp-section__sub lp-dl__sub">Descarga las mejores aplicaciones directamente desde aquí.</p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.25rem" }}>
+        <div className="lp-dl__grid">
           {downloads.map((d, i) => <DownloadCard key={d.id} {...d} index={i} />)}
         </div>
       </div>
@@ -412,33 +505,38 @@ const DownloadsSection = () => {
   );
 };
 
+/* ─── TESTIMONIALS ─── */
 const testimonials = [
-  { name: "Liseth Mendez", role: "Asesora Televentas", text: "Excelente servicio de mantenimiento preventivo, mis equipos nunca habían funcionado tan bien.", stars: 5 },
-  { name: "Karla Noguera", role: "Asesora Comercial", text: "Rápida instalación de mi sistema operativo con todos los programas que necesitaba.", stars: 5 },
-  { name: "Mayerlin Villareal", role: "Estudiante y Asesora", text: "La asistencia remota me salvó cuando tenía un trabajo importante que entregar.", stars: 5 },
+  { name: "Liseth Mendez",    role: "Asesora Televentas",    text: "Excelente servicio de mantenimiento preventivo, mis equipos nunca habían funcionado tan bien.", stars: 5 },
+  { name: "Karla Noguera",    role: "Asesora Comercial",     text: "Rápida instalación de mi sistema operativo con todos los programas que necesitaba.",            stars: 5 },
+  { name: "Mayerlin Villareal", role: "Estudiante y Asesora", text: "La asistencia remota me salvó cuando tenía un trabajo importante que entregar.",               stars: 5 },
 ];
 
 const TestimonialsSection = () => {
   const [ref, inView] = useInView();
   return (
-    <section style={{ background: "#0A0E1B", padding: "6rem 2rem" }}>
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-        <div ref={ref} style={{ textAlign: "center", marginBottom: "4rem", opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(20px)", transition: "all 0.6s" }}>
-          <span style={{ display: "inline-block", padding: "0.3rem 1rem", borderRadius: "20px", border: "1px solid rgba(123,104,238,0.3)", background: "rgba(123,104,238,0.07)", color: "#7B68EE", fontSize: "0.8rem", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem" }}>Testimonios</span>
-          <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 800, color: "#fff", margin: 0 }}>Lo que dicen nuestros clientes</h2>
+    <section className="lp-section lp-section--darker">
+      <div className="lp-section__inner">
+        <div ref={ref} className={`lp-section__head${inView ? " in-view" : ""}`}>
+          <span className="lp-eyebrow lp-eyebrow--purple">Testimonios</span>
+          <h2 className="lp-section__h2">Lo que dicen nuestros clientes</h2>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
+        <div className="lp-test__grid">
           {testimonials.map((t, i) => {
             const [cardRef, cardInView] = useInView();
             return (
-              <div key={i} ref={cardRef} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "16px", padding: "2rem", opacity: cardInView ? 1 : 0, transform: cardInView ? "none" : "translateY(25px)", transition: `all 0.5s ${i * 0.1}s` }}>
-                <div style={{ display: "flex", gap: "0.25rem", marginBottom: "1rem" }}>{Array(t.stars).fill(0).map((_, si) => <FaStar key={si} style={{ color: "#F59E0B", fontSize: "0.9rem" }} />)}</div>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.96rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.75, fontStyle: "italic", margin: "0 0 1.5rem" }}>"{t.text}"</p>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                  <div style={{ width: 40, height: 40, borderRadius: "50%", background: "linear-gradient(135deg, #63CAB7, #4A90D9)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, color: "#fff", fontSize: "1rem" }}>{t.name[0]}</div>
+              <div key={i} ref={cardRef}
+                className={`lp-test-card${cardInView ? " in-view" : ""}`}
+                style={{ transitionDelay: `${i * 0.1}s` }}>
+                <div className="lp-test-card__stars">
+                  {Array(t.stars).fill(0).map((_, si) => <FaStar key={si} className="lp-test-card__star" />)}
+                </div>
+                <p className="lp-test-card__quote">"{t.text}"</p>
+                <div className="lp-test-card__author">
+                  <div className="lp-test-card__avatar">{t.name[0]}</div>
                   <div>
-                    <div style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, color: "#fff", fontSize: "0.92rem" }}>{t.name}</div>
-                    <div style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.4)", fontSize: "0.8rem" }}>{t.role}</div>
+                    <div className="lp-test-card__name">{t.name}</div>
+                    <div className="lp-test-card__role">{t.role}</div>
                   </div>
                 </div>
               </div>
@@ -450,29 +548,26 @@ const TestimonialsSection = () => {
   );
 };
 
+/* ─── FINAL CTA ─── */
 const FinalCTA = () => {
   const [ref, inView] = useInView();
   return (
-    <section style={{ background: "#0D1120", padding: "6rem 2rem" }}>
-      <div ref={ref} style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center", background: "linear-gradient(135deg, rgba(99,202,183,0.08), rgba(74,144,217,0.08))", border: "1px solid rgba(99,202,183,0.2)", borderRadius: "24px", padding: "4rem 2rem", opacity: inView ? 1 : 0, transform: inView ? "none" : "scale(0.97)", transition: "all 0.6s" }}>
-        <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>🚀</div>
-        <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 800, color: "#fff", margin: "0 0 1rem", lineHeight: 1.2 }}>¿Listo para optimizar tu<br />experiencia tecnológica?</h2>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.55)", fontSize: "1rem", maxWidth: "450px", margin: "0 auto 2rem", lineHeight: 1.7 }}>Únete a cientos de clientes que ya confían en nosotros para su soporte y desarrollo tecnológico.</p>
-        <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-          <Link to="/registro" style={{ padding: "0.9rem 2.5rem", borderRadius: "10px", background: "linear-gradient(135deg, #63CAB7, #4A90D9)", color: "#fff", fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: "1rem", textDecoration: "none", boxShadow: "0 8px 30px rgba(99,202,183,0.35)", display: "inline-flex", alignItems: "center", gap: "0.5rem", transition: "all 0.3s" }}
-            onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; }} onMouseLeave={e => { e.currentTarget.style.transform = "none"; }}>
-            Regístrate Gratis <FaArrowRight />
-          </Link>
-          <Link to="/contactenos" style={{ padding: "0.9rem 2rem", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.2)", background: "transparent", color: "#fff", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: "1rem", textDecoration: "none", transition: "all 0.3s" }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = "#63CAB7"; e.currentTarget.style.color = "#63CAB7"; }} onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)"; e.currentTarget.style.color = "#fff"; }}>
-            Contáctanos
-          </Link>
+    <section className="lp-section lp-section--dark">
+      <div ref={ref} className={`lp-cta__box${inView ? " in-view" : ""}`}>
+        <div className="lp-cta__icon">🚀</div>
+        <h2 className="lp-cta__h2">¿Listo para optimizar tu<br />experiencia tecnológica?</h2>
+        <p className="lp-cta__sub">
+          Únete a cientos de clientes que ya confían en nosotros para su soporte y desarrollo tecnológico.
+        </p>
+        <div className="lp-cta__btns">
+          <Link to="/registro"   className="lp-btn-primary-lg">Regístrate Gratis <FaArrowRight /></Link>
+          <Link to="/contactenos" className="lp-btn-ghost-lg">Contáctanos</Link>
         </div>
-        <div style={{ display: "flex", gap: "2rem", justifyContent: "center", marginTop: "2.5rem", flexWrap: "wrap" }}>
-          {["Sin compromisos", "Soporte inmediato", "Precios justos"].map(feat => (
-            <div key={feat} style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-              <FaCheck style={{ color: "#63CAB7", fontSize: "0.8rem" }} />
-              <span style={{ color: "rgba(255,255,255,0.5)", fontFamily: "'DM Sans', sans-serif", fontSize: "0.85rem" }}>{feat}</span>
+        <div className="lp-cta__perks">
+          {["Sin compromisos", "Soporte inmediato", "Precios justos"].map(f => (
+            <div key={f} className="lp-cta__perk">
+              <FaCheck className="lp-cta__perk-icon" />
+              <span className="lp-cta__perk-text">{f}</span>
             </div>
           ))}
         </div>
@@ -481,64 +576,44 @@ const FinalCTA = () => {
   );
 };
 
+/* ─── FOOTER ─── */
 const Footer = () => (
-  <footer style={{ background: "#060810", borderTop: "1px solid rgba(255,255,255,0.06)", padding: "2.5rem 2rem" }}>
-    <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-        <div style={{ width: 36, height: 36, borderRadius: "8px", background: "linear-gradient(135deg, #63CAB7, #4A90D9)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <img src={logo} alt="logo" style={{ width: 22, height: 22, objectFit: "contain" }} />
+  <footer className="lp-footer">
+    <div className="lp-footer__inner">
+      <div className="lp-footer__brand">
+        <div className="lp-footer__logo">
+          <img src={logo} alt="logo" />
         </div>
         <div>
-          <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, color: "#fff", fontSize: "0.95rem" }}>EL MUNDO DE LA TECNOLOGÍA</div>
-          <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>
+          <div className="lp-footer__name">EL MUNDO DE LA TECNOLOGÍA</div>
+          <div className="lp-footer__credits">
             created by: Kevin Rivas · Tatiana Montoya ·{" "}
-            <a href="https://mi-cv-juan-granja.vercel.app/" target="_blank" rel="noreferrer" style={{ color: "#63CAB7", textDecoration: "none" }}>Juan Granja</a>
+            <a href="https://mi-cv-juan-granja.vercel.app/" target="_blank" rel="noreferrer">Juan Granja</a>
           </div>
         </div>
       </div>
-      <div style={{ display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap" }}>
+      <div className="lp-footer__links">
         {[{ path: "/contactenos", label: "Contacto" }, { path: "/terminos", label: "Términos" }, { path: "/privacidad", label: "Privacidad" }].map(item => (
-          <Link key={item.path} to={item.path} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.85rem", color: "rgba(255,255,255,0.4)", textDecoration: "none", transition: "color 0.2s" }}
-            onMouseEnter={e => { e.target.style.color = "#63CAB7"; }} onMouseLeave={e => { e.target.style.color = "rgba(255,255,255,0.4)"; }}>
-            {item.label}
-          </Link>
+          <Link key={item.path} to={item.path} className="lp-footer__link">{item.label}</Link>
         ))}
       </div>
     </div>
   </footer>
 );
 
-const GlobalStyles = () => (
-  <style>{`
-    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body, #root { margin: 0 !important; padding: 0 !important; background: #0A0E1B !important; color: #fff; scroll-behavior: smooth; width: 100%; overflow-x: hidden; }
-    .landing-container, .hero, .services, .downloads, .testimonials, .final-cta { background: transparent; margin: 0 !important; padding-left: 0 !important; padding-right: 0 !important; }
-    #tsparticles { display: none !important; }
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.85); } }
-    @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr !important; gap: 3rem !important; } .desktop-nav { display: none !important; } .mobile-toggle { display: flex !important; } }
-    @media (max-width: 600px) { section { padding: 4rem 1.25rem !important; } }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0A0E1B; }
-    ::-webkit-scrollbar-thumb { background: rgba(99,202,183,0.4); border-radius: 3px; }
-  `}</style>
-);
-
+/* ─── MAIN ─── */
 const LandingPage = () => (
-  <>
-    <GlobalStyles />
-    <div style={{ background: "#0A0E1B" }}>
-      <Header />
-      <HeroSection />
-      <ServicesSection />
-      <DevSection />
-      <CaseStudySection />
-      <DownloadsSection />
-      <TestimonialsSection />
-      <FinalCTA />
-      <Footer />
-    </div>
-  </>
+  <div className="lp-wrap">
+    <Header />
+    <HeroSection />
+    <ServicesSection />
+    <DevSection />
+    <CaseStudySection />
+    <DownloadsSection />
+    <TestimonialsSection />
+    <FinalCTA />
+    <Footer />
+  </div>
 );
 
 export default LandingPage;
