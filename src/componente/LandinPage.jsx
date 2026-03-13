@@ -34,6 +34,14 @@ const Header = () => {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
+  const handleScrollToSolutions = () => {
+    const el = document.getElementById("soluciones-efectivas");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    setMenuOpen(false);
+  };
+
   const navItems = [
     { path: "/quienes-somos", label: "Quiénes Somos" },
     { path: "/contactenos",   label: "Contacto" },
@@ -56,6 +64,13 @@ const Header = () => {
         {navItems.map((item) => (
           <Link key={item.path} to={item.path} className="lp-nav-link">{item.label}</Link>
         ))}
+        <button
+          type="button"
+          className="lp-nav-link"
+          onClick={handleScrollToSolutions}
+        >
+          Soluciones Efectivas
+        </button>
         <Link to="/registro" className="lp-nav-cta">Registrarse</Link>
       </nav>
 
@@ -65,6 +80,9 @@ const Header = () => {
 
       {menuOpen && (
         <div className="lp-mobile-menu">
+          <button type="button" onClick={handleScrollToSolutions}>
+            Soluciones Efectivas
+          </button>
           {[...navItems, { path: "/registro", label: "Registrarse" }].map((item) => (
             <Link key={item.path} to={item.path} onClick={() => setMenuOpen(false)}>{item.label}</Link>
           ))}
@@ -354,7 +372,10 @@ const CaseStudySection = () => {
   }, [paused, activeTab, project.slides.length]);
 
   return (
-    <section className="lp-section lp-section--dark lp-case">
+    <section
+      id="soluciones-efectivas"
+      className="lp-section lp-section--dark lp-case"
+    >
       <div className="lp-case__blob1" />
       <div className="lp-case__blob2" />
       <div className="lp-section__inner">
