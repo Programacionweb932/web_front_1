@@ -629,7 +629,7 @@ const Footer = () => (
         <div>
           <div className="lp-footer__name">EL MUNDO DE LA TECNOLOGÍA</div>
           <div className="lp-footer__credits">
-            created by: Kevin Rivas · Tatiana Montoya ·{" "}
+            created by: <a href="https://mi-cv-kevin-rivas.vercel.app/" target="_blank" rel="noreferrer">Kevin Rivas</a> · Tatiana Montoya ·{" "}
             <a href="https://mi-cv-juan-granja.vercel.app/" target="_blank" rel="noreferrer">Juan Granja</a>
           </div>
         </div>
