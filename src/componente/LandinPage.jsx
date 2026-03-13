@@ -308,9 +308,30 @@ const caseProjects = [
       "Interfaz responsiva optimizada para móviles",
     ],
     slides: [
-      { src: "/cases/tienda-catalogo.png", alt: "Catálogo", label: "Catálogo",       caption: "Vitrina de productos con tarjetas visuales, filtros y búsqueda en tiempo real." },
-      { src: "/cases/tienda-carrito.png",  alt: "Carrito",  label: "Carrito",         caption: "Gestión de compras con control de cantidades y resumen del pedido al instante." },
-      { src: "/cases/tienda-admin.png",    alt: "Admin",    label: "Panel Admin",     caption: "Panel privado para agregar, editar y eliminar productos con subida de imágenes." },
+      { src: "/cases/tienda-catalogo.png", alt: "Catálogo", label: "Catálogo",    caption: "Vitrina de productos con tarjetas visuales, filtros y búsqueda en tiempo real." },
+      { src: "/cases/tienda-carrito.png",  alt: "Carrito",  label: "Carrito",     caption: "Gestión de compras con control de cantidades y resumen del pedido al instante." },
+      { src: "/cases/tienda-admin.png",    alt: "Admin",    label: "Panel Admin", caption: "Panel privado para agregar, editar y eliminar productos con subida de imágenes." },
+    ],
+  },
+  {
+    tab:      "Gestor Documental",
+    url:      "docs.elmundodelatecnologia.com",
+    accent:   "#4A90D9",
+    badge:    "En producción · Funcionando al 100%",
+    title:    <>Gestor Documental<br /><span style={{ color: "#4A90D9" }}>con Firma Digital</span></>,
+    desc:     "Sistema de gestión documental que automatiza el diligenciamiento de formatos PDF personalizados: listas de asistencia, entrega de dotación y cualquier formato de la compañía. Incluye firma digital, panel de administrador y registro de usuarios.",
+    features: [
+      "Diligenciamiento automático de formatos PDF a medida",
+      "Firma digital integrada directamente en el documento",
+      "Biblioteca de formatos: dotación, asistencia y más",
+      "Panel de administrador: registro y gestión de usuarios",
+      "Cambio de contraseña y control de accesos por rol",
+      "Descarga del PDF diligenciado al instante",
+    ],
+    slides: [
+      { src: "/cases/docs-panel.png",    alt: "Panel usuario",   label: "Panel de documentos", caption: "Vista principal del usuario con todos los formatos disponibles de la compañía." },
+      { src: "/cases/docs-creacion.png", alt: "Crear documento", label: "Creación y firma",    caption: "Formulario inteligente con firma digital para diligenciar el formato en línea." },
+      { src: "/cases/docs-pdf.png",      alt: "PDF final",       label: "Documento final",     caption: "Resultado: el formato queda completamente diligenciado y listo para descargar." },
     ],
   },
 ];
