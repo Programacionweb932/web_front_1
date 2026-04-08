@@ -362,7 +362,6 @@ const CaseStudySection = () => {
 
   const project = caseProjects[activeTab];
 
-  // Reset slide when switching tabs
   const switchTab = (i) => { setActiveTab(i); setCurrent(0); };
 
   useEffect(() => {
@@ -380,7 +379,6 @@ const CaseStudySection = () => {
       <div className="lp-case__blob2" />
       <div className="lp-section__inner">
 
-        {/* Encabezado */}
         <div ref={ref} className={`lp-section__head lp-case__head${inView ? " in-view" : ""}`}>
           <span className="lp-eyebrow lp-eyebrow--violet">✦ Soluciones Efectivas · Casos Reales ✦</span>
           <h2 className="lp-section__h2" style={{ fontSize: "clamp(2rem, 4.5vw, 3.2rem)" }}>
@@ -392,7 +390,6 @@ const CaseStudySection = () => {
             a medida para las necesidades específicas del cliente.
           </p>
 
-          {/* Tabs selector */}
           <div className="lp-case__tabs">
             {caseProjects.map((p, i) => (
               <button key={i} onClick={() => switchTab(i)}
@@ -404,10 +401,8 @@ const CaseStudySection = () => {
           </div>
         </div>
 
-        {/* Grid */}
         <div className="lp-case__grid">
 
-          {/* Carrusel */}
           <div className="lp-case__carousel"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}>
@@ -436,7 +431,6 @@ const CaseStudySection = () => {
               </div>
             </div>
 
-            {/* Controles */}
             <div className="lp-case__controls">
               <button className="lp-case__arrow"
                 style={{ borderColor: `${project.accent}40`, color: project.accent }}
@@ -458,7 +452,6 @@ const CaseStudySection = () => {
             </div>
           </div>
 
-          {/* Texto */}
           <div className="lp-case__text">
             <div>
               <div className="lp-case__live-badge">
@@ -494,17 +487,23 @@ const CaseStudySection = () => {
 
 /* ─── DOWNLOADS ─── */
 const downloads = [
-  { id: 1, name: "Google Chrome",  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Google_Chrome_icon_%28February_2022%29.svg/512px-Google_Chrome_icon_%28February_2022%29.svg.png", downloadUrl: "https://dl.google.com/chrome/install/ChromeStandaloneSetup64.exe",                  description: "Navegador web rápido y seguro" },
-  { id: 2, name: "Mozilla Firefox", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/512px-Firefox_logo%2C_2019.svg.png",                                     downloadUrl: "https://download.mozilla.org/?product=firefox-latest&os=win64&lang=es-ES",         description: "Navegador de código abierto" },
-  { id: 3, name: "Microsoft Edge",  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Microsoft_Edge_logo_%282019%29.svg/512px-Microsoft_Edge_logo_%282019%29.svg.png",                   downloadUrl: "https://go.microsoft.com/fwlink/?linkid=2108834&Channel=Stable&language=es",       description: "Navegador moderno de Microsoft" },
-  { id: 4, name: "Anydesk",         image: "https://softwareforyou.lt/wp-content/uploads/2024/02/AnyDesk-new.png",                                                                                       downloadUrl: "https://anydesk.com/es/downloads/thank-you?dv=win_exe",                           description: "Escritorio remoto para Windows" },
-  { id: 5, name: "Zoom",            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Zoom_Communications_Logo.svg/512px-Zoom_Communications_Logo.svg.png",                              downloadUrl: "https://zoom.us/client/latest/ZoomInstaller.exe",                                  description: "Videoconferencias y reuniones" },
-  { id: 6, name: "Adobe Reader",    image: "https://www.uab.edu/elearning/images/pictures/academic-technologies/logos/adobe.png",                                                                         downloadUrl: "https://get.adobe.com/es/reader/",                                                 description: "Lector de documentos PDF" },
-  { id: 7, name: "WinRAR",          image: "https://keyoriginal.com/wp-content/uploads/2023/12/winrar-min.png",                                                                                           downloadUrl: "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-624.exe",       description: "Compresor de archivos" },
+  { id: 1, name: "Google Chrome",   image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Google_Chrome_icon_%28February_2022%29.svg/512px-Google_Chrome_icon_%28February_2022%29.svg.png", downloadUrl: "https://dl.google.com/chrome/install/ChromeStandaloneSetup64.exe",                description: "Navegador web rápido y seguro" },
+  { id: 2, name: "Mozilla Firefox", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/512px-Firefox_logo%2C_2019.svg.png",                                    downloadUrl: "https://download.mozilla.org/?product=firefox-latest&os=win64&lang=es-ES",       description: "Navegador de código abierto" },
+  { id: 3, name: "Microsoft Edge",  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Microsoft_Edge_logo_%282019%29.svg/512px-Microsoft_Edge_logo_%282019%29.svg.png",                  downloadUrl: "https://go.microsoft.com/fwlink/?linkid=2108834&Channel=Stable&language=es",     description: "Navegador moderno de Microsoft" },
+  { id: 4, name: "Anydesk",         image: "https://softwareforyou.lt/wp-content/uploads/2024/02/AnyDesk-new.png",                                                                                      downloadUrl: "https://anydesk.com/es/downloads/thank-you?dv=win_exe",                         description: "Escritorio remoto para Windows" },
+  { id: 5, name: "Zoom",            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Zoom_Communications_Logo.svg/512px-Zoom_Communications_Logo.svg.png",                             downloadUrl: "https://zoom.us/client/latest/ZoomInstaller.exe",                                description: "Videoconferencias y reuniones" },
+  { id: 6, name: "Adobe Reader",    image: "https://www.uab.edu/elearning/images/pictures/academic-technologies/logos/adobe.png",                                                                        downloadUrl: "https://get.adobe.com/es/reader/",                                               description: "Lector de documentos PDF" },
+  { id: 7, name: "WinRAR",          image: "https://keyoriginal.com/wp-content/uploads/2023/12/winrar-min.png",                                                                                          downloadUrl: "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-624.exe",     description: "Compresor de archivos" },
 ];
 
+/* ─── DOWNLOAD CARD ─── */
+/* ✅ CORREGIDO: se eliminó el onError que apuntaba a via.placeholder.com
+   y se reemplazó por un estado local (imgError) que muestra un avatar
+   generado con CSS puro — sin depender de ningún servidor externo.       */
 const DownloadCard = ({ name, image, downloadUrl, description, index }) => {
   const [ref, inView] = useInView();
+  const [imgError, setImgError] = useState(false); // ← nuevo estado
+
   const handleDownload = () => {
     const link = document.createElement("a");
     link.href = downloadUrl;
@@ -513,11 +512,35 @@ const DownloadCard = ({ name, image, downloadUrl, description, index }) => {
     link.click();
     setTimeout(() => document.body.removeChild(link), 100);
   };
+
   return (
     <div ref={ref} className={`lp-dl-card${inView ? " in-view" : ""}`}
       style={{ transitionDelay: `${index * 0.06}s` }}>
       <div className="lp-dl-card__img-wrap">
-        <img src={image} alt={name} onError={e => { e.target.src = `https://via.placeholder.com/60?text=${name[0]}`; }} />
+        {imgError ? (
+          /* Fallback: avatar con inicial, sin servidores externos */
+          <div style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "linear-gradient(135deg, #63CAB7, #4A90D9)",
+            borderRadius: "8px",
+            fontFamily: "'Barlow Condensed', sans-serif",
+            fontWeight: "800",
+            fontSize: "1.6rem",
+            color: "#fff",
+          }}>
+            {name[0]}
+          </div>
+        ) : (
+          <img
+            src={image}
+            alt={name}
+            onError={() => setImgError(true)} /* ← se dispara una sola vez, sin loop */
+          />
+        )}
       </div>
       <h3 className="lp-dl-card__name">{name}</h3>
       <p className="lp-dl-card__desc">{description}</p>
@@ -549,9 +572,9 @@ const DownloadsSection = () => {
 
 /* ─── TESTIMONIALS ─── */
 const testimonials = [
-  { name: "Liseth Mendez",    role: "Asesora Televentas",    text: "Excelente servicio de mantenimiento preventivo, mis equipos nunca habían funcionado tan bien.", stars: 5 },
-  { name: "Karla Noguera",    role: "Asesora Comercial",     text: "Rápida instalación de mi sistema operativo con todos los programas que necesitaba.",            stars: 5 },
-  { name: "Mayerlin Villareal", role: "Estudiante y Asesora", text: "La asistencia remota me salvó cuando tenía un trabajo importante que entregar.",               stars: 5 },
+  { name: "Liseth Mendez",      role: "Asesora Televentas",    text: "Excelente servicio de mantenimiento preventivo, mis equipos nunca habían funcionado tan bien.", stars: 5 },
+  { name: "Karla Noguera",      role: "Asesora Comercial",     text: "Rápida instalación de mi sistema operativo con todos los programas que necesitaba.",            stars: 5 },
+  { name: "Mayerlin Villareal", role: "Estudiante y Asesora",  text: "La asistencia remota me salvó cuando tenía un trabajo importante que entregar.",               stars: 5 },
 ];
 
 const TestimonialsSection = () => {
@@ -602,7 +625,7 @@ const FinalCTA = () => {
           Únete a cientos de clientes que ya confían en nosotros para su soporte y desarrollo tecnológico.
         </p>
         <div className="lp-cta__btns">
-          <Link to="/registro"   className="lp-btn-primary-lg">Regístrate Gratis <FaArrowRight /></Link>
+          <Link to="/registro"    className="lp-btn-primary-lg">Regístrate Gratis <FaArrowRight /></Link>
           <Link to="/contactenos" className="lp-btn-ghost-lg">Contáctanos</Link>
         </div>
         <div className="lp-cta__perks">
@@ -635,7 +658,11 @@ const Footer = () => (
         </div>
       </div>
       <div className="lp-footer__links">
-        {[{ path: "/contactenos", label: "Contacto" }, { path: "/terminos", label: "Términos" }, { path: "/privacidad", label: "Privacidad" }].map(item => (
+        {[
+          { path: "/contactenos", label: "Contacto" },
+          { path: "/terminos",    label: "Términos" },
+          { path: "/privacidad",  label: "Privacidad" },
+        ].map(item => (
           <Link key={item.path} to={item.path} className="lp-footer__link">{item.label}</Link>
         ))}
       </div>
