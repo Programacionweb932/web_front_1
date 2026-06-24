@@ -249,6 +249,73 @@ body {
   line-height: 1.8;
 }
 
+
+/* Css Caras de nosotros */
+.n-team {
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 2rem 6rem;
+  text-align: center;
+}
+
+.n-team-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800; color: #fff;
+  margin-bottom: 3rem;
+}
+
+.n-team-grid {
+  display: flex; justify-content: center;
+  gap: 2.5rem; flex-wrap: wrap;
+}
+
+.n-team-card {
+  display: flex; flex-direction: column; align-items: center;
+  width: 200px;
+}
+
+.n-team-img {
+  width: 130px; height: 130px; border-radius: 50%;
+  object-fit: cover; margin-bottom: 1rem;
+  border: 2px solid rgba(99,202,183,0.4);
+}
+
+.n-team-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem; font-weight: 700; color: #fff;
+}
+
+.n-team-role {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem; color: #63CAB7;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 560px) {
+  .n-team-grid { gap: 1.5rem; }
+  .n-team-card { width: 140px; }
+  .n-team-img { width: 100px; height: 100px; }
+}
+
+.n-team-bio {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem; color: rgba(255,255,255,0.45);
+  line-height: 1.5; margin-top: 0.6rem;
+}
+
+.n-team-social {
+  display: flex; gap: 0.9rem;
+  margin-top: 0.9rem;
+}
+
+.n-team-social a {
+  color: rgba(255,255,255,0.5);
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+
+.n-team-social a:hover { color: #63CAB7; }
+
 /* ── FOOTER ── */
 .n-footer {
   background: #060810;
