@@ -157,10 +157,11 @@ const Contacto = () => {
       <footer className="c-footer">
         <div className="c-footer-inner">
           <p className="c-footer-credits">
-            created by: Kevin Rivas · Tatiana Montoya ·{" "}
-            <a href="https://mi-cv-juan-granja.vercel.app/" target="_blank" rel="noreferrer">
-              Juan Granja
-            </a>
+            <div className="lp-footer__credits">
+            created by: <a href="https://mi-cv-kevin-rivas.vercel.app/" target="_blank" rel="noreferrer">Kevin Rivas</a> ·
+            <a href="https://mi-cv-tatiana-montoya.vercel.app/" target="_blank" rel="noreferrer">Tatiana Montoya</a> ·
+            <a href="https://mi-cv-juan-granja.vercel.app/" target="_blank" rel="noreferrer">Juan Granja</a>
+          </div>
           </p>
           <div className="c-footer-links">
             <Link to="/terminos">Términos</Link>

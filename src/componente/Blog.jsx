@@ -221,8 +221,11 @@ function Blog() {
 
         {/* Credits */}
         <p className="b-credits">
-          Created by: Leidy Montoya · Kevin Rivas ·{' '}
-          <a href="https://mi-cv-juan-granja.vercel.app/" target="_blank" rel="noreferrer">Juan Granja</a>
+          <div className="lp-footer__credits">
+            created by: <a href="https://mi-cv-kevin-rivas.vercel.app/" target="_blank" rel="noreferrer">Kevin Rivas</a> ·
+            <a href="https://mi-cv-tatiana-montoya.vercel.app/" target="_blank" rel="noreferrer">Tatiana Montoya</a> ·
+            <a href="https://mi-cv-juan-granja.vercel.app/" target="_blank" rel="noreferrer">Juan Granja</a>
+          </div>
         </p>
       </main>
 

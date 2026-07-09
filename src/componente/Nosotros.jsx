@@ -262,14 +262,11 @@ const Nosotros = () => {
       <footer className="n-footer">
         <div className="n-footer-inner">
           <p className="n-footer-credits">
-            created by: Kevin Rivas · Tatiana Montoya ·{" "}
-            <a
-              href="https://mi-cv-juan-granja.vercel.app/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Juan Granja
-            </a>
+            <div className="lp-footer__credits">
+            created by: <a href="https://mi-cv-kevin-rivas.vercel.app/" target="_blank" rel="noreferrer">Kevin Rivas</a> ·
+            <a href="https://mi-cv-tatiana-montoya.vercel.app/" target="_blank" rel="noreferrer">Tatiana Montoya</a> ·
+            <a href="https://mi-cv-juan-granja.vercel.app/" target="_blank" rel="noreferrer">Juan Granja</a>
+          </div>
           </p>
           <div className="n-footer-links">
             <Link to="/contactenos">Contacto</Link>
