@@ -331,6 +331,27 @@ const caseProjects = [
       { src: "/cases/tienda-admin.png",    alt: "Admin",    label: "Panel Admin", caption: "Panel privado para agregar, editar y eliminar productos con subida de imágenes." },
     ],
   },
+    {
+    tab:      "Tienda de Lociones",
+    url:      "lociones.elmundodelatecnologia.com",
+    accent:   "#7B68EE",
+    badge:    "En producción · Funcionando al 100%",
+    title:    <>Tienda de Lociones<br /><span>Ventas y Muestras</span></>,
+    desc:     "Una tienda especializada en fragancias para hombre y mujer, donde puedes encontrar diferentes aromas, presentaciones y muestras para descubrir tu próxima loción favorita. Un catálogo pensado para quienes buscan oler delicioso, sentirse bien y dejar una buena impresión.",
+    features: [
+      "Catálogo amplio para hombre y mujer, con diferentes estilos y aromas.",
+      "Precios accesibles y excelentes precios para disfrutar de aromas increíbles",
+      "Muestras disponibles encuentra la que mejor se adapte a tu personalidad",
+      "Catálogo organizado descubre fácilmente tus fragancias favoritas",
+      "Fragancias para cada ocasión frescas, dulces, elegantes y seductoras",
+      "Pedidos fáciles y rápidos selecciona tus fragancias favoritas y realiza tu pedido de manera sencilla.",
+    ],
+    slides: [
+      { src: "/cases/index.jpg",    alt: "Login",    label: "Estilo Esclusivo",        caption: "Inicio personalizada con fondo temático e interfaz limpia y moderna." },
+      { src: "/cases/caballeros.jpg",     alt: "Caballeros",   label: "Fragancias Caballeros",   caption: "Panel de fragancias para caballeros, diferentes aromas." },
+      { src: "/cases/damas.jpg",  alt: "Damas",  label: "Fragancias Damas", caption: "Panel de fragancias para damas, diferentes aromas, frutales, dulces, amaderados." },
+    ],
+  },
   {
     tab:      "Gestor Documental",
     url:      "docs.elmundodelatecnologia.com",
