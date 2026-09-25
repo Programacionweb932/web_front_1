@@ -34,14 +34,14 @@ const Contacto = () => {
       icon: <FaPhone />,
       color: "#7B68EE",
       label: "Teléfono",
-      value: "305 293 2750",
+      value: "304 664 0221",
     },
   ];
 
   const socials = [
     { icon: <FaFacebook />, label: "Facebook", cls: "fb", href: "https://www.facebook.com/profile.php?id=100078258196205&sk=about" },
     { icon: <FaInstagram />, label: "Instagram", cls: "ig", href: "https://www.instagram.com/elmundo_de_la_tecnologia_/" },
-    { icon: <FaWhatsapp />, label: "WhatsApp", cls: "wa", href: "https://wa.me/573052939750" },
+    { icon: <FaWhatsapp />, label: "WhatsApp", cls: "wa", href: "https://wa.me/573046640221" },
     { icon: <FaTiktok />, label: "TikTok", cls: "tt", href: "https://www.tiktok.com/@elmundodelatecnologia52" },
   ];
 
